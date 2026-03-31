@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Playfair_Display, Spline_Sans, Inter } from "next/font/google";
+import 'quill/dist/quill.snow.css';
+import { Toaster } from "react-hot-toast";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -36,7 +38,9 @@ export default function RootLayout({
         className={`${playfair.variable} ${splineSans.variable} ${inter.variable} antialiased`}
       >
         {children}
+        <Toaster position="top-right" reverseOrder={false} />
       </body>
+
     </html>
   );
 }

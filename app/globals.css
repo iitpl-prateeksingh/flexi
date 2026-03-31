@@ -9,17 +9,62 @@
 body {
   font-family: var(--font-inter);
 }
+
 .font-playfair {
   font-family: var(--font-playfair);
 }
-.font-inter{
+
+.font-inter {
   font-family: var(--font-inter);
 }
-.closeBtn{
-    color: #da3036;
-    background: #da303617;
-    border-radius: 6px;
-    font-size: 18px;
-    padding: 3px;
 
+.closeBtn {
+  color: #da3036;
+  background: #da303617;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 3px;
+
+}
+
+.html-editor,
+.html-editor * {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere;
+}
+
+.html-editor h1 * {
+  font-size: 32px !important;
+  font-weight: 500 !important;
+}
+
+.html-editor p,
+span {
+  font-size: 20px !important;
+}
+
+.html-editor h2 * {
+  font-size: 28px !important;
+}
+
+.quill-content {
+  color: white;
+  line-height: 1.6;
+}
+
+/* Reset Tailwind/global overrides */
+.quill-content * {
+  all: revert;
+}
+
+/* Re-apply safe defaults */
+.quill-content {
+  color: white;
+  font-family: inherit;
+}
+
+/* spacing fix */
+.quill-content p {
+  margin-bottom: 1rem;
 }

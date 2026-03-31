@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,7 +23,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -28,7 +34,28 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "app/(public)/HomePage/InsightsSection.tsx",
+    "app/(public)/HomePage/CTASection.tsx",
+    "app/(public)/HomePage/HeroSection.tsx",
+    "app/(public)/HomePage/KnowUs.tsx",
+    "app/(public)/contactus/page.tsx",
+    "app/(public)/layout/Navbar.tsx",
+    "app/(public)/layout/Footer.tsx",
+    "app/(public)/HomePage/WhyUs.tsx",
+    "app/(public)/HomePage/TransparencySection.tsx",
+    "app/(public)/HomePage/SignatureApproach.tsx",
+    "app/(public)/HomePage/ServicesGrid.tsx",
+    "app/(public)/aboutus/page.tsx",
+    "app/(public)/aboutus/OurFoundation.tsx",
+    "app/(public)/aboutus/Banner.tsx",
+    "app/(public)/contactus/Banner.tsx",
+    "app/(public)/contactus/MapSection.tsx",
+    "app/(public)/layout.tsx",
+    "app/(public)/page.tsx",
+    "app/(public)/aboutus/WeAreThe.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
