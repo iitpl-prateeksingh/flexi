@@ -38,7 +38,7 @@ export default function Page() {
       <ServicesGrid data={data} />
       <WhyUs data={data} />
       <TransparencySection data={data} />
-      <InsightsSection data={data} />
+      <InsightsSection />
       <CTASection />
     </div>
   );

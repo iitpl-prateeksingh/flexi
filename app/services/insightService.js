@@ -5,6 +5,10 @@ export const getInsightApi = () => {
     return API.get("/insight");
 };
 
+export const getpublicInsight = () => {
+    return API.get("/insight/public");
+};
+
 // ✅ UPDATE HEADING + DESCRIPTION
 export const updateInsightContentApi = (data) => {
     return API.put("/insight/content", data);

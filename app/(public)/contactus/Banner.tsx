@@ -2,28 +2,31 @@ import React from 'react';
 import Link from 'next/link';
 // import Image from 'next/image'; // Uncomment if using Next.js Image component for the logo/bg
 
-const Banner: React.FC = () => {
+const Banner = ({ data }: any) => {
   return (
     // Main Container with Background Image
-    <section 
+    <section
       className="relative w-full h-[500px] bg-cover bg-center bg-no-repeat"
       style={{
         // Replace this URL with your actual background image path from your public folder
-        backgroundImage: 'url("/contactusban.png")', 
+        backgroundImage: `url(${data?.bannerImage})`,
         backgroundColor: '#1a202c' // Fallback color
       }}
     >
-      
+
       {/* <div className="absolute inset-0 bg-black/40"></div> */}
 
-     
+
 
       {/* "Contact Us" Title Section */}
       <div className="absolute z-10 bottom-24 right-12 md:right-32 flex items-center gap-4">
         <span className="w-8 md:w-12 h-[2px] bg-[#f8813a]"></span>
-        <h1 className="text-[#f8813a] text-3xl md:text-4xl font-bold tracking-wide">
-          Contact Us
-        </h1>
+        <div
+          className="text-[#f8813a]   font-bold tracking-wide html-editor"
+          dangerouslySetInnerHTML={{
+            __html: data?.banner
+          }}
+        />
         <span className="w-8 md:w-12 h-[2px] bg-[#f8813a]"></span>
       </div>
 

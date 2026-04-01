@@ -9,6 +9,14 @@ export const getSettingsService = () => {
     });
 };
 
+export const getPublicSettingsService = () => {
+    return API.get("/public/settings", {
+        headers: {
+            "Cache-Control": "no-cache"
+        }
+    });
+};
+
 // ✅ SAVE (CREATE / UPDATE)
 export const saveSettingsService = (data) => {
     return API.post("/admin/settings", data);

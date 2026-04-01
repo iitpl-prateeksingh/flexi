@@ -4,12 +4,12 @@ import React from 'react';
 
 const CTASection = () => {
   return (
-    <section className="relative w-full overflow-hidden py-24 md:py-32" style={{backgroundImage:"url('/backk.png')",backgroundRepeat:"no-repeat",backgroundPosition:"bottom",backgroundColor:"#FFF9F3"}}>
-      
+    <section className="relative w-full overflow-hidden py-24 md:py-32" style={{ backgroundImage: "url('/backk.png')", backgroundRepeat: "no-repeat", backgroundPosition: "bottom", backgroundColor: "#FFF9F3" }}>
+
 
       {/* --- Main Content --- */}
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        
+
         {/* Top Label */}
         <p className="mb-4 font-inter text-sm font-medium tracking-wide text-[#F0803C]">
           Ready to Begin?
@@ -23,7 +23,7 @@ const CTASection = () => {
 
         {/* Subheading */}
         <p className="mx-auto mb-10 max-w-2xl font-inter text-base leading-relaxed text-gray-500 md:text-lg">
-          Whether you are an individual investor, family office, or institution, 
+          Whether you are an individual investor, family office, or institution,
           our team is ready to guide you.
         </p>
 

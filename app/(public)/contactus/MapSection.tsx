@@ -1,10 +1,11 @@
 import React from 'react';
 
-const MapSection: React.FC = () => {
+const MapSection = ({ data }: any) => {
+  console.log("RESponse", data)
   return (
     <section className="bg-[#fcf8f5] w-full py-16 md:py-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
-        
+
         {/* Section Heading */}
         <h2 className="font-playfair text-[#F78532] font-bold text-3xl md:text-4xl mb-8">
           Contact Us
@@ -12,10 +13,10 @@ const MapSection: React.FC = () => {
 
         {/* Contact Card Container */}
         <div className="flex flex-col lg:flex-row w-full rounded-2xl overflow-hidden shadow-xl bg-white">
-          
+
           {/* Left Column: Contact Details */}
           <div className="w-full lg:w-[40%] bg-[#082a45] p-8 md:p-12 flex flex-col">
-            <h3 className="text-white text-2xl font-medium mb-8">New Delhi</h3>
+            <h3 className="text-white text-2xl font-medium mb-8">{data?.officeLocation}</h3>
 
             {/* 1. Service Request */}
             <div className="flex flex-col">
@@ -28,7 +29,7 @@ const MapSection: React.FC = () => {
                   </svg>
                 </div>
                 <p className="text-[#a4b8c9] text-sm md:text-base leading-relaxed break-all">
-                  customer.service@flexicapital.co.in
+                  {data?.email}
                 </p>
               </div>
             </div>
@@ -47,10 +48,7 @@ const MapSection: React.FC = () => {
                   </svg>
                 </div>
                 <p className="text-[#a4b8c9] text-sm md:text-base leading-relaxed">
-                  Flexicapital Pvt Ltd.<br />
-                  B - 45, M-4B, Mezzanine Floor,<br />
-                  Greater Kailash, Part 1, New Delhi –<br />
-                  110048
+                  {data?.address}
                 </p>
               </div>
             </div>
@@ -68,7 +66,7 @@ const MapSection: React.FC = () => {
                   </svg>
                 </div>
                 <p className="text-[#a4b8c9] text-sm md:text-base leading-relaxed">
-                  +91 1149072143
+                  +91 {data?.phone}
                 </p>
               </div>
             </div>
@@ -77,8 +75,8 @@ const MapSection: React.FC = () => {
 
           {/* Right Column: Map Image */}
           <div className="w-full lg:w-[60%] min-h-[300px] sm:min-h-[400px] lg:min-h-auto relative bg-gray-200">
-            <iframe 
-              src="https://maps.google.com/maps?q=Greater%20Kailash%20Part%201,%20New%20Delhi&t=k&z=16&ie=UTF8&iwloc=&output=embed" 
+            <iframe
+              src={data?.mapLink}
               className="w-full h-full absolute inset-0 border-0"
               allowFullScreen={false}
               loading="lazy"

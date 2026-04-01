@@ -210,6 +210,18 @@ export default function SettingsPage() {
         }
         return true;
     };
+    const extractMapSrc = (input) => {
+        if (!input) return "";
+
+        // If user pasted iframe
+        if (input.includes("<iframe")) {
+            const match = input.match(/src="([^"]+)"/);
+            return match ? match[1] : "";
+        }
+
+        // If user pasted direct link
+        return input;
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -248,8 +260,7 @@ export default function SettingsPage() {
 
                 address: formData.address,
                 officeLocation: formData.officeLocation,
-                mapLink: formData.mapLink,
-
+                mapLink: extractMapSrc(formData.mapLink),
                 socialMedia: {
                     facebook: formData.facebook,
                     instagram: formData.instagram,
