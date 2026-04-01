@@ -689,21 +689,21 @@ export default function HomeAdminPage() {
 
                                 {/* DESCRIPTION */}
                                 <textarea
-                                    placeholder="Short description (max 150 characters)"
+                                    placeholder="Short description (max 500 characters)"
                                     className="w-full border p-2 rounded"
                                     rows={6}
                                     value={item.description}
                                     onChange={(e) => {
                                         const value = e.target.value;
 
-                                        if (value.length <= 150) {
+                                        if (value.length <= 500) {
                                             handleWhyChooseChange(index, "description", value);
                                         }
                                     }}
                                 />
 
                                 <p className="text-xs text-gray-400">
-                                    {item.description.length}/150 characters
+                                    {item.description.length}/500 characters
                                 </p>
 
                             </div>

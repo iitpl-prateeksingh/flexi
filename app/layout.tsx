@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+
 import { Playfair_Display, Spline_Sans, Inter } from "next/font/google";
 import 'quill/dist/quill.snow.css';
 import { Toaster } from "react-hot-toast";

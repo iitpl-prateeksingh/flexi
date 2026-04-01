@@ -4,11 +4,11 @@ import React from 'react';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
-const InsightsSection = () => {
+const InsightsSection = ({ data }: any) => {
   return (
     <section className="bg-[#FFF9F3] py-16 px-4 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
+
         {/* --- Left Column: Text Content --- */}
         <div className="lg:col-span-4 flex flex-col items-start space-y-6">
           {/* Badge */}
@@ -34,13 +34,13 @@ const InsightsSection = () => {
 
         {/* --- Right Column: Cards --- */}
         <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-          
+
           {/* Card 1: Market Outlook */}
           <div className="group cursor-pointer">
             <div className="relative h-64 w-full overflow-hidden mb-6">
-              <img 
-                src="/ins1.png" 
-                alt="Market Outlook"       
+              <img
+                src="/ins1.png"
+                alt="Market Outlook"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -61,15 +61,15 @@ const InsightsSection = () => {
 
           {/* Card 2: Wealth Planning */}
           <div className="group cursor-pointer">
-           <div className="relative h-64 w-full overflow-hidden mb-6">
-              <img 
-                src="/ins2.png" 
-                alt="Market Outlook"       
+            <div className="relative h-64 w-full overflow-hidden mb-6">
+              <img
+                src="/ins2.png"
+                alt="Market Outlook"
                 className="w-full h-full object-cover"
               />
             </div>
             <div className="space-y-3">
-                  <span className="text-[#F78532] text-xl block font-playfair">
+              <span className="text-[#F78532] text-xl block font-playfair">
                 Wealth Planning
               </span>
               <h3 className="text-xl font-medium text-[#204667] group-hover:text-[#4A86E8] transition-colors font-inter">

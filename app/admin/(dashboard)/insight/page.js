@@ -69,16 +69,7 @@ export default function InsightPage() {
                     </p>
                 </div>
 
-                {hasPermission("create_insight") && (<button
-                    onClick={() => {
-                        setEditItem(null);
-                        setModalOpen(true);
-                    }}
-                    className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:scale-95 transition text-white px-4 py-2 rounded-lg shadow-sm"
-                >
-                    <Plus size={18} />
-                    Add Insight
-                </button>)}
+
             </div>
 
             {/* CONTENT FORM (CARD STYLE) */}
@@ -89,10 +80,21 @@ export default function InsightPage() {
             {/* TABLE CARD */}
             <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
 
-                <div className="px-6 py-4 text-gray-700 font-medium">
+                <div className="px-6 py-4 flex justify-content-bewteen  text-gray-700 font-medium">
                     <h2 className="text-xl font-semibold text-gray-800">
                         Insight Data
                     </h2>
+
+                    {hasPermission("create_insight") && (<button
+                        onClick={() => {
+                            setEditItem(null);
+                            setModalOpen(true);
+                        }}
+                        className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:scale-95 transition text-white px-4 py-2 rounded-lg shadow-sm"
+                    >
+                        <Plus size={18} />
+                        Add Insight
+                    </button>)}
                 </div>
 
                 <div className="overflow-x-auto px-6 py-4 pt-0">

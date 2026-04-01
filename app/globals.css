@@ -34,7 +34,7 @@ body {
   overflow-wrap: anywhere;
 }
 
-.html-editor h1 * {
+.html-editor h1 {
   font-size: 32px !important;
   font-weight: 500 !important;
 }
@@ -45,7 +45,7 @@ span {
 }
 
 .html-editor h2 * {
-  font-size: 28px !important;
+  font-size: 32px !important;
 }
 
 .quill-content {

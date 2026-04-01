@@ -36,9 +36,9 @@ export default function Page() {
       <KnowUs data={data} />
       <SignatureApproach data={data} />
       <ServicesGrid data={data} />
-      {/* <WhyUs data={data} /> */}
-      {/* <TransparencySection data={data} /> */}
-      {/* <InsightsSection data={data} /> */}
+      <WhyUs data={data} />
+      <TransparencySection data={data} />
+      <InsightsSection data={data} />
       <CTASection />
     </div>
   );

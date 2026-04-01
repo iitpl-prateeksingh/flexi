@@ -1,5 +1,5 @@
 "use client";
-
+import "../adminglobal.css"
 import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
