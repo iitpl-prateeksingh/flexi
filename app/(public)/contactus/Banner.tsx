@@ -19,16 +19,7 @@ const Banner = ({ data }: any) => {
 
 
       {/* "Contact Us" Title Section */}
-      <div className="absolute z-10 bottom-24 right-12 md:right-32 flex items-center gap-4">
-        <span className="w-8 md:w-12 h-[2px] bg-[#f8813a]"></span>
-        <div
-          className="text-[#f8813a]   font-bold tracking-wide html-editor"
-          dangerouslySetInnerHTML={{
-            __html: data?.banner
-          }}
-        />
-        <span className="w-8 md:w-12 h-[2px] bg-[#f8813a]"></span>
-      </div>
+
 
       {/* Bottom Left White Curved Overlay */}
       <div className="absolute bottom-0 left-0 w-3/4 md:w-1/2 h-4 md:h-8 bg-[#FFF9F3] rounded-tr-[150px] z-20"></div>

@@ -22,14 +22,14 @@ export default function Navbar({ data }: any) {
             style={{
               background: "#dbdbdb",
               height: "0.5px",
-              width: "27%",
+              width: "60%",
               opacity: "0.7",
             }}
           ></div>
 
           <nav className="hidden lg:flex items-center gap-6 bg-white/20 backdrop-blur-md px-6 py-3 rounded-full text-white shadow-lg">
             <NavLinks />
-            <Profile />
+            {/* <Profile /> */}
             <CTA />
           </nav>
 
@@ -58,7 +58,7 @@ export default function Navbar({ data }: any) {
       >
         <div className="p-5 flex items-center justify-between border-b border-b-orange-200">
           {/* <span className="font-semibold text-lg">Menu</span> */}
-          <img src="/flexi-logo.png" alt="" className="w-15" />
+          <img src={data?.logo} alt="" className="w-15" />
           <button onClick={() => setOpen(false)} className="text-2xl closeBtn">
             <FiX />
           </button>
@@ -67,22 +67,16 @@ export default function Navbar({ data }: any) {
         <div className="flex flex-col p-5 gap-5">
           <DrawerLink label="About us" url="/aboutus" />
           <DrawerLink label="Services" url="#" />
-          <DrawerLink label="Contact us" url="contactus" />
-          <DrawerLink label="Careers" url="#" />
+          {/* <DrawerLink label="Contact us" url="contactus" /> */}
+          {/* <DrawerLink label="Careers" url="#" /> */}
+
+
 
           <Link
-            href="/login"
-            className="flex items-center gap-2 text-orange-500 font-medium"
-          >
-            <FiUser />
-            Profile Log in
-          </Link>
-
-          <Link
-            href="/consultation"
+            href="/contactud"
             className="mt-4 bg-orange-400 text-white text-center py-3 rounded-full font-medium hover:bg-orange-500 transition"
           >
-            Book a Consultation
+            Contact Us
           </Link>
         </div>
       </aside>
@@ -101,12 +95,12 @@ function NavLinks() {
       <Link href="#services" className="hover:text-orange-400">
         Services
       </Link>
-      <Link href="contactus" className="hover:text-orange-400">
+      {/* <Link href="contactus" className="hover:text-orange-400">
         Contact us
-      </Link>
-      <Link href="#careers" className="hover:text-orange-400">
+      </Link> */}
+      {/* <Link href="#careers" className="hover:text-orange-400">
         Careers
-      </Link>
+      </Link> */}
     </>
   );
 }
@@ -126,10 +120,10 @@ function Profile() {
 function CTA() {
   return (
     <Link
-      href="/consultation"
+      href="/contactus"
       className="bg-orange-400 hover:bg-orange-500 text-white px-5 py-2 rounded-full font-medium transition"
     >
-      Book a Consultation
+      Contact Us
     </Link>
   );
 }

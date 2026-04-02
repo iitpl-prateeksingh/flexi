@@ -7,6 +7,17 @@ import { FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6'; // FontAwesome 6 specific icon
 
 const Footer = ({ data }: any) => {
+  const staticPages = [
+    { label: "Risk Factors", type: "risk-factor" },
+    { label: "Privacy Policy", type: "privacy-policy" },
+    { label: "Terms and Conditions", type: "terms-and-condition" },
+    { label: "Disclaimer", type: "disclaimer" },
+    { label: "Disclosure", type: "disclouser" },
+    { label: "Code of Conduct", type: "code-of-conduct" },
+    { label: "Code of Conduct-Revised", type: "code-of-conduct-revised" },
+    { label: "SID/SAI/KIM", type: "sid-sai-kim" },
+  ];
+
   return (
     <footer className="bg-[#0A2540] text-white py-12 px-6 md:px-12 lg:px-20 font-inter">
       {/* --- Top Section --- */}
@@ -31,7 +42,7 @@ const Footer = ({ data }: any) => {
             <li><Link href="/about" className="hover:text-[#F0803C] transition-colors">About us</Link></li>
             <li><Link href="/services" className="hover:text-[#F0803C] transition-colors">Services</Link></li>
             <li><Link href="/contact" className="hover:text-[#F0803C] transition-colors">Contact us</Link></li>
-            <li><Link href="/careers" className="hover:text-[#F0803C] transition-colors">Careers</Link></li>
+            {/* <li><Link href="/careers" className="hover:text-[#F0803C] transition-colors">Careers</Link></li> */}
           </ul>
         </div>
 
@@ -87,21 +98,20 @@ const Footer = ({ data }: any) => {
 
         {/* Links Row */}
         <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px] text-gray-300 uppercase tracking-wider">
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">Risk Factors</Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">Privacy Policy</Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">Terms and Conditions</Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">Disclaimer</Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">Disclosure</Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">Code of Conduct</Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors whitespace-nowrap">Code of Conduct-Revised</Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">SID/SAI/KIM</Link>
+          {staticPages.map((page, index) => (
+            <React.Fragment key={page.type}>
+              <Link
+                href={`/${page.type}`}
+                className="hover:text-[#F0803C] transition-colors whitespace-nowrap"
+              >
+                {page.label}
+              </Link>
+
+              {index !== staticPages.length - 1 && (
+                <span className="text-gray-600">|</span>
+              )}
+            </React.Fragment>
+          ))}
         </div>
 
       </div>

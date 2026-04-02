@@ -1,5 +1,7 @@
 "use client";
 import { Yeon_Sung } from "next/font/google";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
@@ -28,6 +30,7 @@ const StatCounter = ({
     return () => observer.disconnect();
   }, []);
 
+  const router = useRouter()
   useEffect(() => {
     if (!hasStarted) return;
 
@@ -71,6 +74,7 @@ const KnowUs = ({ data }: { data: any }) => {
 
   console.log("DATA in know Us", data);
 
+
   return (
     <section className="bg-[#FFF9F3] py-20 ">
       <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
@@ -86,9 +90,13 @@ const KnowUs = ({ data }: { data: any }) => {
           </div>
 
           <div className="absolute bottom-0 right-0 lg:right-0 bg-[#FFF9F3] rounded-tl-[30px] rounded-br-3xl p-3 border-l-8 border-t-8 border-[#FFF9F3]">
-            <button className="flex items-center gap-3 cursor-pointer text-[#FF8C42] border border-[#FF8C42] px-8 py-3 rounded-full hover:bg-[#FF8C42] hover:text-white transition-all duration-300">
-              Learn More <HiOutlineArrowNarrowRight className="text-xl" />
-            </button>
+            <Link
+              href="/aboutus"
+              className="flex items-center gap-3 cursor-pointer text-[#FF8C42] border border-[#FF8C42] px-8 py-3 rounded-full hover:bg-[#FF8C42] hover:text-white transition-all duration-300"
+            >
+              Learn More
+              <HiOutlineArrowNarrowRight className="text-xl" />
+            </Link>
           </div>
         </div>
 

@@ -10,7 +10,7 @@ import TransparencySection from "./HomePage/TransparencySection";
 import InsightsSection from "./HomePage/InsightsSection";
 import CTASection from "./HomePage/CTASection";
 import { getHomePagePublicService } from "../services/pages/homepageService";
-
+export const dynamic = "force-dynamic";
 export default function Page() {
   const [data, setData] = useState(null);
 

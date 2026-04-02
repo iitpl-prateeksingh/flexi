@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React from 'react';
 
 const CTASection = () => {
@@ -30,14 +31,17 @@ const CTASection = () => {
         {/* Buttons */}
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           {/* Primary Button */}
-          <button className="h-12 cursor-pointer w-full min-w-[200px] rounded-full bg-[#F0803C] px-8 font-inter text-sm font-semibold text-white transition-transform hover:scale-105 hover:bg-[#E5702A] sm:w-auto">
+          {/* <button className="h-12 cursor-pointer w-full min-w-[200px] rounded-full bg-[#F0803C] px-8 font-inter text-sm font-semibold text-white transition-transform hover:scale-105 hover:bg-[#E5702A] sm:w-auto">
             Schedule a Consultation
-          </button>
+          </button> */}
 
           {/* Secondary Button */}
-          <button className="h-12 cursor-pointer w-full min-w-[160px] rounded-full border border-[#F0803C] bg-transparent px-8 font-inter text-sm font-semibold text-[#F0803C] transition-colors hover:bg-[#F0803C] hover:text-white sm:w-auto">
+          <Link
+            href="/contactus"
+            className="h-12 flex items-center justify-center cursor-pointer w-full min-w-[160px] rounded-full border border-[#F0803C] bg-transparent px-8 font-inter text-sm font-semibold text-[#F0803C] transition-colors hover:bg-[#F0803C] hover:text-white sm:w-auto"
+          >
             Contact us
-          </button>
+          </Link>
         </div>
 
       </div>

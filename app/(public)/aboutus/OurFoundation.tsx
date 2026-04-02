@@ -20,8 +20,8 @@ const OurFoundation = ({ data }: any) => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <div
-            className="text-4xl md:text-[42px] font-playfair font-bold text-[#204667] mb-6"
-            dangerouslySetInnerHTML={{ __html: data?.team || "" }}
+            className=" html-editor font-playfair font-bold text-[#204667] mb-6"
+            dangerouslySetInnerHTML={{ __html: data?.team.replace(/&nbsp;/g, " ") || "" }}
           />
         </div>
 

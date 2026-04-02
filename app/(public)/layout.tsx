@@ -8,6 +8,7 @@ import { getPublicSettingsService } from "../services/settingService";
 interface PublicLayoutProps {
   children: ReactNode;
 }
+export const dynamic = "force-dynamic";
 
 export default function PublicLayout({ children }: PublicLayoutProps) {
   const [setting, setSetting] = useState()
