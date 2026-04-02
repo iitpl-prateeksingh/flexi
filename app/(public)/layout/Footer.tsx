@@ -6,19 +6,19 @@ import Link from 'next/link';
 import { FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6'; // FontAwesome 6 specific icon
 
-const Footer = () => {
+const Footer = ({ data }: any) => {
   return (
     <footer className="bg-[#0A2540] text-white py-12 px-6 md:px-12 lg:px-20 font-inter">
       {/* --- Top Section --- */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 items-start mb-12">
-        
+
         {/* Logo Column (Left) - Takes 4 cols */}
         <div className="md:col-span-4 flex flex-col items-start mx-auto md:mx-0">
           {/* Logo Placeholder - Replace with your actual logo image */}
           <div className="mb-4">
 
-             <img src="/footer-logo.png" width={180} height={60} alt="Flexi Capital Logo" /> 
-            
+            <img src={data?.logo} width={180} height={60} alt="Flexi Capital Logo" />
+
           </div>
         </div>
 
@@ -37,27 +37,26 @@ const Footer = () => {
 
         {/* Contact & Socials Column (Right) - Takes 4 cols */}
         <div className="md:col-span-4 flex flex-col items-center md:items-end text-center md:text-right space-y-8">
-          
+
           {/* Address Block */}
           <div className="space-y-2 text-sm text-gray-300">
-            <p>Greyson Lane 6212-648</p>
-            <p>Wortund, Palarni.</p>
-            <p className="pt-2 text-[#FFFFFFBD] font-medium">+234 1235 5567</p>
+            <p>{data?.address}</p>
+            <p className="pt-2 text-[#FFFFFFBD] font-medium">+91 {data?.phone}</p>
           </div>
 
           {/* Socials Block */}
           <div className="flex flex-col items-center md:items-end gap-4">
             <h4 className="text-lg font-medium text-gray-200">Follow us on our socials</h4>
             <div className="flex items-center gap-6">
-              <a href="#" className="text-[#F0803C] hover:text-white transition-colors text-2xl">
+              {data?.socialMedia?.twitter && <a href={data?.socialMedia?.twitter} target='_blank' className="text-[#F0803C] hover:text-white transition-colors text-2xl">
                 <FaXTwitter />
-              </a>
-              <a href="#" className="text-[#F0803C] hover:text-white transition-colors text-2xl">
+              </a>}
+              {data?.socialMedia?.facebook && <a href={data?.socialMedia?.facebook} target='_blank' className="text-[#F0803C] hover:text-white transition-colors text-2xl">
                 <FaFacebookF />
-              </a>
-              <a href="#" className="text-[#F0803C] hover:text-white transition-colors text-2xl">
+              </a>}
+              {data?.socialMedia?.instagram && <a href={data?.socialMedia?.instagram} target='_blank' className="text-[#F0803C] hover:text-white transition-colors text-2xl">
                 <FaInstagram />
-              </a>
+              </a>}
             </div>
           </div>
 
@@ -69,14 +68,21 @@ const Footer = () => {
 
       {/* --- Bottom Section (ARN Details) --- */}
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-6">
-        
+
         {/* ARN Info Row */}
         <div className="flex flex-wrap justify-center gap-4 text-sm text-white font-medium tracking-wide">
-          <span>ARN : 257369</span>
+          <span>ARN : {data?.arn?.number}</span>
           <span className="hidden sm:inline text-gray-500">|</span>
-          <span>ARN Valid From: 18-11-2025</span>
+          {data?.arn?.fromDate ? <span>ARN Valid From:{new Date(data.arn.fromDate)
+            .toLocaleDateString("en-GB")
+            .replace(/\//g, "-")}
+          </span> : ""}
           <span className="hidden sm:inline text-gray-500">|</span>
-          <span>ARN Valid Till : 17-11-2028</span>
+          {data?.arn?.tillDate
+            ? <span>ARN Valid Till : {new Date(data.arn.tillDate)
+              .toLocaleDateString("en-GB")
+              .replace(/\//g, "-")}
+            </span> : ""}
         </div>
 
         {/* Links Row */}

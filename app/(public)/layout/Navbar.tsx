@@ -4,8 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { FiUser, FiMenu, FiX } from "react-icons/fi";
 
-export default function Navbar() {
+export default function Navbar({ data }: any) {
   const [open, setOpen] = useState(false);
+  console.log("data of setting in navbar", data)
 
   return (
     <>
@@ -13,7 +14,7 @@ export default function Navbar() {
       <header className="absolute top-0 left-0 w-full z-50 animate__animated animate__fadeInDown">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
-          <img src="/flexi-logo.png" alt="Flexi Capital" className="h-12" />
+            <img src={data?.logo} alt="Flexi Capital" className="h-12" />
           </Link>
 
           <div
