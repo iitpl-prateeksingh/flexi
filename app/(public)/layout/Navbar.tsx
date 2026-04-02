@@ -73,7 +73,7 @@ export default function Navbar({ data }: any) {
 
 
           <Link
-            href="/contactud"
+            href="/contactus"
             className="mt-4 bg-orange-400 text-white text-center py-3 rounded-full font-medium hover:bg-orange-500 transition"
           >
             Contact Us

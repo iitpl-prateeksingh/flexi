@@ -525,7 +525,7 @@ export default function HomeAdminPage() {
                 <div className="bg-white p-6 rounded-xl shadow">
 
                     <h2 className="text-xl font-semibold mb-4">
-                        CTO
+                        Banner
                     </h2>
                     <div className="mb-4">
                         <label>Content</label>
@@ -575,10 +575,9 @@ export default function HomeAdminPage() {
                 <div className="bg-white p-6 rounded-xl shadow">
 
                     <h2 className="text-xl font-semibold mb-4">
-                        Servies
+                        Services
                     </h2>
                     <div className="mb-4">
-                        <label>Services</label>
                         <QuillEditor
                             value={formData.services}
                             onChange={(val) => handleQuillChange(val, "services")}
@@ -593,7 +592,7 @@ export default function HomeAdminPage() {
                 {/* Why Choose */}
                 <div className="bg-white p-6 rounded-xl shadow">
                     <h2 className="text-xl font-semibold mb-4">
-                        Why Choose Flexi
+                        Why Choose Flexi-Capital
                     </h2>
 
                     <div className="mb-4">

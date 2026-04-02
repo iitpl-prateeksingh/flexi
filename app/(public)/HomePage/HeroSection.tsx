@@ -30,7 +30,7 @@ const HeroSection = ({ data }: { data: any }) => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 flex flex-col items-center lg:items-end text-center lg:text-right text-white">
+      <div className="relative z-10 container  flex flex-col items-center lg:items-end text-center lg:text-right text-white">
         <div className="max-w-3xl">
 
           {/* ✅ Render HTML from API */}
