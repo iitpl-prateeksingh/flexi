@@ -1,8 +1,12 @@
 import API from "./api";
 
-// ✅ GET ADMIN PAGE
+// ✅ get
 export const getStaticPageService = (pageType) => {
-    return API.get(`/admin/static/${pageType}`);
+    return API.get(`/admin/static/${pageType}`, {
+        headers: {
+            'Cache-Control': 'no-cache'
+        }
+    });
 };
 
 // ✅ CREATE / UPDATE

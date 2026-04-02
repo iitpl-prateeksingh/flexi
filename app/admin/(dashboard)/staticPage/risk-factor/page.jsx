@@ -18,7 +18,7 @@ export default function RiskFactors() {
     try {
       setLoading(true);
 
-      const res = await getStaticPageService("riskFactors");
+      const res = await getStaticPageService("risk-factor");
 
       const data = res?.data;
 
@@ -47,7 +47,7 @@ export default function RiskFactors() {
       await saveStaticPageService({
         title: "Risk Factor",
         content,
-        pageType: "riskFactors"
+        pageType: "risk-factor"
       });
 
       toast.success("Saved successfully", { id: "save" });

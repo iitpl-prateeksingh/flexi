@@ -9,6 +9,13 @@ export const saveContactPageService = (formData) => {
     });
 };
 
+export const updateContactService = (id, formData) => {
+    return API.put(`/contact/${id}`, formData, {
+        headers: {
+            "Cache-Control": "no-cache",
+        },
+    });
+};
 // ✅ GET ADMIN DATA
 export const getContactPageAdminService = () => {
     return API.get("/contact", {

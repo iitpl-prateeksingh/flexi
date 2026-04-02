@@ -18,7 +18,7 @@ export default function TermsAndCondition() {
     try {
       setLoading(true);
 
-      const res = await getStaticPageService("terms");
+      const res = await getStaticPageService("terms-and-condition");
 
       const data = res?.data;
 
@@ -47,7 +47,7 @@ export default function TermsAndCondition() {
       await saveStaticPageService({
         title: "Terms and Condition",
         content,
-        pageType: "terms"
+        pageType: "terms-and-condition"
       });
 
       toast.success("Saved successfully", { id: "save" });

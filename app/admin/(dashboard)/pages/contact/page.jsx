@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import {
     saveContactPageService,
     getContactPageAdminService,
+    updateContactService,
 } from "../../../../services/pages/contactpageService"
 
 import { uploadImageService } from "../../../../services/imageService";

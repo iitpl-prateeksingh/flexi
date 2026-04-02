@@ -123,6 +123,18 @@ export default function HomeAdminPage() {
             [field]: value
         }));
     };
+
+    const isEmpty = (value) => {
+        if (!value) return true;
+
+        // for quill empty html
+        if (typeof value === "string") {
+            const trimmed = value.replace(/<(.|\n)*?>/g, "").trim();
+            return trimmed === "";
+        }
+
+        return false;
+    };
     const validateImage = (file) => {
         if (!file) return false;
 
@@ -136,30 +148,22 @@ export default function HomeAdminPage() {
 
     // ✅ Video Upload
     const handleVideoUpload = (e) => {
-        const files = Array.from(e.target.files);
+        const file = e.target.files[0];
 
-        const totalAllowed = 4 - videos.length;
+        if (!file) return;
 
-        if (files.length > totalAllowed) {
-            toast.error(`You can only upload ${totalAllowed} more videos`);
+        if (file.size > 10 * 1024 * 1024) {
+            toast.error("Video must be less than 10MB");
+            return;
         }
 
-        const validVideos = files
-            .slice(0, totalAllowed)
-            .filter(file => {
-                if (file.size > 10 * 1024 * 1024) {
-                    toast.error(`${file.name} exceeds 10MB limit`);
-                    return false;
-                }
-                return true;
-            });
-
-        const preview = validVideos.map((file) => ({
+        const preview = {
             file,
             url: URL.createObjectURL(file)
-        }));
+        };
 
-        setVideos((prev) => [...prev, ...preview]);
+        // ✅ only 1 video allowed (replace existing)
+        setVideos([preview]);
     };
 
     const removeVideo = (index) => {
@@ -294,6 +298,13 @@ export default function HomeAdminPage() {
             // ========================
             const updatedWhyChoose = [];
             for (let item of whyChooseList) {
+                if (
+                    isEmpty(item.title) &&
+                    isEmpty(item.description) &&
+                    !item.icon
+                ) {
+                    continue; // ❌ skip empty item
+                }
                 let iconUrl = item.icon?.url || null;
 
                 if (item.icon?.file) {
@@ -320,6 +331,14 @@ export default function HomeAdminPage() {
                 whyChooseImage: whyChooseImageUrl,
                 whyChooseList: updatedWhyChoose
             };
+            Object.keys(payload).forEach((key) => {
+                if (
+                    isEmpty(payload[key]) ||
+                    (Array.isArray(payload[key]) && payload[key].length === 0)
+                ) {
+                    delete payload[key];
+                }
+            });
 
             // ========================
             // ✅ 5. SAVE HOMEPAGE
@@ -360,7 +379,7 @@ export default function HomeAdminPage() {
                     {/* VIDEO UPLOAD */}
                     <div className="mt-6">
                         <label className="font-medium block mb-3">
-                            Upload Hero Videos (Max 4, 10MB each)
+                            Upload Hero Video
                         </label>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -382,7 +401,7 @@ export default function HomeAdminPage() {
                                 </div>
                             ))}
 
-                            {videos.length < 4 && (
+                            {videos.length < 1 && (
                                 <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-xl h-40 cursor-pointer hover:bg-gray-50">
                                     <span className="text-3xl text-gray-400">+</span>
                                     <span className="text-sm text-gray-500">Add Video</span>

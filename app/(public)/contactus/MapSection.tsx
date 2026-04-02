@@ -1,15 +1,16 @@
 import React from 'react';
 
-const MapSection = ({ data }: any) => {
-  console.log("RESponse", data)
+const MapSection = ({ data, title }: any) => {
+  console.log("RESponse", data, "TITLE", title)
   return (
     <section className="bg-[#fcf8f5] w-full py-16 md:py-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
 
         {/* Section Heading */}
-        <h2 className="font-playfair text-[#F78532] font-bold text-3xl md:text-4xl mb-8">
-          Contact Us
-        </h2>
+        <h2
+          className="font-playfair text-[#F78532] font-bold text-3xl md:text-4xl mb-8"
+          dangerouslySetInnerHTML={{ __html: title?.banner || "" }}
+        />
 
         {/* Contact Card Container */}
         <div className="flex flex-col lg:flex-row w-full rounded-2xl overflow-hidden shadow-xl bg-white">

@@ -208,7 +208,7 @@ export default function ServiceFormModal({
 
                                 {/* PREVIEW */}
                                 {icon?.url ? (
-                                    <div className="relative group">
+                                    <div className="relative group bg-zinc-300">
                                         <img
                                             src={icon.url}
                                             className="h-16 w-16 rounded-lg object-cover border shadow-sm"

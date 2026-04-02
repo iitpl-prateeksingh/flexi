@@ -18,7 +18,7 @@ export default function SidSaiKim() {
     try {
       setLoading(true);
 
-      const res = await getStaticPageService("sidSaiKim");
+      const res = await getStaticPageService("sid-sai-kim");
 
       const data = res?.data;
 
@@ -47,7 +47,7 @@ export default function SidSaiKim() {
       await saveStaticPageService({
         title: "Sid/Sai/Kim",
         content,
-        pageType: "sidSaiKim"
+        pageType: "sid-sai-kim"
       });
 
       toast.success("Saved successfully", { id: "save" });

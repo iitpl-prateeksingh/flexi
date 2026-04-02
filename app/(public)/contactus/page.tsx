@@ -33,7 +33,7 @@ export default function page() {
   return (
     <div>
       <Banner data={data} />
-      <MapSection data={setting} />
+      <MapSection data={setting} title={data} />
     </div>
   );
 }

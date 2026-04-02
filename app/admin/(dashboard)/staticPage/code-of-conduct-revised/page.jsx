@@ -18,7 +18,7 @@ export default function CodeOfConductRevised() {
     try {
       setLoading(true);
 
-      const res = await getStaticPageService("codeOfConductRevised");
+      const res = await getStaticPageService("code-of-conduct-revised");
 
       const data = res?.data;
 
@@ -47,7 +47,7 @@ export default function CodeOfConductRevised() {
       await saveStaticPageService({
         title: "Code Of Conduct Revised",
         content,
-        pageType: "codeOfConductRevised"
+        pageType: "code-of-conduct-revised"
       });
 
       toast.success("Saved successfully", { id: "save" });

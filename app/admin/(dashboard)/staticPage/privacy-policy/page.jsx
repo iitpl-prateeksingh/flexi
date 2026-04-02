@@ -18,7 +18,7 @@ export default function PrivacyPolicy() {
     try {
       setLoading(true);
 
-      const res = await getStaticPageService("privacy");
+      const res = await getStaticPageService("privacy-policy");
 
       const data = res?.data;
 
@@ -47,7 +47,7 @@ export default function PrivacyPolicy() {
       await saveStaticPageService({
         title: "Privacy Policy",
         content,
-        pageType: "privacy"
+        pageType: "privacy-policy"
       });
 
       toast.success("Saved successfully", { id: "save" });
