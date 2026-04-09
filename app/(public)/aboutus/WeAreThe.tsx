@@ -14,7 +14,7 @@ const WeAreThe: React.FC = () => {
             <span className="text-[#f68037]">Steady Hand On A<br/>Winding Road</span>
           </h2>
           
-          <div className="flex flex-col gap-6 text-[#5b6e7a] text-sm md:text-base leading-relaxed font-medium">
+          <div className="flex flex-col gap-6 text-[#204667] text-sm md:text-base leading-relaxed ">
             <p>
               Life moves through many stages, and markets move through cycles. The path is
               rarely straight, and every turn brings new considerations. We stand beside you

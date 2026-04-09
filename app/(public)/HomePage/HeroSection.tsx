@@ -1,9 +1,9 @@
-
-import 'animate.css';
+import React from "react";
+import "animate.css";
 
 const HeroSection = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+    <section className="relative h-[500px] md:h-screen w-full overflow-hidden flex items-center justify-center">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video

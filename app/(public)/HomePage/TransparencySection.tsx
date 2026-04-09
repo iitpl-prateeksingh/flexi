@@ -1,7 +1,7 @@
 export default function TransparencySection() {
   return (
     <section className="bg-[#FFF9F3]">
-      <div className="bg-[url('/cta1.png')] bg-cover overflow-hidden flex justify-end" style={{borderRadius:"70px 70px 0px 0px"}} >
+      <div className="bg-[url('/midcta.png')] bg-cover overflow-hidden flex justify-end" style={{borderRadius:"70px 70px 0px 0px"}} >
 
      
         {/* Right Glass Content */}

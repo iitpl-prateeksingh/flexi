@@ -1,24 +1,24 @@
 const features = [
   {
-    title: "Measured Craftsmanship",
-    description: "Every element is approached with care and intention, ensuring thoughtful alignment between today's decisions and tomorrow's outcomes.",
+    title: "Trail-based model",
+    description: "Our commission structure is linked to the performance of our clients' financial assets, and we grow only when our clients grow.",
     icon: "/m1.png"
   },
   {
-    title: "Legacy in Motion",
-    description: "Our role is to ensure continuity, care, and thoughtful progression across generations.",
+    title: "Team-based model",
+    description: "We create a dynamic team for each client according to their needs and wants. This ensures seamless support and continuity as opposed to a sole financial planner model. Our clients can rely on us because we are transparent through all channels of communication.",
     icon: "/m2.png"
   },
   {
-    title: "A Steady Hand",
-    description: "Through changing conditions, we remain composed and deliberate, helping families navigate transitions with reassurance and control.",
+    title: "In-depth Analysis",
+    description: "With the help of our research and analysis partner (name unclear in image), we provide a detailed portfolio with X-ray reports of one's financial assets across all channels. This helps both our clients and us to understand our progress and chart a more defined route towards attaining our clients' goals.",
     icon: "/m3.png"
   },
-  {
-    title: "Balance at Every Level",
-    description: "We emphasize harmony across financial elements to support stability and forward momentum.",
-    icon: "/m4.png"
-  }
+  // {
+  //   title: "Balance at Every Level",
+  //   description: "We emphasize harmony across financial elements to support stability and forward momentum.",
+  //   icon: "/m4.png"
+  // }
 ];
 
 const WhyUs = () => {
@@ -30,11 +30,12 @@ const WhyUs = () => {
           <span className="inline-block  bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium mb-4">
             Why us
           </span>
-          <h2 className="text-4xl md:text-[42px] font-playfair font-bold text-[#204667] mb-6">
+          <h2 className="text-4xl md:text-[42px] font-playfair font-bold text-[#204667] mb-4">
             What Keeps Our Clients Coming Back?
           </h2>
           <p className="text-[#204667A3] leading-relaxed text-md">
-            Every enduring structure is defined by intention, discipline, and craftsmanship. Our approach reflects the same principles, carefully considered, quietly confident, and built to stand the test of time.
+            {/* Every enduring structure is defined by intention, discipline, and craftsmanship. Our approach reflects the same principles, carefully considered, quietly confident, and built to stand the test of time. */}
+          At <span className="text-[#FA6F0B] font-bold">FlexiCapital</span>, we cultivate long-term relationships based on Integrity and Trust. 
           </p>
         </div>
        

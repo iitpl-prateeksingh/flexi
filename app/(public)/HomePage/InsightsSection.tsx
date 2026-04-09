@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
 const InsightsSection = () => {
@@ -10,14 +8,14 @@ const InsightsSection = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
         
         {/* --- Left Column: Text Content --- */}
-        <div className="lg:col-span-4 flex flex-col items-start space-y-6">
+        <div className="lg:col-span-4 flex flex-col items-start space-y-5">
           {/* Badge */}
           <span className="inline-block  bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium mb-4">
             Keep Your Self Updated
           </span>
 
           {/* Main Heading - Using Playfair */}
-          <h2 className="text-4xl md:text-5xl text-[#204667] font-bold leading-tight font-playfair">
+          <h2 className="text-3xl md:text-4xl text-[#204667] font-bold leading-tight font-playfair">
             Insights That Empower <br /> Better Decisions
           </h2>
 
@@ -47,14 +45,14 @@ const InsightsSection = () => {
             <div className="space-y-3">
               {/* Category - Playfair for elegance */}
               <span className="text-[#F78532] text-xl block font-playfair">
-                Market Outlook
+                Monthly Market Outlook :
               </span>
               {/* Title - Inter for readability */}
-              <h3 className="text-xl font-medium text-[#204667] group-hover:text-[#4A86E8] transition-colors font-inter">
+              {/* <h3 className="text-xl font-medium text-[#204667] group-hover:text-[#4A86E8] transition-colors font-inter">
                 Q4 2024 Global Economic Trends
-              </h3>
+              </h3> */}
               <p className="text-gray-500 text-sm leading-relaxed font-inter">
-                An in-depth analysis of emerging market performance and inflationary impacts.
+              Navigate the month ahead with clarity and conviction with Monthly market outlook by flexi cap
               </p>
             </div>
           </div>
@@ -70,13 +68,13 @@ const InsightsSection = () => {
             </div>
             <div className="space-y-3">
                   <span className="text-[#F78532] text-xl block font-playfair">
-                Wealth Planning
+                Weekly Flexi Wrap 
               </span>
-              <h3 className="text-xl font-medium text-[#204667] group-hover:text-[#4A86E8] transition-colors font-inter">
+              {/* <h3 className="text-xl font-medium text-[#204667] group-hover:text-[#4A86E8] transition-colors font-inter">
                 Succession Strategies for Family Enterprises
-              </h3>
+              </h3> */}
               <p className="text-gray-500 text-sm leading-relaxed font-inter">
-                Preserving values and assets across generations through structured planning.
+               Cut through the Lawyers, your weekly market insights delivered weekly.
               </p>
             </div>
           </div>

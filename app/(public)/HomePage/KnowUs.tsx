@@ -97,14 +97,10 @@ const KnowUs = () => {
 
           <div className="space-y-6 mt-4  text-slate-600 font-[family-name:var(--font-spline)] text-lg leading-relaxed mb-12 max-w-xl mx-auto lg:mx-0">
             <p className="text-base opacity-80">
-              We believe that clarity is the ultimate sophistication that
-              redefines direction and transforms market volatility into
-              strategic elegance.
+               At FlexiCapital, we bring clarity to what is complex, light to what is hidden, and conviction to every step you take. Our approach is rooted in transparency, integrity and an unwavering commitment to our clients.
             </p>
             <p className="text-base opacity-80">
-              {
-                " When complexity gives way to insight, decisions transcend guesswork to become deliberate acts of legacy-building. Our institutional expertise doesn't just simplify the path ahead; it fundamentally evolves how you move and manifest your true intent."
-              }
+             We treat every client relationship with the seriousness it deserves and the dedication it demands. Because at the end of the day, what matters most is you
             </p>
           </div>
 

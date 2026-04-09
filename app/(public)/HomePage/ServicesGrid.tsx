@@ -9,30 +9,30 @@ import {
 
 const services = [
   {
-    title: "Wealth Management and Investment Advisory",
+    title: "Investment Services",
     description:
-      "We help you move forward with confidence, identifying opportunities that align with your evolving priorities and life stages.",
+      "We offer innovative protection solutions customized to your needs.",
     icon: <TrendingUp className="w-6 h-6" />,
     image: "/g1.png",
   },
   {
-    title: "Insurance & Protection Planning",
+    title: "Commercial Banking Services",
     description:
-      "Our offerings are designed to support your loved ones through life's uncertainties, helping ensure stability when it matters most.",
+      "We assist with commercial bank transactions, covering all aspects of foreign exchange services, as well as working capital finance and loan support.",
     icon: <ShieldCheck className="w-6 h-6" />,
     image: "/g2.png",
   },
   {
-    title: "Family Office Services",
+    title: "Inter generational wealth transfer and succession services",
     description:
-      "We assist families in bringing together multiple elements under one coordinated approach, helping maintain continuity and balance across generations.",
+      "To be able to sustain one’s life, achieve goals, and be optimized for future generations.",
     icon: <Users className="w-6 h-6" />,
     image: "/g3.png",
   },
   {
-    title: "Loans & Financial Solutions",
+    title: "Value Added Service",
     description:
-      "Whether addressing a timely requirement or responding to an emerging opportunity, our structured solutions help you maintain your momentum.",
+      "A powerful combination of services covering markets, structures and research-backed analysis that are designed to move you forward with precision and confidence.",
     icon: <HandCoins className="w-6 h-6" />,
     image: "/g4.png",
   },

@@ -23,8 +23,7 @@ const SignatureApproach: React.FC = () => {
             </h2>
            
             <p className="text-lg md:text-2xl font-light leading-relaxed opacity-90">
-              &ldquo;Standing alongside families as they shape the future 
-              they&apos;ve always envisioned, built on trust.&rdquo;
+              &ldquo;We believe wealth protection is not about products, but about aligning financial decisions with life goals.&rdquo;
             </p>
           </div>
         </div>
