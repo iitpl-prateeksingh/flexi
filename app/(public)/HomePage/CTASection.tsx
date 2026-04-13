@@ -17,7 +17,7 @@ const CTASection = () => {
         </p>
 
         {/* Heading */}
-        <h2 className="mb-6 font-playfair text-4xl font-bold leading-tight text-[#1A2B49] md:text-5xl lg:text-6xl">
+        <h2 className="mb-6 font-playfair text-3xl font-bold leading-tight text-[#15316E] md:text-4xl lg:text-5xl">
           Let’s Build Your <br />
           Financial Future
         </h2>

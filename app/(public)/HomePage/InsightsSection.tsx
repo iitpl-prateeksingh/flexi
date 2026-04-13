@@ -5,8 +5,10 @@ import { ArrowRight } from 'lucide-react';
 import { getpublicInsight } from "../../services/insightService";
 import toast from 'react-hot-toast';
 
+import { useRouter } from "next/navigation";
 const InsightsSection = () => {
   const [data, setData] = useState<any>(null);
+  const router = useRouter();
 
   const fetchInsightData = async () => {
     try {
@@ -23,10 +25,13 @@ const InsightsSection = () => {
   }, []);
   console.log("Insight data:", data);
 
-  const list = data?.list || [];
+  const list = [
+    data?.monthly,
+    data?.weekly,
+  ].filter(Boolean); // removes undefined
 
   return (
-    <section className="bg-[#FFF9F3] py-16 px-4 md:px-12 lg:px-20">
+    <section className="bg-[#FFF9F3] py-16 px-4 md:px-12 lg:px-20 py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
         {/* LEFT CONTENT */}
@@ -49,33 +54,59 @@ const InsightsSection = () => {
         </div>
 
         {/* RIGHT CARDS */}
+        {/* RIGHT CARDS */}
         <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {list.map((item: any) => (
-            <div key={item._id} className="group cursor-pointer">
+
+          {/* MONTHLY */}
+          {data?.monthly && (
+            <div className="group cursor-pointer" onClick={() => router.push("/blogs/monthly")}>
               <div className="relative h-64 w-full overflow-hidden mb-6">
                 <img
-                  src={item.image}
-                  alt={item.title}
+                  src={data.monthly.image}
+                  alt={data.monthly.title}
                   className="w-full h-full object-cover"
                 />
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-3 pl-6">
                 <span className="text-[#F78532] text-xl block font-playfair font-bold">
-                  {item.title}
+                  {data.monthly.title}
                 </span>
 
-
-                <p className="text-gray-500 text-sm leading-relaxed font-inter">
-                  {item.detail}
+                <p className="text-gray-500  text-sm leading-relaxed font-inter">
+                  {data.monthly.detail}
                 </p>
               </div>
             </div>
-          ))}
+          )}
+
+          {/* WEEKLY */}
+          {data?.weekly && (
+            <div className="group cursor-pointer" onClick={() => router.push("/blogs/weekly")}>
+              <div className="relative h-64 w-full overflow-hidden mb-6">
+                <img
+                  src={data.weekly.image}
+                  alt={data.weekly.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="space-y-3 pl-6">
+                <span className="text-[#F78532] text-xl block font-playfair font-bold">
+                  {data.weekly.title}
+                </span>
+
+                <p className="text-gray-500 text-sm leading-relaxed font-inter">
+                  {data.weekly.detail}
+                </p>
+              </div>
+            </div>
+          )}
+
         </div>
 
       </div>
-    </section>
+    </section >
   );
 };
 

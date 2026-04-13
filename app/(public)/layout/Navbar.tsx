@@ -22,6 +22,7 @@ export default function Navbar({ data }: any) {
             style={{
               background: "#dbdbdb",
               height: "0.5px",
+              // width: "27%",
               width: "60%",
               opacity: "0.7",
             }}
@@ -66,17 +67,29 @@ export default function Navbar({ data }: any) {
 
         <div className="flex flex-col p-5 gap-5">
           <DrawerLink label="About us" url="/aboutus" />
-          <DrawerLink label="Services" url="#" />
-          {/* <DrawerLink label="Contact us" url="contactus" /> */}
-          {/* <DrawerLink label="Careers" url="#" /> */}
+          <DrawerLink label="Services" url="/services" />
+          {/* <DrawerLink label="Contact us" url="contactus" />
+          <DrawerLink label="Careers" url="#" /> */}
 
+          {/* <Link
+            href="/login"
+            className="flex items-center gap-2 text-orange-500 font-medium"
+          >
+            <FiUser />
+            Profile Log in
+          </Link> */}
 
-
+          {/* <Link
+            href="/consultation"
+            className="mt-4 bg-orange-400 text-white text-center py-3 rounded-full font-medium hover:bg-orange-500 transition"
+          >
+            Book a Consultation
+          </Link> */}
           <Link
             href="/contactus"
             className="mt-4 bg-orange-400 text-white text-center py-3 rounded-full font-medium hover:bg-orange-500 transition"
           >
-            Contact Us
+            Contact us
           </Link>
         </div>
       </aside>
@@ -92,7 +105,7 @@ function NavLinks() {
       <Link href="aboutus" className="hover:text-orange-400">
         About us
       </Link>
-      <Link href="#services" className="hover:text-orange-400">
+      <Link href="/services" className="hover:text-orange-400">
         Services
       </Link>
       {/* <Link href="contactus" className="hover:text-orange-400">
@@ -119,12 +132,18 @@ function Profile() {
 
 function CTA() {
   return (
+    // <Link
+    //   href="/consultation"
+    //   className="bg-orange-400 hover:bg-orange-500 text-white px-5 py-2 rounded-full font-medium transition"
+    // >
+    //   Book a Consultation
+    // </Link>
     <Link
       href="/contactus"
       className="bg-orange-400 hover:bg-orange-500 text-white px-5 py-2 rounded-full font-medium transition"
     >
-      Contact Us
-    </Link>
+      Contact us
+    </Link >
   );
 }
 
