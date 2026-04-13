@@ -19,7 +19,7 @@ export default function Navbar() {
             <header className="bg-white shadow p-4 flex justify-between">
 
                 <h1 className="font-semibold text-lg">
-                    Admin Dashboard
+
                 </h1>
 
                 <button

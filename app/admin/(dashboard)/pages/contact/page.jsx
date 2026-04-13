@@ -51,9 +51,9 @@ export default function ContactPage() {
   const validateVideo = (file) => {
     if (!file) return false;
 
-    // 20MB limit
-    if (file.size > 20 * 1024 * 1024) {
-      toast.error("Video must be less than 20MB");
+    // 10MB limit
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Video must be less than 10MB");
       return false;
     }
 
@@ -142,45 +142,48 @@ export default function ContactPage() {
           />
 
           {/* VIDEO SECTION */}
-          <div className="mt-6 grid md:grid-cols-2 gap-6">
-            {/* LEFT: PREVIEW */}
-            <div className="w-full h-48 bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
-              {bannerVideo?.url ? (
-                <video
-                  src={bannerVideo.url}
-                  controls
-                  className="w-full h-48 object-cover"
-                />
-              ) : (
-                <span className="text-gray-400 h-48 text-sm">No video selected</span>
-              )}
-            </div>
+          <div className="mt-6">
+            <label className="font-medium block mb-3">
+              Upload Banner Video
+            </label>
 
-            {/* RIGHT: ACTIONS */}
-            <div className="flex flex-col gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Upload Banner Video
+            <div className="grid grid-cols-2  gap-4">
+
+              {/* VIDEO PREVIEW */}
+              {bannerVideo?.url && (
+                <div className="relative border rounded-xl overflow-hidden bg-gray-100">
+                  <video
+                    src={bannerVideo.url}
+                    controls
+                    className="w-full h-56 object-cover"
+                  />
+
+                  {/* REMOVE BUTTON */}
+                  <button
+                    type="button"
+                    onClick={() => setBannerVideo(null)}
+                    className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
+
+              {/* UPLOAD BOX */}
+              {!bannerVideo && (
+                <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-xl h-56 cursor-pointer hover:bg-gray-50">
+                  <span className="text-3xl text-gray-400">+</span>
+                  <span className="text-sm text-gray-500">Add Banner Video</span>
+
+                  <input
+                    type="file"
+                    accept="video/*"
+                    className="hidden"
+                    onChange={handleVideoSelect}
+                  />
                 </label>
-
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={handleVideoSelect}
-                  className="w-full text-sm border border-gray-300 rounded-lg p-2 file:mr-3 file:py-1 file:px-3 file:border-0 file:bg-gray-100 file:rounded-md file:cursor-pointer"
-                />
-              </div>
-
-              {/* REMOVE */}
-              {bannerVideo && (
-                <button
-                  type="button"
-                  onClick={() => setBannerVideo(null)}
-                  className="text-red-500 text-sm hover:underline"
-                >
-                  Remove Video
-                </button>
               )}
+
             </div>
           </div>
         </div>

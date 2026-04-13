@@ -25,9 +25,13 @@ import { uploadVideoService } from "../../../services/videoService";
 
 import ConfirmModal from "../../../component/common/ConfirmModel";
 import { hasPermission } from "../../../utils/hasPermission";
+import { useRef } from "react";
+
 
 export default function ServicesAdmin() {
   const router = useRouter();
+  const fileInputRef = useRef(null);
+
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [expandedServices, setExpandedServices] = useState(new Set());
@@ -140,37 +144,37 @@ export default function ServicesAdmin() {
       toast.error("Operation failed");
     }
   };
-const handleVideoUpload = async () => {
-  if (!videoFile) {
-    toast.error("Please select a video");
-    return;
-  }
-
-  try {
-    setVideoUploading(true);
-
-    // Upload video
-    const uploadRes = await uploadVideoService(videoFile);
-    const videoUrl = uploadRes.data?.url;
-
-    if (valueData?._id) {
-      // ✅ UPDATE EXISTING
-      await updateValueApi(valueData._id, { videoUrl });
-      toast.success("Video updated successfully");
-    } else {
-      // ✅ CREATE NEW
-      await createValueApi({ videoUrl });
-      toast.success("Video uploaded successfully");
+  const handleVideoUpload = async () => {
+    if (!videoFile) {
+      toast.error("Please select a video");
+      return;
     }
 
-    setVideoFile(null);
-    fetchValue();
-  } catch {
-    toast.error("Upload failed");
-  } finally {
-    setVideoUploading(false);
-  }
-};
+    try {
+      setVideoUploading(true);
+
+      // Upload video
+      const uploadRes = await uploadVideoService(videoFile);
+      const videoUrl = uploadRes.data?.url;
+
+      if (valueData?._id) {
+        // ✅ UPDATE EXISTING
+        await updateValueApi(valueData._id, { videoUrl });
+        toast.success("Video updated successfully");
+      } else {
+        // ✅ CREATE NEW
+        await createValueApi({ videoUrl });
+        toast.success("Video uploaded successfully");
+      }
+
+      setVideoFile(null);
+      fetchValue();
+    } catch {
+      toast.error("Upload failed");
+    } finally {
+      setVideoUploading(false);
+    }
+  };
   const handleDeleteVideo = async () => {
     try {
       await deleteValueApi(valueData._id);
@@ -379,73 +383,141 @@ const handleVideoUpload = async () => {
           </p>
         </div>
 
-        <div className="flex flex-col items-center gap-4">
-          {/* VIDEO PREVIEW BOX */}
-          <div className="w-full max-w-md h-56 border-2 border-dashed border-gray-300 rounded-xl flex items-center justify-center bg-gray-50 overflow-hidden">
-            {videoFile ? (
-              <video
-                src={URL.createObjectURL(videoFile)}
-                className="w-full h-40 object-cover"
-                controls
-              />
-            ) : valueData?.videoUrl ? (
-              <video
-                src={valueData.videoUrl}
-                className="w-full h-40 object-cover"
-                controls
-              />
-            ) : (
-              <span className="text-gray-400 text-sm h-40 flex items-center justify-center p-2">
-                No video selected
-              </span>
-            )}
-          </div>
-
-          {/* SINGLE BUTTON */}
-          <label className="cursor-pointer">
-            <input
-              type="file"
-              accept="video/*"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-
-                // Optional validation (20MB)
-                if (file.size > 20 * 1024 * 1024) {
-                  toast.error("Video must be less than 20MB");
-                  return;
-                }
-
-                setVideoFile(file);
-              }}
-            />
-
-            <div className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm">
-              {valueData?.videoUrl ? "Replace Video" : "Upload Video"}
-            </div>
+        <div className="mt-6">
+          <label className="font-medium block mb-3">
+            Upload Video
           </label>
 
-          {/* SAVE BUTTON */}
-          {videoFile && (
-            <button
-              onClick={handleVideoUpload}
-              disabled={videoUploading}
-              className="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm"
-            >
-              {videoUploading ? "Processing..." : "Save Video"}
-            </button>
-          )}
+          <div className="grid grid-cols-2 gap-4">
 
-          {/* DELETE BUTTON */}
-          {valueData?.videoUrl && !videoFile && canDelete && (
-            <button
-              onClick={handleDeleteVideo}
-              className="text-red-500 text-sm hover:underline"
+            {/* VIDEO PREVIEW */}
+            {(videoFile || valueData?.videoUrl) && (
+              <div
+                className="relative border rounded-xl overflow-hidden bg-gray-100 cursor-pointer"
+                onClick={() => fileInputRef.current.click()} // 👉 click to replace
+              >
+                <video
+                  src={
+                    videoFile
+                      ? URL.createObjectURL(videoFile)
+                      : valueData.videoUrl
+                  }
+                  controls
+                  className="w-full h-56 object-cover"
+                />
+
+                {/* OPTIONAL OVERLAY */}
+
+
+                {/* DELETE / REMOVE */}
+                {videoFile ? (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation(); // prevent opening file picker
+                      setVideoFile(null);
+                    }}
+                    className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
+                  >
+                    ✕
+                  </button>
+                ) : (
+                  canDelete && (
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteVideo();
+                      }}
+                      className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
+                    >
+                      ✕
+                    </button>
+                  )
+                )}
+              </div>
+            )}
+
+            {/* UPLOAD BOX (UNCHANGED) */}
+            {(!videoFile && !valueData?.videoUrl) && (
+              <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-xl h-56 cursor-pointer hover:bg-gray-50">
+                <span className="text-3xl text-gray-400">+</span>
+                <span className="text-sm text-gray-500">Upload Video</span>
+
+                <input
+                  type="file"
+                  accept="video/*"
+                  className="hidden"
+                  ref={fileInputRef}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    if (file.size > 10 * 1024 * 1024) {
+                      toast.error("Video must be less than 10MB");
+                      return;
+                    }
+
+                    setVideoFile(file);
+                  }}
+                />
+              </label>
+            )}
+
+            {/* HIDDEN INPUT (FOR REPLACE WHEN VIDEO EXISTS) */}
+            {(videoFile || valueData?.videoUrl) && (
+              <input
+                type="file"
+                accept="video/*"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (!file) return;
+
+                  if (file.size > 10 * 1024 * 1024) {
+                    toast.error("Video must be less than 10MB");
+                    return;
+                  }
+
+                  setVideoFile(file);
+                }}
+              />
+            )}
+
+          </div>
+
+          {/* ACTION BUTTON */}
+
+          <div className="flex gap-5">
+            {(videoFile || valueData?.videoUrl) && (<button
+              type="button"
+              onClick={() => {
+                setVideoFile(null);
+
+                if (fileInputRef.current) {
+                  fileInputRef.current.value = null;
+
+                  // ⏱️ wait for state update
+                  setTimeout(() => {
+                    fileInputRef.current.click();
+                  }, 0);
+                }
+              }}
+              className="mt-4 px-5 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition text-sm"
             >
-              Delete Video
-            </button>
-          )}
+              Replace Value Video
+            </button>)}
+            {videoFile && (
+              <button
+                onClick={handleVideoUpload}
+                disabled={videoUploading}
+                className="mt-4 px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 text-sm"
+              >
+                {videoUploading ? "Processing..." : "Upload Value video"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
       {/* DELETE MODAL */}

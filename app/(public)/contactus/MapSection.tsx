@@ -3,7 +3,7 @@ import React from 'react';
 const MapSection = ({ data, title }: any) => {
   console.log("RESponse", data, "TITLE", title)
   return (
-    <section className="bg-[#fcf8f5] w-full py-16 md:py-24 px-6 md:px-12 lg:px-24">
+    <section className="bg-[#fcf8f5] w-full py-8 md:py-10 pb-34 md:pb-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
 
         {/* Section Heading */}

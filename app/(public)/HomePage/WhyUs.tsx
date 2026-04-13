@@ -49,19 +49,27 @@ const WhyUs = ({ data }: any) => {
                   : ""
                   }`}
               >
-                {/* Icon */}
-                <div className="flex-shrink-0 w-[40px] text-[#204667]">
-                  <img src={feature.icon} alt="" />
-                </div>
+                <div className="flex gap-6 py-4 items-start">
 
-                {/* Text */}
-                <div>
-                  <h3 className="text-xl font-playfair font-medium text-[#204667] mb-1">
-                    {feature.title}
-                  </h3>
-                  <p className="text-[#204667D1] text-sm leading-relaxed">
-                    {feature.description}
-                  </p>
+                  {/* Icon */}
+                  <div className="flex-shrink-0 w-[40px] text-[#204667]">
+                    <img src={feature.icon} alt="" />
+                  </div>
+
+                  {/* Text */}
+                  <div className="flex-1 min-w-0">
+
+                    <h3 className="text-xl font-playfair font-medium text-[#204667] mb-1">
+                      {feature.title}
+                    </h3>
+
+                    <div
+                      className="flex flex-col gap-6 text-[#5b6e7a] html-editor leading-relaxed "
+                      dangerouslySetInnerHTML={{
+                        __html: feature?.description.replace(/&nbsp;/g, " ") || "",
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             ))}

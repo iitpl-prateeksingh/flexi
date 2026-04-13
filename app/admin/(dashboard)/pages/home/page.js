@@ -23,6 +23,8 @@ export default function HomeAdminPage() {
         whyChooseDetail: "",
         bannerText: ""
     });
+
+    const [isTyping, setIsTyping] = useState(false);
     const fetchHomepage = async () => {
         try {
             const res = await getHomePageAdminService();
@@ -382,14 +384,14 @@ export default function HomeAdminPage() {
                             Upload Hero Video
                         </label>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2  gap-4">
 
                             {videos.map((video, i) => (
                                 <div key={i} className="relative border rounded-xl overflow-hidden bg-gray-100">
                                     <video
                                         src={video.url}
                                         controls
-                                        className="w-full h-40 object-cover"
+                                        className="w-full h-56 object-cover"
                                     />
                                     <button
                                         type="button"
@@ -402,7 +404,7 @@ export default function HomeAdminPage() {
                             ))}
 
                             {videos.length < 1 && (
-                                <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-xl h-40 cursor-pointer hover:bg-gray-50">
+                                <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-xl h-56 cursor-pointer hover:bg-gray-50">
                                     <span className="text-3xl text-gray-400">+</span>
                                     <span className="text-sm text-gray-500">Add Video</span>
 
@@ -706,24 +708,42 @@ export default function HomeAdminPage() {
                                 />
 
                                 {/* DESCRIPTION */}
-                                <textarea
-                                    placeholder="Short description (max 500 characters)"
-                                    className="w-full border p-2 rounded"
-                                    rows={6}
-                                    value={item.description}
-                                    onChange={(e) => {
-                                        const value = e.target.value;
+                                <div>
+                                    <label className="block mb-2 font-medium">Description</label>
 
-                                        if (value.length <= 500) {
-                                            handleWhyChooseChange(index, "description", value);
-                                        }
-                                    }}
-                                />
+                                    <QuillEditor
+                                        value={item.description}
+                                        onChange={(val) => {
+                                            const plainText = val.replace(/<(.|\n)*?>/g, "").trim();
 
-                                <p className="text-xs text-gray-400">
-                                    {item.description.length}/500 characters
-                                </p>
+                                            // mark user interaction
+                                            setIsTyping(true);
 
+                                            if (plainText.length > 1000) {
+                                                const trimmedText = plainText.substring(0, 1000);
+                                                const trimmedHtml = `<p>${trimmedText}</p>`;
+
+                                                handleWhyChooseChange(index, "description", trimmedHtml);
+
+                                                // ✅ only show toast if user typed (not on load)
+                                                if (isTyping) {
+                                                    toast.error("Max 1000 characters allowed");
+                                                }
+                                            } else {
+                                                handleWhyChooseChange(index, "description", val);
+                                            }
+                                        }}
+                                        height="150px"
+                                    />
+                                    {/* Character Count */}
+                                    <p className="text-xs text-gray-400 mt-1">
+                                        {
+                                            item.description
+                                                ? item.description.replace(/<(.|\n)*?>/g, "").length
+                                                : 0
+                                        } / 1000 characters
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>
