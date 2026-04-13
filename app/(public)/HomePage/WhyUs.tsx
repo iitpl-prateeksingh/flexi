@@ -2,8 +2,8 @@ const WhyUs = ({ data }: any) => {
   const features = data?.whyChooseList || [];
 
   return (
-    <section className="bg-[#fdf8f3] pb-16">
-      <div className="max-w-5xl mx-auto p-2 md:p-0">
+    <section className="bg-[#fdf8f3]  pb-16 px-0 md:px-6 md:pb-24">
+      <div className="px-4 md:px-20 mx-auto">
 
         {/* Title Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -44,7 +44,7 @@ const WhyUs = ({ data }: any) => {
             {features.map((feature: any, index: number) => (
               <div
                 key={feature._id || index}
-                className={`flex gap-6 py-4 ${index !== features.length - 1
+                className={`flex gap-3 py-4 ${index !== features.length - 1
                   ? "border-b border-orange-100"
                   : ""
                   }`}

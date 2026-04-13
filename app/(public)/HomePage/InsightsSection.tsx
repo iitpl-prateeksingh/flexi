@@ -21,6 +21,7 @@ const InsightsSection = () => {
   useEffect(() => {
     fetchInsightData();
   }, []);
+  console.log("Insight data:", data);
 
   const list = data?.list || [];
 
@@ -31,7 +32,7 @@ const InsightsSection = () => {
         {/* LEFT CONTENT */}
         <div className="lg:col-span-4 flex flex-col items-start space-y-6">
           <span className="inline-block bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium mb-4">
-            Keep Your Self Updated
+            {data?.badge || "Insights"}
           </span>
 
           <h2 className="text-4xl md:text-5xl text-[#204667] font-bold leading-tight font-playfair">

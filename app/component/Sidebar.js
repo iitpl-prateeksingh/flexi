@@ -43,7 +43,12 @@ export default function Sidebar() {
         {
             name: "Insight",
             path: "/admin/insight",
-            permission: "view_insight"
+            permission: "view_insight",
+        },
+        {
+            name: "Blogs",
+            path: "/admin/blogs",
+            permission: "view_insight",
         }
     ];
 

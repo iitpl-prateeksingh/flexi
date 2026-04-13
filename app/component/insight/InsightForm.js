@@ -2,139 +2,181 @@
 
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Pencil } from "lucide-react";
+import { uploadImageService } from "../../services/imageService";
+import SectionCard from "../SectionCard"
 import { updateInsightContentApi } from "../../services/insightService";
-import { hasPermission } from "../../utils/hasPermission"
 
 export default function InsightForm({ data, refresh }) {
-    const [isEditing, setIsEditing] = useState(false);
 
-    const [heading, setHeading] = useState("");
-    const [description, setDescription] = useState("");
+    const [form, setForm] = useState({
+        badge: "",
+        heading: "",
+        description: "",
+        monthly: { image: "", title: "", detail: "" },
+        weekly: { image: "", title: "", detail: "" }
+    });
+
+    const [monthlyFile, setMonthlyFile] = useState(null);
+    const [weeklyFile, setWeeklyFile] = useState(null);
 
     useEffect(() => {
-        setHeading(data?.heading || "");
-        setDescription(data?.description || "");
+        setForm({
+            badge: data?.badge || "",
+            heading: data?.heading || "",
+            description: data?.description || "",
+            monthly: data?.monthly || { image: "", title: "", detail: "" },
+            weekly: data?.weekly || { image: "", title: "", detail: "" }
+        });
     }, [data]);
 
+    // ================= IMAGE HANDLER =================
+    const handleImageChange = (e, type) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const preview = URL.createObjectURL(file);
+
+        if (type === "monthly") {
+            setMonthlyFile(file);
+            setForm(prev => ({
+                ...prev,
+                monthly: { ...prev.monthly, image: preview }
+            }));
+        } else {
+            setWeeklyFile(file);
+            setForm(prev => ({
+                ...prev,
+                weekly: { ...prev.weekly, image: preview }
+            }));
+        }
+    };
+
+    const removeImage = (type) => {
+        if (type === "monthly") {
+            setMonthlyFile(null);
+            setForm(prev => ({
+                ...prev,
+                monthly: { ...prev.monthly, image: "" }
+            }));
+        } else {
+            setWeeklyFile(null);
+            setForm(prev => ({
+                ...prev,
+                weekly: { ...prev.weekly, image: "" }
+            }));
+        }
+    };
+
+    // ================= SUBMIT =================
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            await updateInsightContentApi({ heading, description });
-            toast.success("Updated successfully");
-            setIsEditing(false);
+            toast.loading("Updating...", { id: "insight" });
+
+            let monthlyImage = form.monthly.image;
+            let weeklyImage = form.weekly.image;
+
+            if (monthlyFile) {
+                const res = await uploadImageService(monthlyFile);
+                monthlyImage = res.data.url;
+            }
+
+            if (weeklyFile) {
+                const res = await uploadImageService(weeklyFile);
+                weeklyImage = res.data.url;
+            }
+
+            const payload = {
+                badge: form.badge,
+                heading: form.heading,
+                description: form.description,
+                monthly: { ...form.monthly, image: monthlyImage },
+                weekly: { ...form.weekly, image: weeklyImage }
+            };
+
+            await updateInsightContentApi(payload);
+
+            toast.success("Updated successfully", { id: "insight" });
             refresh();
-        } catch {
-            toast.error("Update failed");
+
+        } catch (err) {
+            console.error(err);
+            toast.error("Update failed", { id: "insight" });
         }
     };
 
-    const handleCancel = () => {
-        setHeading(data?.heading || "");
-        setDescription(data?.description || "");
-        setIsEditing(false);
-    };
-
     return (
-        <div className="border-gray-200">
+        <form onSubmit={handleSubmit} className="space-y-10">
 
-            {/* HEADER */}
-            <div className="flex justify-between items-center mb-4">
+            {/* ================= BASIC ================= */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-6">
+                <h2 className="text-lg font-semibold">Basic Info</h2>
                 <div>
-                    <h2 className="text-xl font-semibold text-gray-800">
-                        Insight Content
-                    </h2>
-                    <p className="text-sm text-gray-500">
-                        Manage heading and description
-                    </p>
+
+                    <label className="block">Badge</label>
+                    <input
+                        placeholder="Badge"
+                        value={form.badge}
+                        onChange={(e) => setForm({ ...form, badge: e.target.value })}
+                        className="w-full border border-gray-200 p-3 rounded-lg"
+                    />
                 </div>
 
-                {!isEditing && hasPermission("update_insight") && (
-                    <button
-                        onClick={() => setIsEditing(true)}
-                        className="flex items-center gap-2 px-4 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-sm transition active:scale-95"
-                    >
-                        <Pencil size={16} />
-                        Edit
-                    </button>
-                )}
+                <div>
+                    <label className="block">Heading</label>
+                    <input
+                        placeholder="Heading"
+                        value={form.heading}
+                        onChange={(e) => setForm({ ...form, heading: e.target.value })}
+                        className="w-full border border-gray-200 p-3 rounded-lg"
+                    />
+                </div>
+
+                <div>
+                    <label className="block">Description</label>
+                    <textarea
+                        placeholder="Description"
+                        value={form.description}
+                        onChange={(e) => setForm({ ...form, description: e.target.value })}
+                        className="w-full border border-gray-200 p-3 rounded-lg"
+                    />
+                </div>
             </div>
 
-            {/* VIEW MODE */}
-            {!isEditing ? (
-                <div className="space-y-5">
+            {/* ================= MONTHLY ================= */}
+            <SectionCard
+                title="Monthly"
+                data={form.monthly}
+                fileHandler={(e) => handleImageChange(e, "monthly")}
+                removeImage={() => removeImage("monthly")}
+                onChange={(field, value) =>
+                    setForm(prev => ({
+                        ...prev,
+                        monthly: { ...prev.monthly, [field]: value }
+                    }))
+                }
+            />
 
-                    {/* Heading */}
-                    <div className="p-4 rounded-lg border border-gray-200 bg-gray-50">
-                        <p className="text-xs text-gray-500 mb-1">Heading</p>
-                        <p className="text-base font-medium text-gray-800">
-                            {heading || "—"}
-                        </p>
-                    </div>
+            {/* ================= WEEKLY ================= */}
+            <SectionCard
+                title="Weekly"
+                data={form.weekly}
+                fileHandler={(e) => handleImageChange(e, "weekly")}
+                removeImage={() => removeImage("weekly")}
+                onChange={(field, value) =>
+                    setForm(prev => ({
+                        ...prev,
+                        weekly: { ...prev.weekly, [field]: value }
+                    }))
+                }
+            />
 
-                    {/* Description */}
-                    <div className="p-4 rounded-lg border border-gray-200  bg-gray-50">
-                        <p className="text-xs text-gray-500 mb-1">Description</p>
-                        <p className="text-sm text-gray-800 whitespace-pre-line leading-relaxed">
-                            {description || "—"}
-                        </p>
-                    </div>
-
-                </div>
-            ) : (
-                /* EDIT MODE */
-                <form onSubmit={handleSubmit} className="space-y-5">
-
-                    {/* Heading */}
-                    <div>
-                        <label className="text-sm font-medium text-gray-700">
-                            Heading
-                        </label>
-                        <input
-                            value={heading}
-                            onChange={(e) => setHeading(e.target.value)}
-                            placeholder="Enter heading"
-                            className="w-full mt-1 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none p-3 rounded-lg text-sm"
-                        />
-                    </div>
-
-                    {/* Description */}
-                    <div>
-                        <label className="text-sm font-medium text-gray-700">
-                            Description
-                        </label>
-                        <textarea
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            placeholder="Enter description"
-                            rows={4}
-                            className="w-full mt-1 border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none p-3 rounded-lg text-sm resize-none"
-                        />
-                    </div>
-
-                    {/* ACTIONS */}
-                    <div className="flex justify-end gap-3 pt-2">
-
-                        <button
-                            type="button"
-                            onClick={handleCancel}
-                            className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition"
-                        >
-                            Cancel
-                        </button>
-
-                        <button
-                            type="submit"
-                            className="px-5 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm"
-                        >
-                            Update
-                        </button>
-
-                    </div>
-
-                </form>
-            )}
-        </div>
+            <div className="flex justify-end">
+                <button className="px-8 py-3 bg-blue-600 text-white rounded-lg">
+                    Update Insight
+                </button>
+            </div>
+        </form>
     );
 }
