@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const InsightsSection = () => {
   return (
@@ -30,10 +31,10 @@ const InsightsSection = () => {
           </a>
         </div>
 
-        {/* --- Right Column: Cards --- */}
+      
         <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           
-          {/* Card 1: Market Outlook */}
+       <Link href={"/blogs/monthly"}>
           <div className="group cursor-pointer">
             <div className="relative h-64 w-full overflow-hidden mb-6">
               <img 
@@ -56,8 +57,9 @@ const InsightsSection = () => {
               </p>
             </div>
           </div>
+       </Link>
 
-          {/* Card 2: Wealth Planning */}
+         <Link href={"/blogs/weekly"}>
           <div className="group cursor-pointer">
            <div className="relative h-64 w-full overflow-hidden mb-6">
               <img 
@@ -78,6 +80,7 @@ const InsightsSection = () => {
               </p>
             </div>
           </div>
+         </Link>
 
         </div>
 

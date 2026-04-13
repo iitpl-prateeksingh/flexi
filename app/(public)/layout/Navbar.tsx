@@ -66,7 +66,7 @@ export default function Navbar() {
 
         <div className="flex flex-col p-5 gap-5">
           <DrawerLink label="About us" url="/aboutus" />
-          <DrawerLink label="Services" url="#" />
+          <DrawerLink label="Services" url="/services" />
           {/* <DrawerLink label="Contact us" url="contactus" />
           <DrawerLink label="Careers" url="#" /> */}
 
@@ -104,7 +104,7 @@ function NavLinks() {
       <Link href="aboutus" className="hover:text-orange-400">
         About us
       </Link>
-      <Link href="#services" className="hover:text-orange-400">
+      <Link href="/services" className="hover:text-orange-400">
         Services
       </Link>
       {/* <Link href="contactus" className="hover:text-orange-400">
