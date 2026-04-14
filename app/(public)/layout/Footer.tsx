@@ -1,7 +1,6 @@
-"use client";
+'use client';
 
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   FaEnvelope,
@@ -10,184 +9,171 @@ import {
   FaMapMarkerAlt,
   FaPhoneAlt,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6"; // FontAwesome 6 specific icon
+import { FaXTwitter } from "react-icons/fa6";
 
-const Footer = () => {
+const Footer = ({ data }: any) => {
+
+  const staticPages = [
+    { label: "Risk Factors", type: "risk-factor" },
+    { label: "Privacy Policy", type: "privacy-policy" },
+    { label: "Terms and Conditions", type: "terms-and-condition" },
+    { label: "Disclaimer", type: "disclaimer" },
+    { label: "Disclosure", type: "disclouser" },
+    { label: "Code of Conduct", type: "code-of-conduct" },
+    { label: "Code of Conduct-Revised", type: "code-of-conduct-revised" },
+    { label: "SID/SAI/KIM", type: "sid-sai-kim" },
+  ];
+
   return (
     <footer className="bg-[#032E52] text-white py-8 px-6 md:px-12 lg:px-20 font-inter">
-      {/* --- Top Section --- */}
+
+      {/* TOP SECTION */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 items-start mb-4">
-        {/* Logo Column (Left) - Takes 4 cols */}
+
+        {/* LOGO + SOCIAL */}
         <div className="md:col-span-4 flex flex-col items-start mx-auto md:mx-0">
-          {/* Logo Placeholder - Replace with your actual logo image */}
           <div className="mb-4">
-            <img src="/footer-logo.png" width={300} alt="Flexi Capital Logo" />
+            <img src={data?.logo} width={300} alt="Logo" />
+
             <div className="flex flex-col items-center mt-6 gap-4">
-              {/* <h4 className="text-lg font-medium text-gray-200">Follow us on our socials</h4> */}
               <div className="flex items-center gap-6">
-                <a
-                  href="#"
-                  className="text-[#F0803C] hover:text-white transition-colors text-3xl"
-                >
-                  <FaXTwitter />
-                </a>
-                <a
-                  href="#"
-                  className="text-[#F0803C] hover:text-white transition-colors text-3xl"
-                >
-                  <FaFacebookF />
-                </a>
-                <a
-                  href="#"
-                  className="text-[#F0803C] hover:text-white transition-colors text-3xl"
-                >
-                  <FaInstagram />
-                </a>
+
+                {data?.socialMedia?.twitter && (
+                  <a href={data.socialMedia.twitter} target="_blank"
+                    className="text-[#F0803C] hover:text-white text-3xl">
+                    <FaXTwitter />
+                  </a>
+                )}
+
+                {data?.socialMedia?.facebook && (
+                  <a href={data.socialMedia.facebook} target="_blank"
+                    className="text-[#F0803C] hover:text-white text-3xl">
+                    <FaFacebookF />
+                  </a>
+                )}
+
+                {data?.socialMedia?.instagram && (
+                  <a href={data.socialMedia.instagram} target="_blank"
+                    className="text-[#F0803C] hover:text-white text-3xl">
+                    <FaInstagram />
+                  </a>
+                )}
+
               </div>
             </div>
           </div>
         </div>
 
-        {/* Menu Column (Center) - Takes 4 cols */}
-        <div className="md:col-span-4 flex flex-col items-center md:items-center text-center">
-          <h3 className="text-md font-semibold mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-18 after:h-[1px] after:bg-[#173e5f]">
+        {/* MENU */}
+        <div className="md:col-span-4 flex flex-col items-center text-center">
+          <h3 className="text-md font-semibold mb-6 pb-2 border-b border-[#173e5f]">
             Menu
           </h3>
-          <ul className="space-y-4 text-sm text-[#fff]">
+
+          <ul className="space-y-4 text-sm">
+            <li><Link href="/about">About us</Link></li>
+            <li><Link href="/services">Services</Link></li>
+            <li><Link href="/contactus">Contact us</Link></li>
+
+            {/* Dynamic Blogs */}
+
             <li>
-              <Link
-                href="/about"
-                className="hover:text-[#F0803C] transition-colors"
-              >
-                About us
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/services"
-                className="hover:text-[#F0803C] transition-colors"
-              >
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/contact"
-                className="hover:text-[#F0803C] transition-colors"
-              >
-                Contact us
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/careers"
-                className="hover:text-[#F0803C] transition-colors"
-              >
+              <Link href={`/blogs/monthly`}>
                 Monthly Market Outlook
               </Link>
             </li>
+
+
+
             <li>
-              <Link
-                href="/careers"
-                className="hover:text-[#F0803C] transition-colors"
-              >
+              <Link href={`/blogs/weekly`}>
                 Weekly Flexi Wrap
               </Link>
             </li>
+
           </ul>
         </div>
 
-        {/* Contact & Socials Column (Right) - Takes 4 cols */}
-        <div className="md:col-span-4 flex flex-col items-start md:items-start  space-y-8">
-          <h3 className="text-md font-semibold mb-6 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-18 after:h-[1px] after:bg-[#173e5f]">
+        {/* CONTACT */}
+        <div className="md:col-span-4 flex flex-col items-start space-y-8">
+          <h3 className="text-md font-semibold mb-6 pb-2 border-b border-[#173e5f]">
             Contact us
           </h3>
-          <ul className="space-y-3 text-sm text-[#fff]">
-            {/* Email Section */}
-            <li className="flex items-center space-x-4">
-              <div className="bg-[#1c3c58] p-3 rounded-full flex-shrink-0 mt-1">
-                <FaEnvelope className="text-[#ff6b2b] text-lg" />
-              </div>
-              <span className="text-md pt-1 tracking-wide">
-                customer.service@flexicapital.co.in
-              </span>
-            </li>
 
-            {/* Phone Section */}
-            <li className="flex items-center space-x-4">
-              <div className="bg-[#1c3c58] p-3 rounded-full flex-shrink-0 mt-1">
-                <FaPhoneAlt className="text-[#ff6b2b] text-lg" />
-              </div>
-              <span className="text-md pt-1 tracking-wide">+91 1149072143</span>
-            </li>
+          <ul className="space-y-3 text-sm">
 
-            {/* Address Section */}
-            <li className="flex items-start space-x-4">
-              <div className="bg-[#1c3c58] p-3 rounded-full flex-shrink-0 mt-1">
-                <FaMapMarkerAlt className="text-[#ff6b2b] text-lg" />
-              </div>
-              <div className="text-md pt-1 tracking-wide leading-relaxed">
-                <p>Flexicapital Pvt Ltd.</p>
-                <p>B - 45, M-4B, Mezzanine Floor,</p>
-                <p>Greater Kailash, Part 1, New Delhi -</p>
-                <p>110048</p>
-              </div>
-            </li>
+            {/* EMAIL */}
+            {data?.email && (
+              <li className="flex items-center space-x-4">
+                <div className="bg-[#1c3c58] p-3 rounded-full">
+                  <FaEnvelope className="text-[#ff6b2b]" />
+                </div>
+                <span>{data.email}</span>
+              </li>
+            )}
+
+            {/* PHONE */}
+            {data?.phone && (
+              <li className="flex items-center space-x-4">
+                <div className="bg-[#1c3c58] p-3 rounded-full">
+                  <FaPhoneAlt className="text-[#ff6b2b]" />
+                </div>
+                <span>+91 {data.phone}</span>
+              </li>
+            )}
+
+            {/* ADDRESS */}
+            {data?.address && (
+              <li className="flex items-start space-x-4">
+                <div className="bg-[#1c3c58] p-3 rounded-full">
+                  <FaMapMarkerAlt className="text-[#ff6b2b]" />
+                </div>
+                <div className="leading-relaxed">
+                  {data.address}
+                </div>
+              </li>
+            )}
+
           </ul>
         </div>
       </div>
 
-      {/* --- Divider --- */}
+      {/* DIVIDER */}
       <div className="border-t border-gray-700/50 mb-8 max-w-7xl mx-auto" />
 
-      {/* --- Bottom Section (ARN Details) --- */}
+      {/* BOTTOM */}
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-6">
-        {/* ARN Info Row */}
-        <div className="flex flex-wrap justify-center gap-4 text-sm text-white font-medium tracking-wide">
-          <span>ARN : 257369</span>
-          <span className="hidden sm:inline text-gray-500">|</span>
-          <span>ARN Valid From: 18-11-2025</span>
-          <span className="hidden sm:inline text-gray-500">|</span>
-          <span>ARN Valid Till : 17-11-2028</span>
+
+        {/* ARN */}
+        <div className="flex flex-wrap justify-center gap-4 text-sm font-medium">
+          <span>ARN : {data?.arn?.number}</span>
+
+          {data?.arn?.fromDate && (
+            <span>
+              ARN Valid From: {new Date(data.arn.fromDate).toLocaleDateString("en-GB").replace(/\//g, "-")}
+            </span>
+          )}
+
+          {data?.arn?.tillDate && (
+            <span>
+              ARN Valid Till : {new Date(data.arn.tillDate).toLocaleDateString("en-GB").replace(/\//g, "-")}
+            </span>
+          )}
         </div>
 
-        {/* Links Row */}
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px] text-gray-300 uppercase tracking-wider">
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">
-            Risk Factors
-          </Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">
-            Privacy Policy
-          </Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">
-            Terms and Conditions
-          </Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">
-            Disclaimer
-          </Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">
-            Disclosure
-          </Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">
-            Code of Conduct
-          </Link>
-          <span className="text-gray-600">|</span>
-          <Link
-            href="#"
-            className="hover:text-[#F0803C] transition-colors whitespace-nowrap"
-          >
-            Code of Conduct-Revised
-          </Link>
-          <span className="text-gray-600">|</span>
-          <Link href="#" className="hover:text-[#F0803C] transition-colors">
-            SID/SAI/KIM
-          </Link>
+        {/* STATIC PAGES */}
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px] uppercase">
+          {staticPages.map((page, index) => (
+            <React.Fragment key={page.type}>
+              <Link href={`/${page.type}`}>
+                {page.label}
+              </Link>
+
+              {index !== staticPages.length - 1 && <span>|</span>}
+            </React.Fragment>
+          ))}
         </div>
+
       </div>
     </footer>
   );

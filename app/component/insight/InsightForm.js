@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { uploadImageService } from "../../services/imageService";
 import SectionCard from "../SectionCard"
 import { updateInsightContentApi } from "../../services/insightService";
+import QuillEditor from "../../component/QuillEditor";
 
 export default function InsightForm({ data, refresh }) {
 
@@ -145,32 +146,88 @@ export default function InsightForm({ data, refresh }) {
             </div>
 
             {/* ================= MONTHLY ================= */}
-            <SectionCard
-                title="Monthly"
-                data={form.monthly}
-                fileHandler={(e) => handleImageChange(e, "monthly")}
-                removeImage={() => removeImage("monthly")}
-                onChange={(field, value) =>
-                    setForm(prev => ({
-                        ...prev,
-                        monthly: { ...prev.monthly, [field]: value }
-                    }))
-                }
-            />
+            {/* ================= MONTHLY ================= */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-6">
+                <h2 className="text-lg font-semibold">Monthly</h2>
+
+                {/* IMAGE */}
+                <input type="file" onChange={(e) => handleImageChange(e, "monthly")} />
+                {form.monthly.image && (
+                    <img src={form.monthly.image} className="h-32 rounded" />
+                )}
+
+                {/* TITLE (QUILL) */}
+                <div>
+                    <label className="block mb-2">Title</label>
+                    <QuillEditor
+                        value={form.monthly.title}
+                        onChange={(val) =>
+                            setForm((prev) => ({
+                                ...prev,
+                                monthly: { ...prev.monthly, title: val },
+                            }))
+                        }
+                        height="120px"
+                    />
+                </div>
+
+                {/* DETAIL (QUILL) */}
+                <div>
+                    <label className="block mb-2">Detail</label>
+                    <QuillEditor
+                        value={form.monthly.detail}
+                        onChange={(val) =>
+                            setForm((prev) => ({
+                                ...prev,
+                                monthly: { ...prev.monthly, detail: val },
+                            }))
+                        }
+                        height="160px"
+                    />
+                </div>
+            </div>
 
             {/* ================= WEEKLY ================= */}
-            <SectionCard
-                title="Weekly"
-                data={form.weekly}
-                fileHandler={(e) => handleImageChange(e, "weekly")}
-                removeImage={() => removeImage("weekly")}
-                onChange={(field, value) =>
-                    setForm(prev => ({
-                        ...prev,
-                        weekly: { ...prev.weekly, [field]: value }
-                    }))
-                }
-            />
+            {/* ================= WEEKLY ================= */}
+            <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-6">
+                <h2 className="text-lg font-semibold">Weekly</h2>
+
+                {/* IMAGE */}
+                <input type="file" onChange={(e) => handleImageChange(e, "weekly")} />
+                {form.weekly.image && (
+                    <img src={form.weekly.image} className="h-32 rounded" />
+                )}
+
+                {/* TITLE (QUILL) */}
+                <div>
+                    <label className="block mb-2">Title</label>
+                    <QuillEditor
+                        value={form.weekly.title}
+                        onChange={(val) =>
+                            setForm((prev) => ({
+                                ...prev,
+                                weekly: { ...prev.weekly, title: val },
+                            }))
+                        }
+                        height="120px"
+                    />
+                </div>
+
+                {/* DETAIL (QUILL) */}
+                <div>
+                    <label className="block mb-2">Detail</label>
+                    <QuillEditor
+                        value={form.weekly.detail}
+                        onChange={(val) =>
+                            setForm((prev) => ({
+                                ...prev,
+                                weekly: { ...prev.weekly, detail: val },
+                            }))
+                        }
+                        height="160px"
+                    />
+                </div>
+            </div>
 
             <div className="flex justify-end">
                 <button className="px-8 py-3 bg-blue-600 text-white rounded-lg">

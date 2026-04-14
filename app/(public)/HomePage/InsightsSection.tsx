@@ -69,13 +69,19 @@ const InsightsSection = () => {
               </div>
 
               <div className="space-y-3 pl-6">
-                <span className="text-[#F78532] text-xl block font-playfair font-bold">
-                  {data.monthly.title}
-                </span>
+                <div
+                  className="html-editor text-4xl block font-playfair font-bold"
+                  dangerouslySetInnerHTML={{
+                    __html: data?.monthly?.title?.replace(/&nbsp;/g, " ") || "",
+                  }}
+                />
 
-                <p className="text-gray-500  text-sm leading-relaxed font-inter">
-                  {data.monthly.detail}
-                </p>
+                <p
+                  className="html-editor text-gray-500 text-sm leading-relaxed font-inter"
+                  dangerouslySetInnerHTML={{
+                    __html: data?.monthly?.detail?.replace(/&nbsp;/g, " ") || "",
+                  }}
+                />
               </div>
             </div>
           )}
@@ -92,13 +98,19 @@ const InsightsSection = () => {
               </div>
 
               <div className="space-y-3 pl-6">
-                <span className="text-[#F78532] text-xl block font-playfair font-bold">
-                  {data.weekly.title}
-                </span>
+                <div
+                  className="html-editor text-4xl block font-playfair font-bold"
+                  dangerouslySetInnerHTML={{
+                    __html: data?.weekly?.title?.replace(/&nbsp;/g, " ") || "",
+                  }}
+                />
 
-                <p className="text-gray-500 text-sm leading-relaxed font-inter">
-                  {data.weekly.detail}
-                </p>
+                <p
+                  className="html-editor text-gray-500 text-sm leading-relaxed font-inter"
+                  dangerouslySetInnerHTML={{
+                    __html: data?.weekly?.detail?.replace(/&nbsp;/g, " ") || "",
+                  }}
+                />
               </div>
             </div>
           )}

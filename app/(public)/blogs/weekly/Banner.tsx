@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
 
-const Banner: React.FC = () => {
+const Banner = ({ data }: any) => {
   return (
     // Main Container with Background Image
     <section
       className="relative w-full h-[450px] bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: 'url("/weekbg.png")',
+        backgroundImage: `url(${data?.image})`,
         backgroundColor: "#1a202c",
       }}
     >
@@ -15,7 +15,7 @@ const Banner: React.FC = () => {
         <div className="container mx-auto pt-30 md:pt-60">
           <div className="flex items-center justify-end gap-4">
             <span className="w-8 md:w-8 h-[1px] bg-[#f8813a]"></span>
-            <h1 className="text-[#f8813a]   md:text-md font-bold tracking-wide">
+            <h1 className="text-[#f8813a] md:text-md font-bold tracking-wide">
               Blogs
             </h1>
             <span className="w-8 md:w-8 h-[1px] bg-[#f8813a]"></span>
@@ -23,11 +23,21 @@ const Banner: React.FC = () => {
         </div>
         <div className="max-w-4xl float-end">
           <h1 className="font-playfair  font-semibold text-3xl  md:text-[50px]  leading-[106%]  tracking-[0] text-[#fff]">
-            <span className="text-[#F78532]">Weekly</span>
-           Weekly Flexi Wrap
+            <div
+              className="html-editor"
+              dangerouslySetInnerHTML={{
+                __html: data?.title?.replace(/&nbsp;/g, " "),
+              }}
+            />
           </h1>
-            <p className="font-inter  md:text-[24px] leading-[126%]  mt-4 text-right">
-         Cut through the Lawyers, your weekly market insights delivered weekly. </p>
+          <div className="font-inter  md:text-[24px] leading-[126%]  mt-4 text-right">
+            <p
+              className="html-editor"
+              dangerouslySetInnerHTML={{
+                __html: data?.detail?.replace(/&nbsp;/g, " "),
+              }}
+            />
+          </div>
         </div>
       </div>
 
