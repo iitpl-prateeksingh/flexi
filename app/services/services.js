@@ -57,3 +57,17 @@ export const updateSubServiceApi = (serviceId, subServiceId, data) => {
 export const deleteSubServiceApi = (serviceId, subServiceId) => {
   return API.delete(`/services/${serviceId}/sub-services/${subServiceId}`);
 };
+
+
+export const getServiceBannerApi = () => {
+  return API.get("/services/banner", {
+    headers: {
+      "Cache-Control": "no-cache",
+    }
+  });
+};
+
+// CREATE / UPDATE BANNER
+export const upsertServiceBannerApi = (data) => {
+  return API.post("/services/banner", data);
+};

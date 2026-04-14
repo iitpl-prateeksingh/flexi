@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Plus, ChevronDown, ChevronUp, Edit, Trash2 } from "lucide-react";
+import QuillEditor from "../../../component/QuillEditor"// Add this import for the custom QuillEditor
 
 import {
   getAllServicesApi,
@@ -12,6 +13,8 @@ import {
   addSubServiceApi,
   updateSubServiceApi,
   deleteSubServiceApi,
+  getServiceBannerApi,
+  upsertServiceBannerApi, // Add this import if not already present
 } from "../../../services/services";
 
 import {
@@ -22,6 +25,7 @@ import {
 } from "../../../services/valueService";
 
 import { uploadVideoService } from "../../../services/videoService";
+import { uploadImageService } from "../../../services/imageService"; // Add this import for image uploads
 
 import ConfirmModal from "../../../component/common/ConfirmModel";
 import { hasPermission } from "../../../utils/hasPermission";
@@ -35,6 +39,13 @@ export default function ServicesAdmin() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [expandedServices, setExpandedServices] = useState(new Set());
+
+  const [banner, setBanner] = useState(null);
+  const [bannerImage, setBannerImage] = useState(null);
+  const [mobileBannerImage, setMobileBannerImage] = useState(null);
+  const [bannerText, setBannerText] = useState(''); // Add state for bannerText
+  const [isTyping, setIsTyping] = useState(false); // Add state for tracking user interaction
+  const [bannerLoading, setBannerLoading] = useState(false);
 
   // Modal states
   const [deleteId, setDeleteId] = useState(null);
@@ -53,6 +64,7 @@ export default function ServicesAdmin() {
   const [valueData, setValueData] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
   const [videoUploading, setVideoUploading] = useState(false);
+  const [isDeleteVideoModalOpen, setIsDeleteVideoModalOpen] = useState(false);
 
   // Permissions
   const canCreate = hasPermission("create_services");
@@ -71,9 +83,17 @@ export default function ServicesAdmin() {
     }
   };
 
-  useEffect(() => {
-    fetchServices();
-  }, []);
+  const fetchBanner = async () => {
+    try {
+      const response = await getServiceBannerApi();
+      const bannerData = response?.data ?? response;
+      console.log("Fetched banner data:", bannerData); // Debug log
+      setBanner(bannerData || null);
+      setBannerText(bannerData?.bannerText || ''); // Set bannerText from fetched data
+    } catch {
+      toast.error("Failed to load banner");
+    }
+  };
 
   const toggleExpand = (serviceId) => {
     setExpandedServices((prev) => {
@@ -98,7 +118,9 @@ export default function ServicesAdmin() {
   useEffect(() => {
     fetchServices();
     fetchValue();
+    fetchBanner();
   }, []);
+
   const handleDeleteService = async () => {
     try {
       await deleteServiceApi(deleteId);
@@ -106,6 +128,49 @@ export default function ServicesAdmin() {
       fetchServices();
     } catch {
       toast.error("Delete failed");
+    }
+  };
+  const handleBannerSubmit = async () => {
+    try {
+      if (!bannerImage && !mobileBannerImage && !bannerText.trim()) {
+        toast.error("Please provide at least one banner image or text");
+        return;
+      }
+
+      setBannerLoading(true);
+
+      // Upload banner images if files are selected
+      let bannerUrl = banner?.banner || null;
+      let mobileBannerUrl = banner?.mobileBanner || null;
+
+      if (bannerImage?.file) {
+        const uploadRes = await uploadImageService(bannerImage.file);
+        bannerUrl = uploadRes.data?.url;
+      }
+
+      if (mobileBannerImage?.file) {
+        const uploadRes = await uploadImageService(mobileBannerImage.file);
+        mobileBannerUrl = uploadRes.data?.url;
+      }
+
+      const payload = {
+        banner: bannerUrl,
+        mobileBanner: mobileBannerUrl,
+        bannerText,
+      };
+
+      await upsertServiceBannerApi(payload);
+
+      toast.success("Banner updated successfully");
+
+      setBannerImage(null);
+      setMobileBannerImage(null);
+      setBannerText('');
+      fetchBanner();
+    } catch {
+      toast.error("Banner update failed");
+    } finally {
+      setBannerLoading(false);
     }
   };
 
@@ -123,10 +188,18 @@ export default function ServicesAdmin() {
     e.preventDefault();
     try {
       const { serviceId, editingData } = subServiceModal;
+
+      // Upload image if file is selected
+      let imageUrl = subServiceForm.image?.url || null;
+      if (subServiceForm.image?.file) {
+        const uploadRes = await uploadImageService(subServiceForm.image.file);
+        imageUrl = uploadRes.data?.url;
+      }
+
       const payload = {
         title: subServiceForm.title,
         description: subServiceForm.description,
-        image: subServiceForm.image?.url || null,
+        image: imageUrl,
       };
 
       if (editingData) {
@@ -187,6 +260,7 @@ export default function ServicesAdmin() {
 
   return (
     <div className="p-6 md:p-10 bg-gray-50 min-h-screen">
+
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
         <div>
@@ -198,6 +272,7 @@ export default function ServicesAdmin() {
           </p>
         </div>
 
+
         {canCreate && (
           <button
             onClick={() => router.push("/admin/services/create")}
@@ -207,7 +282,145 @@ export default function ServicesAdmin() {
             Add Service
           </button>
         )}
+      </div>{/* SERVICE BANNER SECTION */}
+      <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-6">
+        <div className="mb-4">
+          <h2 className="text-xl font-semibold text-gray-800">
+            Service Banner
+          </h2>
+          <p className="text-sm text-gray-500">
+            Update desktop and mobile banner images
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6"> {/* Update grid to 3 columns */}
+
+          {/* DESKTOP BANNER */}
+          <div>
+            <label className="font-medium block mb-2">Desktop Banner</label>
+            {bannerImage?.url || banner?.banner ? (
+              <div className="relative">
+                <img
+                  src={bannerImage?.url || banner?.banner}
+                  className="h-40 w-full object-cover rounded-lg border"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setBannerImage(null);
+                    setBanner((prev) => (prev ? { ...prev, banner: null } : null));
+                  }}
+                  className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
+                >
+                  ✕
+                </button>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg h-40 cursor-pointer">
+                <span className="text-gray-400">Upload</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    setBannerImage({
+                      file,
+                      url: URL.createObjectURL(file),
+                    });
+                  }}
+                />
+              </label>
+            )}
+          </div>
+
+          {/* MOBILE BANNER */}
+          <div>
+            <label className="font-medium block mb-2">Mobile Banner</label>
+            {mobileBannerImage?.url || banner?.mobileBanner ? (
+              <div className="relative">
+                <img
+                  src={mobileBannerImage?.url || banner?.mobileBanner}
+                  className="h-40 w-full object-cover rounded-lg border"
+                />
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileBannerImage(null);
+                    setBanner((prev) =>
+                      prev ? { ...prev, mobileBanner: null } : null,
+                    );
+                  }}
+                  className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
+                >
+                  ✕
+                </button>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg h-40 cursor-pointer">
+                <span className="text-gray-400">Upload</span>
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    setMobileBannerImage({
+                      file,
+                      url: URL.createObjectURL(file),
+                    });
+                  }}
+                />
+              </label>
+            )}
+          </div>
+
+          {/* BANNER TEXT */}
+        </div>
+        <div>
+          <label className="font-medium block mt-2">
+            Banner Text
+          </label>
+          <QuillEditor
+            value={bannerText}
+            onChange={(val) => {
+              const plainText = val.replace(/<(.|\n)*?>/g, "").trim();
+
+              // mark user interaction
+              setIsTyping(true);
+
+              if (plainText.length > 1000) {
+                const trimmedText = plainText.substring(0, 1000);
+                const trimmedHtml = `<p>${trimmedText}</p>`;
+
+                setBannerText(trimmedHtml);
+
+                // ✅ only show toast if user typed (not on load)
+                if (isTyping) {
+                  toast.error("Max 1000 characters allowed");
+                }
+              } else {
+                setBannerText(val);
+              }
+            }}
+            height="150px"
+          />
+        </div>
+
+        {/* ACTION BUTTON */}
+        <button
+          onClick={handleBannerSubmit}
+          disabled={bannerLoading}
+          className="mt-6 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50 text-sm"
+        >
+          {bannerLoading ? "Saving..." : "Save Banner"}
+        </button>
       </div>
+
 
       {/* SERVICES LIST */}
       <div className="space-y-4">
@@ -216,7 +429,7 @@ export default function ServicesAdmin() {
             No services found
           </div>
         )}
-
+        <h1 className="text-2xl font-semibold px-2">Services</h1>
         {services.map((service) => (
           <div
             key={service._id}
@@ -427,7 +640,7 @@ export default function ServicesAdmin() {
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleDeleteVideo();
+                        setIsDeleteVideoModalOpen(true);
                       }}
                       className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
                     >
@@ -527,6 +740,17 @@ export default function ServicesAdmin() {
         onConfirm={handleDeleteService}
         title="Delete Service"
         description="Are you sure you want to delete this service? This will also delete all its sub-services."
+        confirmText="Yes, Delete"
+        cancelText="Cancel"
+        confirmColor="bg-red-500"
+      />
+
+      <ConfirmModal
+        isOpen={isDeleteVideoModalOpen}
+        onClose={() => setIsDeleteVideoModalOpen(false)}
+        onConfirm={handleDeleteVideo}
+        title="Delete Value Video"
+        description="Are you sure you want to delete the value video?"
         confirmText="Yes, Delete"
         cancelText="Cancel"
         confirmColor="bg-red-500"
