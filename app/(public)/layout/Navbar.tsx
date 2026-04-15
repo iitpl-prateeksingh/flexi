@@ -102,7 +102,7 @@ export default function Navbar({ data }: any) {
 function NavLinks() {
   return (
     <>
-      <Link href="aboutus" className="hover:text-orange-400">
+      <Link href="/aboutus" className="hover:text-orange-400">
         About us
       </Link>
       <Link href="/services" className="hover:text-orange-400">

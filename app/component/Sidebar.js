@@ -60,7 +60,7 @@ export default function Sidebar() {
         },
         {
             name: "About Page",
-            path: "/admin/pages/about",
+            path: "/admin/pages/aboutus",
             permission: "update_about_page",
         }, {
             name: "Contact Page",

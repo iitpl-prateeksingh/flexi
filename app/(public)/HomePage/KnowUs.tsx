@@ -66,8 +66,8 @@ const StatCounter = ({
 
 const KnowUs = ({ data }: { data: any }) => {
   let introImage = data?.introImage;
-  let title = data?.missionTitle.replace(/&nbsp;/g, " ");
-  let des = data?.mission.replace(/&nbsp;/g, " ");
+  let title = data?.section2Title?.replace(/&nbsp;/g, " ");
+  let des = data?.section2Description?.replace(/&nbsp;/g, " ");
   let yoe = data?.yoe;
   let aua = data?.aua;
   let familiesServed = data?.familiesServed;
@@ -104,7 +104,7 @@ const KnowUs = ({ data }: { data: any }) => {
         <div className="flex flex-col text-center lg:text-left">
           <div className="mb-6">
             <span className="bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium">
-              Know us better
+              {data?.section2badge}
             </span>
           </div>
 

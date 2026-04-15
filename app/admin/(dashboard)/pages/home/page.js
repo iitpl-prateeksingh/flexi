@@ -12,8 +12,8 @@ export default function HomeAdminPage() {
 
     const [formData, setFormData] = useState({
         title: "",
-        missionTitle: "",
-        mission: "",
+        section2Title: "",
+        section2Description: "",
         services: "",
         ctoContent: "",
         yoe: "",
@@ -21,10 +21,24 @@ export default function HomeAdminPage() {
         aua: "",
         whyChooseTitle: "",
         whyChooseDetail: "",
-        bannerText: ""
+        bannerText: "",
+        section2badge: ""
     });
 
     const [isTyping, setIsTyping] = useState(false);
+
+    const [section2badge, setSection2badge] = useState("");
+    const [bannerImage, setBannerImage] = useState(null);
+    const [videos, setVideos] = useState([]);
+    const [introImage, setIntroImage] = useState(null);
+    const [ctoImage, setCtoImage] = useState(null)
+    const [whyChooseImage, setWhyChooseImage] = useState(null)
+    const [whyChooseList, setWhyChooseList] = useState([
+        { icon: null, title: "", description: "" }
+    ]);
+
+    const [features, setFeatures] = useState([{ title: "" }]);
+
     const fetchHomepage = async () => {
         try {
             const res = await getHomePageAdminService();
@@ -38,8 +52,9 @@ export default function HomeAdminPage() {
             setFormData(prev => ({
                 ...prev,
                 title: data.title || "",
-                missionTitle: data.missionTitle || "",
-                mission: data.mission || "",
+                section2Title: data.section2Title || "",
+                section2Description: data.section2Description || "",
+                section2badge: data.section2badge || "",
                 services: data.services || "",
                 ctoContent: data.ctoContent || "",
                 yoe: data.yoe || "",
@@ -88,6 +103,14 @@ export default function HomeAdminPage() {
                 });
             }
 
+            if (data.features) {
+                setFeatures(
+                    data.features.map((item) => ({
+                        title: item.title || ""
+                    }))
+                );
+            }
+
             // ✅ whyChooseList
             if (data.whyChooseList) {
                 setWhyChooseList(
@@ -110,14 +133,6 @@ export default function HomeAdminPage() {
         fetchHomepage();
     }, []);
 
-    const [bannerImage, setBannerImage] = useState(null);
-    const [videos, setVideos] = useState([]);
-    const [introImage, setIntroImage] = useState(null);
-    const [ctoImage, setCtoImage] = useState(null)
-    const [whyChooseImage, setWhyChooseImage] = useState(null)
-    const [whyChooseList, setWhyChooseList] = useState([
-        { icon: null, title: "", description: "" }
-    ]);
     // ✅ Quill change handler
     const handleQuillChange = (value, field) => {
         setFormData((prev) => ({
@@ -126,6 +141,21 @@ export default function HomeAdminPage() {
         }));
     };
 
+    const addFeature = () => {
+        if (features.length >= 6) return toast.error("Max 6 features allowed");
+
+        setFeatures((prev) => [...prev, { title: "" }]);
+    };
+
+    const removeFeature = (index) => {
+        setFeatures((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    const handleFeatureChange = (index, value) => {
+        const updated = [...features];
+        updated[index].title = value;
+        setFeatures(updated);
+    };
     const isEmpty = (value) => {
         if (!value) return true;
 
@@ -320,12 +350,18 @@ export default function HomeAdminPage() {
                     icon: iconUrl
                 });
             }
+            const updatedFeatures = features
+                .filter((f) => f.title && f.title.trim() !== "")
+                .map((f) => ({
+                    title: f.title
+                }));
 
             // ========================
             // ✅ 4. Final Payload (ONLY URLs)
             // ========================
             const payload = {
                 ...formData,
+                features: updatedFeatures,
                 videos: uploadedVideos,
                 introImage: introImageUrl,
                 ctoImage: ctoImageUrl,
@@ -419,6 +455,48 @@ export default function HomeAdminPage() {
                             )}
                         </div>
                     </div>
+
+                    <div className="bg-white p-6 rounded-xl shadow">
+                        <h2 className="text-xl font-semibold mb-4">Features</h2>
+
+                        <div className="space-y-4">
+                            {features.map((item, index) => (
+                                <div key={index} className="flex items-center gap-3">
+
+                                    <input
+                                        type="text"
+                                        placeholder="Enter feature title"
+                                        className="flex-1 border p-3 rounded-lg"
+                                        value={item.title}
+                                        onChange={(e) =>
+                                            handleFeatureChange(index, e.target.value)
+                                        }
+                                    />
+
+                                    {features.length > 1 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => removeFeature(index)}
+                                            className="bg-red-500 text-white px-3 py-2 rounded"
+                                        >
+                                            ✕
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Add Button */}
+                        {features.length < 6 && (
+                            <button
+                                type="button"
+                                onClick={addFeature}
+                                className="mt-4 bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
+                            >
+                                + Add Feature
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 {/* INTRODUCTION */}
@@ -430,8 +508,8 @@ export default function HomeAdminPage() {
                     <div className="mb-4">
                         <label>Introduction title</label>
                         <QuillEditor
-                            value={formData.missionTitle}
-                            onChange={(val) => handleQuillChange(val, "missionTitle")}
+                            value={formData.section2Title}
+                            onChange={(val) => handleQuillChange(val, "section2Title")}
                             height="60px"
                         />
                     </div>
@@ -440,88 +518,100 @@ export default function HomeAdminPage() {
                         <label>Introduction Description</label>
 
                         <QuillEditor
-                            value={formData.mission}
-                            onChange={(val) => handleQuillChange(val, "mission")}
+                            value={formData.section2Description}
+                            onChange={(val) => handleQuillChange(val, "section2Description")}
                             height="180px"
                         />
                     </div>
-                    <div className="mt-6 flex items-center gap-6 flex-wrap">
 
-                        {/* Preview */}
-                        {introImage && (
-                            <div className="relative w-32 h-32">
-                                <img
-                                    src={introImage.url}
-                                    className="w-full h-full object-cover rounded-lg border"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setIntroImage(null)}
-                                    className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
-                                >
-                                    ✕
-                                </button>
-                            </div>
-                        )}
-
-                        {/* Upload */}
-                        {!introImage && (
-                            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-32 h-32 cursor-pointer hover:bg-gray-50">
-                                <span className="text-2xl text-gray-400">+</span>
-                                <span className="text-xs text-gray-500">Upload</span>
-
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    className="hidden"
-                                    onChange={handleIntroImageUpload}
-                                />
-                            </label>
-                        )}
-
-                        {/* Stats */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
-                            <div>
-
-                                <label>Year of Experience</label>
-                                <input
-                                    type="text"
-                                    placeholder="Years of Experience"
-                                    className="border rounded-lg p-3"
-                                    value={formData.yoe}
-                                    onChange={(e) =>
-                                        setFormData(prev => ({ ...prev, yoe: e.target.value }))
-                                    }
-                                /></div>
-                            <div>
-                                <label>Families Served</label>
-                                <input
-                                    type="text"
-                                    placeholder="Families Served"
-                                    className="border rounded-lg p-3"
-                                    value={formData.familiesServed}
-
-                                    onChange={(e) =>
-                                        setFormData(prev => ({ ...prev, familiesServed: e.target.value }))
-                                    }
-                                />
-                            </div>
-                            <div>
-                                <label>Assets Under Advisory</label>
-                                <input
-                                    type="text"
-                                    placeholder="Assets Under Advisory"
-                                    className="border rounded-lg p-3"
-                                    value={formData.aua}
-                                    onChange={(e) =>
-                                        setFormData(prev => ({ ...prev, aua: e.target.value }))
-                                    }
-                                />
-                            </div>
-                        </div>
-
+                    <div className="mb-4">
+                        <label>Section 2 Badge</label>
+                        <input
+                            type="text"
+                            placeholder="Enter Section 2 Badge"
+                            className="border rounded-lg p-3 w-full"
+                            value={formData.section2badge}
+                            onChange={(e) =>
+                                setFormData(prev => ({ ...prev, section2badge: e.target.value }))
+                            }
+                        />
                     </div>
+
+                    {/* Preview */}
+                    {introImage && (
+                        <div className="relative w-32 h-32">
+                            <img
+                                src={introImage.url}
+                                className="w-full h-full object-cover rounded-lg border"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setIntroImage(null)}
+                                className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
+                            >
+                                ✕
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Upload */}
+                    {!introImage && (
+                        <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-32 h-32 cursor-pointer hover:bg-gray-50">
+                            <span className="text-2xl text-gray-400">+</span>
+                            <span className="text-xs text-gray-500">Upload</span>
+
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={handleIntroImageUpload}
+                            />
+                        </label>
+                    )}
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
+                        <div>
+
+                            <label>Year of Experience</label>
+                            <input
+                                type="text"
+                                placeholder="Years of Experience"
+                                className="border rounded-lg p-3"
+                                value={formData.yoe}
+                                onChange={(e) =>
+                                    setFormData(prev => ({ ...prev, yoe: e.target.value }))
+                                }
+                            /></div>
+                        <div>
+                            <label>Families Served</label>
+                            <input
+                                type="text"
+                                placeholder="Families Served"
+                                className="border rounded-lg p-3"
+                                value={formData.familiesServed}
+
+                                onChange={(e) =>
+                                    setFormData(prev => ({ ...prev, familiesServed: e.target.value }))
+                                }
+                            />
+                        </div>
+                        <div>
+                            <label>Assets Under Advisory</label>
+                            <input
+                                type="text"
+                                placeholder="Assets Under Advisory"
+                                className="border rounded-lg p-3"
+                                value={formData.aua}
+                                onChange={(e) =>
+                                    setFormData(prev => ({ ...prev, aua: e.target.value }))
+                                }
+                            />
+                        </div>
+                    </div>
+
                 </div>
+
 
                 {/* CTO */}
                 <div className="bg-white p-6 rounded-xl shadow">
@@ -586,6 +676,8 @@ export default function HomeAdminPage() {
                             height="100px"
                         />
                     </div>
+
+
 
                 </div>
 

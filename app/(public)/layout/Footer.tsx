@@ -71,7 +71,7 @@ const Footer = ({ data }: any) => {
           </h3>
 
           <ul className="space-y-4 text-sm">
-            <li><Link href="/about">About us</Link></li>
+            <li><Link href="/aboutus">About us</Link></li>
             <li><Link href="/services">Services</Link></li>
             <li><Link href="/contactus">Contact us</Link></li>
 

@@ -46,11 +46,18 @@ const HeroSection = ({ data }: { data: any }) => {
       <div className="absolute bottom-10 left-0 right-0 z-10 animate__animated animate__fadeInUp">
         <div className="container mx-auto px-6">
           <div className="backdrop-blur-[4px] bg-[#FFFFFF1F] text-white font-light rounded-full py-3 px-4 md:px-8 inline-flex flex-wrap items-center gap-2 md:gap-4 text-[12px] md:text-sm tracking-wide">
-            <span>AMFI Registered</span>
-            <span className="opacity-40">|</span>
-            <span>FEMA-Compliant Advisory</span>
-            <span className="opacity-40">|</span>
-            <span>Client-First Approach</span>
+
+            {data?.features?.map((item: any, index: number) => (
+              <span key={index} className="flex items-center gap-2">
+                <span>{item.title}</span>
+
+                {/* Divider (except last) */}
+                {index !== data.features.length - 1 && (
+                  <span className="opacity-40">|</span>
+                )}
+              </span>
+            ))}
+
           </div>
         </div>
       </div>
