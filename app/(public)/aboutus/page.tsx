@@ -5,13 +5,13 @@ import WeAreThe from './WeAreThe'
 import OurFoundation from './OurFoundation'
 import InsightsSection from '../HomePage/InsightsSection'
 import CTASection from '../HomePage/CTASection'
-import { getAboutPageAdminService } from "../../services/pages/aboutpageService"
+import { getAboutPagePublicService } from "../../services/pages/aboutpageService"
 
 export default function page() {
   const [data, setData] = useState()
   const fetchAboutPage = async () => {
     try {
-      const res = await getAboutPageAdminService();
+      const res = await getAboutPagePublicService();
       console.log("Response of about", res?.data?.contentRef)
       setData(res?.data?.contentRef)
     } catch (error: any) {

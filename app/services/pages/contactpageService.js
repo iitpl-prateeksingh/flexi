@@ -27,7 +27,7 @@ export const getContactPageAdminService = () => {
 
 // ✅ GET PUBLIC DATA
 export const getContactPagePublicService = () => {
-    return API.get("/contact", {
+    return API.get("/contact/public", {
         headers: {
             "Cache-Control": "no-cache",
         },
