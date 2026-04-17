@@ -50,30 +50,30 @@ interface CardData {
 const cardsData: CardData[] = [
   {
     id: 1,
-    title: "Mutual Funds",
+    title: "Mutual fund services",
     description:
-      "Every instrument carefully selected, every term clearly defined, backed by issuers you can rely on.",
+      "amfi certified experts helping portfolio solutions across asset classes",
     imageUrl: "/card11.png",
   },
   {
     id: 2,
     title: "PMS",
     description:
-      "Access exclusive tier-one funds and co-investment opportunities previously reserved for institutional investors.",
+      "Curated list of PMS managers running focused strategies — for HNI investors ready to move beyond mutual funds.",
     imageUrl: "/card12.png",
   },
   {
     id: 3,
-    title: "Real Estate",
+    title: "Real Estate Services",
     description:
-      "Diversify your portfolio with actively managed alternative investments designed to mitigate market volatility.",
+      "Enabling real estate opportunities via our established partners.",
     imageUrl: "/card13.png",
   },
   {
     id: 4,
     title: "Structured Notes",
     description:
-      "Invest in premium commercial and residential properties with stable yields and long-term capital appreciation.",
+      "Exclusive structured note opportunities — crafted for HNI investors seeking asymmetric payoffs with defined risk parameters.",
     imageUrl: "/card14.png",
   },
   {
@@ -87,7 +87,7 @@ const cardsData: CardData[] = [
     id: 6,
     title: "Private Equity",
     description:
-      "Back the next generation of disruptive startups and visionary founders reshaping global industries.",
+      "Curated access to high-conviction private equity opportunities — for investors seeking returns beyond public markets.",
     imageUrl: "/card16.png",
   },
   {
@@ -103,28 +103,28 @@ const cardsData1: CardData[] = [
     id: 1,
     title: "Trade finance Services",
     description:
-      "We manage every detail behind your trade, so your business moves without interruption.",
+      "Trade finance services enable businesses to manage cross border and domestic trade by offering instruments such as letters or credit guarantees and working capital solutions that reduce risk and improve cash flow ( via our banking partner).",
     imageUrl: "/c1.png",
   },
   {
     id: 2,
-    title: "Working capital finacne",
+    title: "Working capital services",
     description:
-      "Access exclusive tier-one funds and co-investment opportunities previously reserved for institutional investors.",
+      "Structured working capital solutions support businesses by financing their operational needs such  as inventory receivables and ensuring uniterupted operstions.",
     imageUrl: "/c2.png",
   },
   {
     id: 3,
     title: "Foreign exchange Services",
     description:
-      "Diversify your portfolio with actively managed alternative investments designed to mitigate market volatility.",
+      "Effortless inward and outward remittances — backed by institutional banking relationships for competitive rates and full regulatory compliance.",
     imageUrl: "/c3.png",
   },
   {
     id: 4,
-    title: "Trade finance",
+    title: "Trade finance services",
     description:
-      "Invest in premium commercial and residential properties with stable yields and long-term capital appreciation.",
+      "trade finance services enable businesses to manage cross border and domestic trade by offering instruments such as letters or credit guarantees and working capital solutions that reduce risk and improve cash flow ( via our banking partner).",
     imageUrl: "/c4.png",
   },
 ];
@@ -133,7 +133,7 @@ const cardsData3: CardData[] = [
     id: 1,
     title: "ATLAS Service",
     description:
-      "Every instrument carefully selected, every term clearly defined, backed by issuers you can rely on.",
+      "ATLAS- a one glance central repository giving you a unified view of your assets  and financial landscape. A single, consolidated view of your entire wealth — across asset classes, institutions, and geographies.",
     imageUrl: "/v1.png",
   },
   {
@@ -251,11 +251,10 @@ export default function TabSection() {
               </div>
               <div>
                 <p className="text-lg leading-relaxed text-[#204667A3]">
-                  We work with dedicated legal partners to make sure your will
-                  says exactly what you mean — and then build a succession
-                  framework around it that protects what you have built, the
-                  people you love and everything you have spent a lifetime
-                  putting together.
+                  providing structured solution to prortect and transition
+                  wealth and business ownerships across generations while
+                  ensuring governance, continuity and long term wealth
+                  preservation.
                 </p>
               </div>
             </div>
@@ -289,7 +288,7 @@ export default function TabSection() {
                 className="h-full w-full object-cover"
               >
                 <source src="/mains1.mp4" type="video/mp4" />
-               
+
                 <img
                   src="/fallback-image.jpg"
                   alt="Background"

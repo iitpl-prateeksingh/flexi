@@ -19,11 +19,11 @@ const SignatureApproach: React.FC = () => {
         <div className="flex justify-end">
           <div className="w-full md:w-1/2 lg:w-[40%] bg-[#B13229CC] p-8 md:p-16 text-white shadow-[0px_4.49px_4.49px_0px_#00000040]">
             <h2 className="text-3xl md:text-5xl font-serif mb-6 leading-tight">
-              Our Signature Approach
+              Our Investment Advisory
             </h2>
            
             <p className="text-lg md:text-2xl font-light leading-relaxed opacity-90">
-              &ldquo;We believe wealth protection is not about products, but about aligning financial decisions with life goals.&rdquo;
+              &ldquo; We believe wealth protection is not about products, but about aligning financial decisions with life goals.&rdquo;
             </p>
           </div>
         </div>

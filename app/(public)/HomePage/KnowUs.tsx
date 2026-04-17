@@ -53,7 +53,7 @@ const StatCounter = ({
         {count.toLocaleString()}
         {suffix}
       </h3>
-      <p className="text-slate-500 font-[family-name:var(--font-spline)] text-sm  mt-1">
+      <p className="text-slate-500 font-[family-name:var(--font-spline)] text-sm  mt-1 ">
         {label}
       </p>
     </div>
@@ -64,7 +64,7 @@ const KnowUs = () => {
   return (
     <section className="bg-[#FFF9F3] py-20 ">
       <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-        {/* Left Column: Image with Overlapping Button */}
+        
         <div className="relative group m-2 pb-4 md:m-10">
           <div className="rounded-3xl overflow-hidden  transition-transform duration-500 ">
             <img
@@ -97,23 +97,23 @@ const KnowUs = () => {
 
           <div className="space-y-6 mt-4  text-slate-600 font-[family-name:var(--font-spline)] text-lg leading-relaxed mb-12 max-w-xl mx-auto lg:mx-0">
             <p className="text-base opacity-80">
-               At FlexiCapital, we bring clarity to what is complex, light to what is hidden, and conviction to every step you take. Our approach is rooted in transparency, integrity and an unwavering commitment to our clients.
+              At FlexiCapital, we bring clarity to what is complex, light to what is hidden, and conviction to every step you take. Our approach is rooted in transparency, integrity and an unwavering commitment to our clients.
             </p>
             <p className="text-base opacity-80">
-             We treat every client relationship with the seriousness it deserves and the dedication it demands. Because at the end of the day, what matters most is you
+               We treat every client relationship with the seriousness it deserves and the dedication it demands. Because at the end of the day, what matters most is you.
             </p>
           </div>
 
           {/* Animated Stats Bar */}
           <div className="flex flex-col md:flex-row items-center gap-8  pt-8">
-            <StatCounter end={15} suffix="+" label="Years Experience" />
+            <StatCounter end={50} suffix="+" label="Combined Years of Experience" />
             <div className="hidden md:block h-12 w-[1px] bg-slate-300" />
-            <StatCounter end={500} suffix="+" label="Families Served" />
+            <StatCounter end={350} suffix="+" label="Families Served" />
             <div className="hidden md:block h-12 w-[1px] bg-slate-300" />
             <StatCounter
-              end={10000}
+              end={2000}
               suffix="Cr+"
-              label="Assets Under Advisory"
+              label="Assets Under Distribution"
             />
           </div>
         </div>

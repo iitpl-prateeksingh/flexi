@@ -53,8 +53,7 @@ const InsightsSection = () => {
                 Q4 2024 Global Economic Trends
               </h3> */}
               <p className="text-gray-500 text-sm leading-relaxed font-inter">
-              Navigate the month ahead with clarity and conviction with Monthly market outlook by flexi cap
-              </p>
+             Navigate the month ahead with clarity and conviction with Monthly market outlook by flexi capital.</p>
             </div>
           </div>
        </Link>
@@ -76,7 +75,7 @@ const InsightsSection = () => {
                 Succession Strategies for Family Enterprises
               </h3> */}
               <p className="text-gray-500 text-sm leading-relaxed font-inter">
-               Cut through the Lawyers, your weekly market insights delivered weekly.
+              Cut through the noise, your market insights delivered weekly.
               </p>
             </div>
           </div>

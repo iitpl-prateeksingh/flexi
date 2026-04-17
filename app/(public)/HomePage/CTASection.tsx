@@ -4,7 +4,7 @@ import React from 'react';
 
 const CTASection = () => {
   return (
-    <section className="relative w-full overflow-hidden py-24 md:py-32" style={{backgroundImage:"url('/backk.png')",backgroundRepeat:"no-repeat",backgroundPosition:"bottom",backgroundColor:"#FFF9F3"}}>
+    <section className="relative w-full overflow-hidden py-24 md:pt-80" style={{backgroundImage:"url('/backk.png')",backgroundRepeat:"no-repeat",backgroundPosition:"bottom",backgroundColor:"#FFF9F3"}}>
       
 
       {/* --- Main Content --- */}
@@ -17,15 +17,16 @@ const CTASection = () => {
 
         {/* Heading */}
         <h2 className="mb-6 font-playfair text-3xl font-bold leading-tight text-[#15316E] md:text-4xl lg:text-5xl">
-          Let’s Build Your <br />
-          Financial Future
+          {/* Let’s Build Your <br />
+          Financial Future */}
+          Start Your journey
         </h2>
 
         {/* Subheading */}
-        <p className="mx-auto mb-10 max-w-2xl font-inter text-base leading-relaxed text-gray-500 md:text-lg">
+        {/* <p className="mx-auto mb-10 max-w-2xl font-inter text-base leading-relaxed text-gray-500 md:text-lg">
           Whether you are an individual investor, family office, or institution, 
           our team is ready to guide you.
-        </p>
+        </p> */}
 
         {/* Buttons */}
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">

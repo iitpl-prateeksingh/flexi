@@ -6,12 +6,18 @@ const features = [
   },
   {
     title: "Team-based model",
-    description: "We create a dynamic team for each client according to their needs and wants. This ensures seamless support and continuity as opposed to a sole financial planner model. Our clients can rely on us because we are transparent through all channels of communication.",
+    description: "We create a dynamic team for each client according to their needs and wants. This ensures seamless support and continuity as opposed to a sole financial planner model.",
     icon: "/m2.png"
   },
   {
     title: "In-depth Analysis",
-    description: "With the help of our research and analysis partner (name unclear in image), we provide a detailed portfolio with X-ray reports of one's financial assets across all channels. This helps both our clients and us to understand our progress and chart a more defined route towards attaining our clients' goals.",
+    description: ( <>
+    With the help of our research team and knowledge partner <br /> 
+    <span style={{ color: '#CC0003D1', fontWeight: 'bold' }}>
+      ( Morningstar Research )
+    </span>
+    , we provide a detailed portfolio with X-ray reports of our clients across multiple platforms to help us understand the progress.
+  </>),
     icon: "/m3.png"
   },
   // {

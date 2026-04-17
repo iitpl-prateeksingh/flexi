@@ -43,11 +43,11 @@ const HeroSection = () => {
       <div className="absolute bottom-10 left-0 right-0 z-10 animate__animated animate__fadeInUp">
         <div className="container mx-auto px-6">
           <div className="backdrop-blur-[4px] bg-[#FFFFFF1F] text-white font-light rounded-full py-3 px-4 md:px-8 inline-flex flex-wrap items-center gap-2 md:gap-4 text-[12px] md:text-sm font-[family-name:var(--font-inter)] tracking-wide">
-            <span>AMFI Registered</span>
-            <span className="opacity-40">|</span>
+            <span>AMFI Registered mutual fund distributor </span>
+            {/* <span className="opacity-40">|</span>
             <span>FEMA-Compliant Advisory</span>
             <span className="opacity-40">|</span>
-            <span>Client-First Approach</span>
+            <span>Client-First Approach</span> */}
           </div>
         </div>
       </div>
