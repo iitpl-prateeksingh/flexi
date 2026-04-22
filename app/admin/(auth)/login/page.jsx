@@ -7,7 +7,7 @@ import { loginService } from "../../../services/authService/authService";
 
 export default function AdminLogin() {
     const searchParams = useSearchParams();
-    const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+    const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://dev.invoidea.in/flexi/api";
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);

@@ -9,7 +9,7 @@ export default function AdminLayout({ children }) {
     const pathname = usePathname();
 
     const [loading, setLoading] = useState(true);
-    const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+    const BaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "https://dev.invoidea.in/flexi/api";
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("permissions");
