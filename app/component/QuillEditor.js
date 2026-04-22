@@ -21,6 +21,7 @@ export default function QuillEditor({
         toolbar: [
             [{ header: [1, 2, 3, false] }],
             ["bold", "italic", "underline", "strike"],
+            [{ size: ["small", false, "large", "huge"] }],
             [{ color: [] }, { background: [] }],
             [{ list: "ordered" }, { list: "bullet" }],
             [{ align: [] }],
@@ -31,6 +32,7 @@ export default function QuillEditor({
 
     const formats = [
         "header",
+        "size",
         "bold", "italic", "underline", "strike",
         "color", "background",
         "list",
