@@ -6,6 +6,8 @@ const API = axios.create({
     timeout: 10000,
 });
 
+
+console.log("API Base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
 // ================================
 // ✅ REQUEST INTERCEPTOR
 // ================================
