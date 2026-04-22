@@ -53,8 +53,6 @@ jobs:
  
       - name: Build App
         run: npm run build
-        env: 
-        NEXT_PUBLIC_API_BASE_URL: https://dev.invoidea.in/flexi/api
  
       - name: Deploy to Netlify
         run: netlify deploy --build --prod --auth "nfp_uTGp64NEyyTk2fYowPVugtqUWiwBV8bH064c" --site 2277e71e-d153-4a85-81d4-a4df1cb6f42e
