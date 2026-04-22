@@ -132,7 +132,7 @@ span {
     font-family: var(--font-playfair) !important;
   }
 }
-.flex-initial ul > span:last-of-type {
+ ul > span:last-of-type {
   display: none;
 }
 @media (max-width: 480px) {

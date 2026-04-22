@@ -1,52 +1,69 @@
 "use client";
-
+ 
 import TabCard from "@/app/components/TabCard";
 import React, { useEffect, useState } from "react";
 import { getPublicServices } from "@/app/services/services";
-
+import { getPublicValuesApi } from "@/app/services/valueService"
+ 
 interface SubServiceCard {
   id: string;
   title: string;
   description?: string;
   imageUrl?: string;
 }
-
+ 
 interface ServiceTab {
   id: string;
   title: string;
   description?: string;
   subServices: SubServiceCard[];
 }
-
+ 
+interface ValueVideoItem {
+  _id?: string;
+  videoUrl?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+ 
 const cleanText = (value?: string) => (value ?? "").replace(/&nbsp;/g, " ").trim();
-
+const asString = (value: unknown) => (typeof value === "string" ? value : undefined);
+const asArray = (value: unknown) => (Array.isArray(value) ? value : []);
+ 
 export default function TabSection() {
   const [services, setServices] = useState<ServiceTab[]>([]);
   const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [valuesData, setValuesData] = useState<ValueVideoItem[]>([]);
+ 
   useEffect(() => {
     const fetchServices = async () => {
       try {
         setIsLoading(true);
-        const res = await getPublicServices();
-        const rawServices = Array.isArray(res?.data) ? res.data : [];
-        const normalized: ServiceTab[] = rawServices.map((service: any, index: number) => {
-          const serviceId = service._id ?? service.id ?? `service-${index}`;
-          const subServices = Array.isArray(service.subServices) ? service.subServices : [];
+        const res: unknown = await getPublicServices();
+        const resObj = res as { data?: unknown };
+        const rawServices = Array.isArray(resObj?.data) ? resObj.data : [];
+ 
+        const normalized: ServiceTab[] = rawServices.map((service, index: number) => {
+          const serviceObj = service as Record<string, unknown>;
+          const serviceId = asString(serviceObj["_id"]) ?? asString(serviceObj["id"]) ?? `service-${index}`;
+          const subServices = asArray(serviceObj["subServices"]);
           return {
             id: serviceId,
-            title: cleanText(service.title ?? service.name) || "Service",
-            description: cleanText(service.detail ?? service.description),
-            subServices: subServices.map((sub: any, subIndex: number) => ({
-              id: sub._id ?? sub.id ?? `${serviceId}-sub-${subIndex}`,
-              title: cleanText(sub.title) || `Offering ${subIndex + 1}`,
-              description: cleanText(sub.description ?? sub.detail),
-              imageUrl: sub.image ?? sub.imageUrl,
-            })),
+            title: cleanText(asString(serviceObj["title"]) ?? asString(serviceObj["name"])) || "Service",
+            description: cleanText(asString(serviceObj["detail"]) ?? asString(serviceObj["description"])),
+            subServices: subServices.map((sub, subIndex: number) => {
+              const subObj = sub as Record<string, unknown>;
+              return {
+                id: asString(subObj["_id"]) ?? asString(subObj["id"]) ?? `${serviceId}-sub-${subIndex}`,
+                title: cleanText(asString(subObj["title"])) || `Offering ${subIndex + 1}`,
+                description: cleanText(asString(subObj["description"]) ?? asString(subObj["detail"])),
+                imageUrl: asString(subObj["image"]) ?? asString(subObj["imageUrl"]),
+              };
+            }),
           };
         });
-
+ 
         setServices(normalized);
         setActiveServiceId((prev) => prev ?? normalized[0]?.id ?? null);
       } catch (error) {
@@ -55,23 +72,53 @@ export default function TabSection() {
         setIsLoading(false);
       }
     };
-
+ 
     fetchServices();
   }, []);
-
+ 
+  useEffect(() => {
+    const fetchValues = async () => {
+      try {
+        const res: unknown = await getPublicValuesApi();
+        const resObj = res as { data?: unknown };
+        const rawValues = Array.isArray(resObj?.data) ? resObj.data : [];
+ 
+        const normalized: ValueVideoItem[] = rawValues.map((item) => {
+          const obj = item as Record<string, unknown>;
+          return {
+            _id: asString(obj["_id"]),
+            videoUrl: asString(obj["videoUrl"]),
+            createdAt: asString(obj["createdAt"]),
+            updatedAt: asString(obj["updatedAt"]),
+          };
+        });
+ 
+        setValuesData(normalized);
+      } catch (error) {
+        console.error("Failed to fetch values", error);
+      }
+    };
+ 
+    fetchValues();
+  }, []);
+ 
+ 
   const activeService = services.find((service) => service.id === activeServiceId);
   const hasTabs = services.length > 0;
-
+  const lastServiceId = services.length ? services[services.length - 1]?.id : null;
+  const isLastTabActive = Boolean(lastServiceId && activeServiceId === lastServiceId);
+  const lastVideoUrl = valuesData.length ? valuesData[valuesData.length - 1]?.videoUrl : undefined;
+ 
   return (
     <section className="min-h-screen bg-[#FFF7F0] px-6 py-20 font-sans">
       <div className="mx-auto max-w-6xl">
         <div className="relative mb-16 rounded-full border border-b-[#F78532] border-transparent bg-transparent p-1.5">
-          <ul className="flex flex-wrap items-center justify-between overflow-x-auto px-1">
+         <ul className="flex flex-wrap items-center justify-between overflow-x-auto px-1">
             {hasTabs
               ? services.map((service) => {
                 const isActive = activeServiceId === service.id;
                 return (
-                  <React.Fragment key={service.id}>
+                  <React.Fragment key={service.id} >
                   <li key={service.id} className="flex-initial">
                     <button
                       type="button"
@@ -99,7 +146,7 @@ export default function TabSection() {
             )}
           </ul>
         </div>
-
+ 
         {activeService ? (
           <>
             <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-20">
@@ -115,7 +162,7 @@ export default function TabSection() {
                 </p>
               </div>
             </div>
-
+ 
             {activeService.subServices.length ? (
               <div className="grid grid-cols-1 md:grid-cols-4 mt-6 gap-6">
                 <TabCard cardData={activeService.subServices} />
@@ -123,6 +170,17 @@ export default function TabSection() {
             ) : (
               null
             )}
+ 
+            {isLastTabActive && lastVideoUrl ? (
+              <div className="mt-10 border-l-8 border-[#F78532] rounded-r-[16px] overflow-hidden">
+                <div className="aspect-video w-full bg-black">
+                  <video autoPlay className="h-full w-full" controls preload="metadata">
+                    <source src={lastVideoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            ) : null}
           </>
         ) : (
           !isLoading && (
@@ -135,3 +193,5 @@ export default function TabSection() {
     </section>
   );
 }
+ 
+ 
