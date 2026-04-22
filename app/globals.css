@@ -9,17 +9,143 @@
 body {
   font-family: var(--font-inter);
 }
+
 .font-playfair {
   font-family: var(--font-playfair);
 }
-.font-inter{
+
+.font-inter {
   font-family: var(--font-inter);
 }
-.closeBtn{
-    color: #da3036;
-    background: #da303617;
-    border-radius: 6px;
-    font-size: 18px;
-    padding: 3px;
 
+.closeBtn {
+  color: #da3036;
+  background: #da303617;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 3px;
+}
+
+.html-editor,
+.html-editor * {
+  white-space: normal !important;
+  word-break: normal !important;
+  overflow-wrap: anywhere;
+}
+
+.html-editor h1 * {
+  font-size: 40px !important;
+  font-weight: 600 !important;
+}
+
+.html-editor p,
+span {
+  font-size: 18px !important;
+}
+
+.html-editor h2 * {
+  font-size: 32px !important;
+}
+
+.quill-content {
+  color: white;
+  line-height: 1.6;
+}
+
+/* Reset Tailwind/global overrides */
+.quill-content * {
+  all: revert;
+}
+
+/* Re-apply safe defaults */
+.quill-content {
+  color: white;
+  font-family: inherit;
+}
+
+/* spacing fix */
+.quill-content p {
+  margin-bottom: 1rem;
+}
+
+.main-home .html-editor h1 * {
+  font-weight: 600 !important;
+  font-size: 60px !important;
+  line-height: 106% !important;
+  font-family: var(--font-playfair) !important;
+}
+.main-home .html-editor {
+  text-align: right !important;
+  padding: 20px !important;
+}
+
+.main-home .html-editor p span {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 27.78px !important;
+  line-height: 126% !important;
+  letter-spacing: 0;
+  margin-top: 1rem !important;
+  text-align: right;
+  line-height: 80px !important;
+}
+.main-bott .html-editor p,
+span {
+  font-size: 0.875rem !important;
+}
+.html-editor h2 * {
+  font-size: 38px !important;
+  font-family: var(--font-playfair) !important;
+  line-height: 106% !important;
+}
+.html-editor p,
+span {
+  font-family: var(--font-spline);
+  font-size: 16px !important;
+}
+.main-services h2 * {
+  font-size: 48px !important;
+  font-family: var(--font-playfair) !important;
+  line-height: 92px !important;
+}
+.main-why p {
+  color: #204667 !important;
+}
+.main-inc  p span {
+  font-family: var(--font-playfair) !important;
+  font-size: 20px !important;
+}
+.main-inc .html-editor p {
+  font-size: 14px !important;
+}
+.main-blog .html-editor p span {
+  font-family: var(--font-playfair) !important;
+  font-size: 50px !important;
+  color: #fff !important;
+}
+.main-blog-des p{
+  font-size: 26px !important;
+}
+.service-banner {
+  h1 span {
+    font-size: 50px !important;
+    font-family: var(--font-playfair) !important;
+  }
+}
+.flex-initial ul > span:last-of-type {
+  display: none;
+}
+@media (max-width: 480px) {
+  .main-home .html-editor h1 * {
+    font-size: 30px !important;
+  }
+  .main-services h2 * {
+    font-size: 48px !important;
+    font-family: var(--font-playfair) !important;
+    line-height: 58px !important;
+  }
+  .main-home .html-editor p span {
+    font-weight: 400 !important;
+    font-size: 16px !important;
+  }
 }

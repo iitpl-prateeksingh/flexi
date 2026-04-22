@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React from 'react';
 
 const CTASection = () => {
@@ -9,7 +10,7 @@ const CTASection = () => {
 
       {/* --- Main Content --- */}
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        
+
         {/* Top Label */}
         <p className="mb-4 font-inter text-sm font-medium tracking-wide text-[#F0803C]">
           Ready to Begin?
@@ -36,9 +37,12 @@ const CTASection = () => {
           </button> */}
 
           {/* Secondary Button */}
-          <button className="h-12 cursor-pointer w-full min-w-[160px] rounded-full border border-[#F0803C] bg-transparent px-8 font-inter text-sm font-semibold text-[#F0803C] transition-colors hover:bg-[#F0803C] hover:text-white sm:w-auto">
+          <Link
+            href="/contactus"
+            className="h-12 flex items-center justify-center cursor-pointer w-full min-w-[160px] rounded-full border border-[#F0803C] bg-transparent px-8 font-inter text-sm font-semibold text-[#F0803C] transition-colors hover:bg-[#F0803C] hover:text-white sm:w-auto"
+          >
             Contact us
-          </button>
+          </Link>
         </div>
 
       </div>

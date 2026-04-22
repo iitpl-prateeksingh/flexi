@@ -4,8 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { FiUser, FiMenu, FiX } from "react-icons/fi";
 
-export default function Navbar() {
+export default function Navbar({ data }: any) {
   const [open, setOpen] = useState(false);
+  console.log("data of setting in navbar", data)
 
   return (
     <>
@@ -13,7 +14,7 @@ export default function Navbar() {
       <header className="absolute top-0 left-0 w-full z-50 animate__animated animate__fadeInDown">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
-          <img src="/flexi-logo.png" alt="Flexi Capital" className="h-12" />
+            <img src={data?.logo} alt="Flexi Capital" className="h-12" />
           </Link>
 
           <div
@@ -58,7 +59,7 @@ export default function Navbar() {
       >
         <div className="p-5 flex items-center justify-between border-b border-b-orange-200">
           {/* <span className="font-semibold text-lg">Menu</span> */}
-          <img src="/flexi-logo.png" alt="" className="w-15" />
+          <img src={data?.logo} alt="" className="w-15" />
           <button onClick={() => setOpen(false)} className="text-2xl closeBtn">
             <FiX />
           </button>
@@ -101,7 +102,7 @@ export default function Navbar() {
 function NavLinks() {
   return (
     <>
-      <Link href="aboutus" className="hover:text-orange-400">
+      <Link href="/aboutus" className="hover:text-orange-400">
         About us
       </Link>
       <Link href="/services" className="hover:text-orange-400">
@@ -141,8 +142,8 @@ function CTA() {
       href="/contactus"
       className="bg-orange-400 hover:bg-orange-500 text-white px-5 py-2 rounded-full font-medium transition"
     >
-       Contact us
-    </Link>
+      Contact us
+    </Link >
   );
 }
 

@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
-
-const Banner: React.FC = () => {
+ 
+const Banner = ({ data }: any) => {
   return (
-    // Main Container with Background Image
+ 
     <section
       className="relative w-full h-[450px] bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: 'url("/servicebg.png")',
+        backgroundImage: `url(${data?.banner})`,
         backgroundColor: "#1a202c",
       }}
     >
@@ -22,18 +22,20 @@ const Banner: React.FC = () => {
           </div>
         </div>
         <div className="max-w-2xl">
-          <h1 className="font-playfair  font-semibold text-3xl  md:text-[50px]  leading-[106%]  tracking-[0] text-[#fff]">
-            <span className="text-[#F78532]">
-              The Screen Shows the Numbers.
-            </span>{" "}
-            We show you what they mean.
-          </h1>
+          <h1
+            className="font-playfair html-editor service-banner font-semibold text-5xl md:text-[50px] leading-[106%] tracking-[0] text-[#fff]"
+            dangerouslySetInnerHTML={{
+              __html: data?.bannerText.replace(/&nbsp;/g, " ") || '',
+            }}
+          />
         </div>
       </div>
-
+ 
       <div className="absolute bottom-[-16px] left-0 w-3/4 md:w-1/2 h-4 md:h-8 bg-[#FFF9F3] rounded-tr-[150px] z-20"></div>
     </section>
   );
 };
-
+ 
 export default Banner;
+ 
+ 

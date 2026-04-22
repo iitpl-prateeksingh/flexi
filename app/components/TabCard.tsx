@@ -1,8 +1,8 @@
 interface CardData {
-  id: number;
+  id: number | string;
   title: string;
-  description: string;
-  imageUrl: string;
+  description?: string; // ✅ make optional
+  imageUrl?: string;
 }
 export default function TabCard({ cardData }: { cardData: CardData[] }) {
   return (
@@ -12,14 +12,17 @@ export default function TabCard({ cardData }: { cardData: CardData[] }) {
           key={card.id}
           className="group relative w-full h-[400px] overflow-hidden bg-gray-900  cursor-pointer"
         >
-         <img
-            src={card.imageUrl}
-            alt={card.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-          />
+          {card.imageUrl ? (
+            <img
+              src={card.imageUrl}
+              alt={card.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1B365D]/80 to-[#4A90E2]/80" />
+          )}
 
-        <div className="absolute bottom-0 left-0 w-full px-4 py-4 flex flex-col justify-end bg-[#00000038] backdrop-blur-[28px] ">
-         
+          <div className="absolute bottom-0 left-0 w-full px-4 py-4 flex flex-col justify-end bg-[#00000038] backdrop-blur-[28px] ">
             <h3 className="text-white text-md font-serif tracking-wide ">
               {card.title}
             </h3>

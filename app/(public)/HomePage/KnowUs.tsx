@@ -1,4 +1,7 @@
 "use client";
+import { Yeon_Sung } from "next/font/google";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useRef } from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
@@ -27,11 +30,12 @@ const StatCounter = ({
     return () => observer.disconnect();
   }, []);
 
+  const router = useRouter()
   useEffect(() => {
     if (!hasStarted) return;
 
     let start = 0;
-    const duration = 2000; // 2 seconds
+    const duration = 2000;
     const increment = end / (duration / 16);
 
     const timer = setInterval(() => {
@@ -50,68 +54,88 @@ const StatCounter = ({
   return (
     <div ref={countRef} className="text-center">
       <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-inter)] font-semibold text-[#204667]">
-        {count.toLocaleString()}
+        {count.toLocaleString("en-IN")}
         {suffix}
       </h3>
-      <p className="text-slate-500 font-[family-name:var(--font-spline)] text-sm  mt-1 ">
+      <p className="text-slate-500 font-[family-name:var(--font-spline)] text-sm mt-1">
         {label}
       </p>
     </div>
   );
 };
 
-const KnowUs = () => {
+const KnowUs = ({ data }: { data: any }) => {
+  let introImage = data?.introImage;
+  let title = data?.section2Title?.replace(/&nbsp;/g, " ");
+  let des = data?.section2Description?.replace(/&nbsp;/g, " ");
+  let yoe = data?.yoe;
+  let aua = data?.aua;
+  let familiesServed = data?.familiesServed;
+
+  console.log("DATA in know Us", data);
+
+
   return (
     <section className="bg-[#FFF9F3] py-20 ">
       <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
-        
+
+        {/* LEFT IMAGE */}
         <div className="relative group m-2 pb-4 md:m-10">
-          <div className="rounded-3xl overflow-hidden  transition-transform duration-500 ">
+          <div className="rounded-3xl overflow-hidden transition-transform duration-500 ">
             <img
-              src="/magnifying-glass.png"
+              src={introImage || "/magnifying-glass.png"}
               alt="Strategic Clarity"
               className="w-full h-auto object-cover min-h-[400px]"
             />
           </div>
 
-          {/* Overlapping Learn More Button */}
-          <div className="absolute bottom-0 right-0 lg:right-0 bg-[#FFF9F3] rounded-tl-[30px] rounded-br-3xl p-3  border-l-8 border-t-8 border-[#FFF9F3]">
-            <button className="flex items-center gap-3 cursor-pointer text-[#FF8C42] border border-[#FF8C42] px-8 py-3 rounded-full hover:bg-[#FF8C42] hover:text-white transition-all duration-300">
-              Learn More <HiOutlineArrowNarrowRight className="text-xl" />
-            </button>
+          <div className="absolute bottom-0 right-0 lg:right-0 bg-[#FFF9F3] rounded-tl-[30px] rounded-br-3xl p-3 border-l-8 border-t-8 border-[#FFF9F3]">
+            <Link
+              href="/aboutus"
+              className="flex items-center gap-3 cursor-pointer text-[#FF8C42] border border-[#FF8C42] px-8 py-3 rounded-full hover:bg-[#FF8C42] hover:text-white transition-all duration-300"
+            >
+              Learn More
+              <HiOutlineArrowNarrowRight className="text-xl" />
+            </Link>
           </div>
         </div>
 
-        {/* Right Column: Content & Stats */}
+        {/* RIGHT CONTENT */}
         <div className="flex flex-col text-center lg:text-left">
           <div className="mb-6">
             <span className="bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium">
-              Know us better
+              {data?.section2badge}
             </span>
           </div>
 
-          <h2 className="font-playfair text-[#204667] font-bold text-2xl sm:text-3xl md:text-[38px]">
-            Where <span className="text-[#FF8C42]">One Clear View</span> Changes
-            Everything
-          </h2>
+          {/* ✅ Use editor title */}
+          <h2 
+            className="font-playfair know-main text-[#204667] font-bold  leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
 
-          <div className="space-y-6 mt-4  text-slate-600 font-[family-name:var(--font-spline)] text-lg leading-relaxed mb-12 max-w-xl mx-auto lg:mx-0">
-            <p className="text-base opacity-80">
-              At FlexiCapital, we bring clarity to what is complex, light to what is hidden, and conviction to every step you take. Our approach is rooted in transparency, integrity and an unwavering commitment to our clients.
-            </p>
-            <p className="text-base opacity-80">
-               We treat every client relationship with the seriousness it deserves and the dedication it demands. Because at the end of the day, what matters most is you.
-            </p>
-          </div>
+          {/* ✅ Render editor HTML safely */}
+          <div
+            className="space-y-6 mt-4 text-slate-600 font-[family-name:var(--font-spline)]  leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
+            dangerouslySetInnerHTML={{ __html: des }}
+          />
 
-          {/* Animated Stats Bar */}
-          <div className="flex flex-col md:flex-row items-center gap-8  pt-8">
-            <StatCounter end={50} suffix="+" label="Combined Years of Experience" />
+          {/* ✅ Dynamic stats from API */}
+          <div className="flex flex-col md:flex-row items-center gap-8 pt-8">
+            <StatCounter end={Number(yoe) || 0} suffix="+" label="Years Experience" />
+
             <div className="hidden md:block h-12 w-[1px] bg-slate-300" />
-            <StatCounter end={350} suffix="+" label="Families Served" />
-            <div className="hidden md:block h-12 w-[1px] bg-slate-300" />
+
             <StatCounter
-              end={2000}
+              end={Number(familiesServed) || 0}
+              suffix="+"
+              label="Families Served"
+            />
+
+            <div className="hidden md:block h-12 w-[1px] bg-slate-300" />
+
+            <StatCounter
+              end={Number(aua) || 0}
               suffix="Cr+"
               label="Assets Under Distribution"
             />
