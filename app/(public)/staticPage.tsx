@@ -51,9 +51,9 @@ const StaticPage = ({ pageType }: { pageType: string }) => {
                 </h1>
 
                 <div
-                    className="prose max-w-none text-black"
+                    className="prose max-w-none text-black mt-4"
                     dangerouslySetInnerHTML={{
-                        __html: data?.contentRef?.content || '',
+                        __html: data?.contentRef?.content.replace(/&nbsp;/g, " ") || '',
                     }}
                 />
             </div>
