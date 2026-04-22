@@ -19,6 +19,8 @@ interface ServiceTab {
 }
 
 const cleanText = (value?: string) => (value ?? "").replace(/&nbsp;/g, " ").trim();
+const asString = (value: unknown) => (typeof value === "string" ? value : undefined);
+const asArray = (value: unknown) => (Array.isArray(value) ? value : []);
 
 export default function TabSection() {
   const [services, setServices] = useState<ServiceTab[]>([]);
@@ -29,21 +31,27 @@ export default function TabSection() {
     const fetchServices = async () => {
       try {
         setIsLoading(true);
-        const res = await getPublicServices();
-        const rawServices = Array.isArray(res?.data) ? res.data : [];
-        const normalized: ServiceTab[] = rawServices.map((service: any, index: number) => {
-          const serviceId = service._id ?? service.id ?? `service-${index}`;
-          const subServices = Array.isArray(service.subServices) ? service.subServices : [];
+        const res: unknown = await getPublicServices();
+        const resObj = res as { data?: unknown };
+        const rawServices = Array.isArray(resObj?.data) ? resObj.data : [];
+
+        const normalized: ServiceTab[] = rawServices.map((service, index: number) => {
+          const serviceObj = service as Record<string, unknown>;
+          const serviceId = asString(serviceObj["_id"]) ?? asString(serviceObj["id"]) ?? `service-${index}`;
+          const subServices = asArray(serviceObj["subServices"]);
           return {
             id: serviceId,
-            title: cleanText(service.title ?? service.name) || "Service",
-            description: cleanText(service.detail ?? service.description),
-            subServices: subServices.map((sub: any, subIndex: number) => ({
-              id: sub._id ?? sub.id ?? `${serviceId}-sub-${subIndex}`,
-              title: cleanText(sub.title) || `Offering ${subIndex + 1}`,
-              description: cleanText(sub.description ?? sub.detail),
-              imageUrl: sub.image ?? sub.imageUrl,
-            })),
+            title: cleanText(asString(serviceObj["title"]) ?? asString(serviceObj["name"])) || "Service",
+            description: cleanText(asString(serviceObj["detail"]) ?? asString(serviceObj["description"])),
+            subServices: subServices.map((sub, subIndex: number) => {
+              const subObj = sub as Record<string, unknown>;
+              return {
+                id: asString(subObj["_id"]) ?? asString(subObj["id"]) ?? `${serviceId}-sub-${subIndex}`,
+                title: cleanText(asString(subObj["title"])) || `Offering ${subIndex + 1}`,
+                description: cleanText(asString(subObj["description"]) ?? asString(subObj["detail"])),
+                imageUrl: asString(subObj["image"]) ?? asString(subObj["imageUrl"]),
+              };
+            }),
           };
         });
 
@@ -66,19 +74,22 @@ export default function TabSection() {
     <section className="min-h-screen bg-[#FFF7F0] px-6 py-20 font-sans">
       <div className="mx-auto max-w-6xl">
         <div className="relative mb-16 rounded-full border border-b-[#F78532] border-transparent bg-transparent p-1.5">
-          <ul className="flex flex-wrap items-center justify-between overflow-x-auto px-1">
+          <ul className="flex flex-nowrap items-center justify-center overflow-x-auto">
             {hasTabs
               ? services.map((service) => {
                 const isActive = activeServiceId === service.id;
                 return (
-                  <li key={service.id} className="flex-initial">
+                  <li
+                    key={service.id}
+                    className="flex-center relative px-3 py-2.5 after:content-[''] after:absolute after:right-0 after:top-1/2 after:h-6 after:w-px after:-translate-y-1/2 after:bg-[#F78532]/70 last:after:hidden"
+                  >
                     <button
                       type="button"
                       onClick={() => setActiveServiceId(service.id)}
                       aria-pressed={isActive}
-                      className={`w-full max-w-[290px] whitespace-nowrap overflow-hidden rounded-full px-2 py-2.5 text-md transition-all duration-300 ${isActive ? "bg-[#F48C45]  text-white shadow-md" : " text-[#465A75] hover:bg-[#FADCC7]/30 cursor-pointer hover:text-[#F48C45]"}`}
+                      className={`w-full max-w-[290px] whitespace-nowrap overflow-hidden rounded-full  text-md transition-all duration-300 ${isActive ? "bg-[#F48C45]  text-white shadow-md" : " text-[#465A75] hover:bg-[#FADCC7]/30 cursor-pointer hover:text-[#F48C45]"}`}
                     >
-                      <span className="block overflow-hidden truncate whitespace-nowrap">
+                      <span className="block overflow-hidden px-5 py-2.5  truncate whitespace-nowrap">
                         {service.title}
                       </span>
                     </button>
@@ -90,7 +101,7 @@ export default function TabSection() {
             {isLoading && (
               <li className="flex-initial">
                 <span className="px-6 py-2.5 text-sm text-[#465A75]/70">
-                  Loading tabs…
+                  Loading services…
                 </span>
               </li>
             )}
