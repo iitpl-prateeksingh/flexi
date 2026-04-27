@@ -66,7 +66,7 @@ const WhyUs = ({ data }: any) => {
                     <div
                       className="flex flex-col gap-6 text-[#5b6e7a] html-editor leading-relaxed "
                       dangerouslySetInnerHTML={{
-                        __html: feature?.description.replace(/&nbsp;/g, " ") || "",
+                        __html: feature?.description,
                       }}
                     />
                   </div>

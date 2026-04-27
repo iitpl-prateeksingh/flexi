@@ -21,7 +21,7 @@ export default function TransparencySection({ data }: any) {
             }}
           >
             {/* Content */}
-            <div className="relative z-10 h-full flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 text-white">
+            <div className="relative z-10 h-full main-des121 flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 text-white">
 
               {/* Dynamic Content (Title + Description) */}
               <div

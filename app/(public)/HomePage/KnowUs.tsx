@@ -9,10 +9,12 @@ const StatCounter = ({
   end,
   label,
   suffix = "",
+  prefix = "",
 }: {
   end: number;
   label: string;
   suffix?: string;
+  prefix?: string;
 }) => {
   const [count, setCount] = useState(0);
   const countRef = useRef<HTMLDivElement>(null);
@@ -54,10 +56,11 @@ const StatCounter = ({
   return (
     <div ref={countRef} className="text-center">
       <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-inter)] font-semibold text-[#204667]">
+        {prefix}
         {count.toLocaleString("en-IN")}
         {suffix}
       </h3>
-      <p className="text-slate-500 font-[family-name:var(--font-spline)] text-sm mt-1">
+      <p className="text-slate-500 font-[family-name:var(--font-spline)] whitespace-pre text-sm mt-1">
         {label}
       </p>
     </div>
@@ -77,7 +80,7 @@ const KnowUs = ({ data }: { data: any }) => {
 
   return (
     <section className="bg-[#FFF9F3] py-20 ">
-      <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
+      <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-start">
 
         {/* LEFT IMAGE */}
         <div className="relative group m-2 pb-4 md:m-10">
@@ -101,16 +104,17 @@ const KnowUs = ({ data }: { data: any }) => {
         </div>
 
         {/* RIGHT CONTENT */}
-        <div className="flex flex-col text-center lg:text-left">
+        <div className="flex flex-col justify-between h-full py-10 items-start gap-6 ">
           <div className="mb-6">
             <span className="bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium">
               {data?.section2badge}
             </span>
           </div>
 
-          {/* ✅ Use editor title */}
+    <div>
+
           <h2 
-            className="font-playfair know-main text-[#204667] font-bold  leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
+            className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
             dangerouslySetInnerHTML={{ __html: title }}
           />
 
@@ -119,10 +123,11 @@ const KnowUs = ({ data }: { data: any }) => {
             className="space-y-6 mt-4 text-slate-600 font-[family-name:var(--font-spline)]  leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
             dangerouslySetInnerHTML={{ __html: des }}
           />
+    </div>
 
           {/* ✅ Dynamic stats from API */}
-          <div className="flex flex-col md:flex-row items-center gap-8 pt-8">
-            <StatCounter end={Number(yoe) || 0} suffix="+" label="Years Experience" />
+          <div className="flex flex-col md:flex-row items-center gap-8 pt-8 mx-auto lg:mx-0">
+            <StatCounter end={Number(yoe) || 0} suffix="+" label=" Combined Years of Experience" />
 
             <div className="hidden md:block h-12 w-[1px] bg-slate-300" />
 
@@ -137,6 +142,7 @@ const KnowUs = ({ data }: { data: any }) => {
             <StatCounter
               end={Number(aua) || 0}
               suffix="Cr+"
+              prefix="₹"
               label="Assets Under Distribution"
             />
           </div>
