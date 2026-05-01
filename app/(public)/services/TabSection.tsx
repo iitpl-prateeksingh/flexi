@@ -2,8 +2,9 @@
  
 import TabCard from "@/app/components/TabCard";
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { getPublicServices } from "@/app/services/services";
-import { getPublicValuesApi } from "@/app/services/valueService"
+import { getPublicValuesApi } from "@/app/services/valueService";
  
 interface SubServiceCard {
   id: string;
@@ -29,8 +30,36 @@ interface ValueVideoItem {
 const cleanText = (value?: string) => (value ?? "").replace(/&nbsp;/g, " ").trim();
 const asString = (value: unknown) => (typeof value === "string" ? value : undefined);
 const asArray = (value: unknown) => (Array.isArray(value) ? value : []);
+const toSlug = (value?: string) =>
+  cleanText(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+const resolveSelectedServiceId = (serviceList: ServiceTab[], selectedServiceParam: string | null) => {
+  if (!serviceList.length) {
+    return null;
+  }
+
+  const exactIdMatch = serviceList.find((service) => service.id === selectedServiceParam);
+  if (exactIdMatch) {
+    return exactIdMatch.id;
+  }
+
+  const paramSlug = toSlug(selectedServiceParam ?? "");
+  if (paramSlug) {
+    const titleMatch = serviceList.find((service) => toSlug(service.title) === paramSlug);
+    if (titleMatch) {
+      return titleMatch.id;
+    }
+  }
+
+  return serviceList[0]?.id ?? null;
+};
  
 export default function TabSection() {
+  const searchParams = useSearchParams();
+  const selectedServiceParam = searchParams?.get("service") ?? null;
   const [services, setServices] = useState<ServiceTab[]>([]);
   const [activeServiceId, setActiveServiceId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,6 +104,14 @@ export default function TabSection() {
  
     fetchServices();
   }, []);
+
+  useEffect(() => {
+    if (!services.length) {
+      return;
+    }
+
+    setActiveServiceId(resolveSelectedServiceId(services, selectedServiceParam));
+  }, [services, selectedServiceParam]);
  
   useEffect(() => {
     const fetchValues = async () => {
