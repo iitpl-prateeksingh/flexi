@@ -51,9 +51,9 @@ const ServicesGrid = ({ data }: any) => {
       <div className="px-4 md:px-20 mx-auto ">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-12 gap-6">
           <div className="max-w-2xl">
-            <span className="inline-block bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
               Our Services
             </span>
 

@@ -32,7 +32,6 @@ export default function Page() {
   return (
     <div>
       <HeroSection data={data} />
-
       <KnowUs data={data} />
       <SignatureApproach data={data} />
       <ServicesGrid data={data} />

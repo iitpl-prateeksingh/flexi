@@ -7,7 +7,7 @@ const WhyUs = ({ data }: any) => {
 
         {/* Title Section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
             Why us
           </span>
 

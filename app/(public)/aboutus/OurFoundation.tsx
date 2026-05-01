@@ -18,9 +18,9 @@ const OurFoundation = ({ data }: any) => {
       <div className="max-w-6xl mx-auto">
 
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center  mb-16">
           <div
-            className=" html-editor font-playfair  mb-6"
+            className="html-editor font-playfair foundation mb-6"
             dangerouslySetInnerHTML={{ __html: data?.team.replace(/&nbsp;/g, " ") || "" }}
           />
         </div>
@@ -40,14 +40,14 @@ const OurFoundation = ({ data }: any) => {
               />
 
               {/* Glassmorphism Gradient Overlay */}
-              <div className="absolute inset-x-0 bottom-0 h-[50%] translate-y-[62%] bg-black/60 px-6 py-5 backdrop-blur-[30.56px] transition-transform duration-500 ease-out group-hover:translate-y-0">
+              <div className="absolute inset-x-0 bottom-0 h-[50%] translate-y-[64%] bg-black/60 px-6 py-5 backdrop-blur-[30.56px] transition-transform duration-500 ease-out group-hover:translate-y-[0] group-hover:h-full">
                 <div className="flex h-full flex-col gap-3">
                   <div className="flex items-end justify-between gap-4">
                     <div className="pr-3">
                       <h3 className="text-lg font-bold leading-tight text-white md:text-xl">
                         {member.name}
                       </h3>
-                      <p className="mt-1 text-sm font-medium text-[#ffffffaf]">
+                      <p className="mt-1 text-sm font-light text-[#FFFFFFD1]">
                         {member.designation}
                       </p>
                     </div>
@@ -81,7 +81,7 @@ const OurFoundation = ({ data }: any) => {
                     </a>
                   </div>
 
-                  <p className="overflow-hidden text-sm leading-6 text-white/90">
+                  <p className="overflow-hidden text-sm   text-white/90">
                     {member.description}
                   </p>
                 </div>

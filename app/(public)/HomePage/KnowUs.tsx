@@ -79,7 +79,7 @@ const KnowUs = ({ data }: { data: any }) => {
 
 
   return (
-    <section className="bg-[#FFF9F3] py-20 ">
+    <section className="bg-[#FFF9F3] pt-20 pb-40 ">
       <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-start">
 
         {/* LEFT IMAGE */}
@@ -104,29 +104,29 @@ const KnowUs = ({ data }: { data: any }) => {
         </div>
 
         {/* RIGHT CONTENT */}
-        <div className="flex flex-col justify-between h-full py-10 items-start gap-6 ">
+        <div className="py-10 ">
           <div className="mb-6">
-            <span className="bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium">
+            <span className="bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light">
               {data?.section2badge}
             </span>
           </div>
 
-    <div>
+          <div className="pt-15">
 
-          <h2 
-            className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
+                <h2 
+                  className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
+                  dangerouslySetInnerHTML={{ __html: title }}
+                />
 
-          {/* ✅ Render editor HTML safely */}
-          <div
-            className="space-y-6 mt-4 text-slate-600 font-[family-name:var(--font-spline)]  leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
-            dangerouslySetInnerHTML={{ __html: des }}
-          />
-    </div>
+                {/* ✅ Render editor HTML safely */}
+                <div
+                  className="space-y-6 mt-4 text-slate-600 font-[family-name:var(--font-spline)] Clear-View leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
+                  dangerouslySetInnerHTML={{ __html: des }}
+                />
+          </div>
 
           {/* ✅ Dynamic stats from API */}
-          <div className="flex flex-col md:flex-row items-center gap-8 pt-8 mx-auto lg:mx-0">
+          <div className="flex flex-col  md:flex-row items-center gap-8 pt-20 mx-auto lg:mx-0">
             <StatCounter end={Number(yoe) || 0} suffix="+" label=" Combined Years of Experience" />
 
             <div className="hidden md:block h-12 w-[1px] bg-slate-300" />

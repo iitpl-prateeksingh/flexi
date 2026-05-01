@@ -142,10 +142,10 @@ const Footer = ({ data }: any) => {
       <div className="border-t border-gray-700/50 mb-8 max-w-7xl mx-auto" />
 
       {/* BOTTOM */}
-      <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-6">
+      <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-6" style={{fontFamily:"inter !important"}}>
 
         {/* ARN */}
-        <div className="flex flex-wrap justify-center gap-4 text-sm font-medium">
+        <div className="flex flex-wrap justify-center text-[12px] gap-4 text-sm font-medium">
           <span>ARN : {data?.arn?.number}</span>
 
           {data?.arn?.fromDate && (
@@ -162,7 +162,7 @@ const Footer = ({ data }: any) => {
         </div>
 
         {/* STATIC PAGES */}
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[11px] uppercase">
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-[12px] uppercase">
           {staticPages.map((page, index) => (
             <React.Fragment key={page.type}>
               <Link href={`/${page.type}`}>

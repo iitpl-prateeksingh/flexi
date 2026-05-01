@@ -3,14 +3,14 @@ import React from 'react';
 
 const WeAreThe = ({ data }: any) => {
   return (
-    <section className="bg-[#fcf8f5] w-full py-16 md:py-28 px-6 md:px-12 lg:px-24 relative">
+    <section className="bg-[#fcf8f5] w-full py-16 md:pb-28 px-6 md:px-12 lg:px-24 relative">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
 
         <div className="w-full lg:w-1/2 flex flex-col relative z-10">
 
           {/* ✅ Title from API */}
           <h2
-            className="font-playfair text-[#204667] font-bold text-2xl sm:text-3xl html-editor md:text-[38px] mb-6"
+            className="font-playfair text-[#204667] know-main font-bold text-2xl sm:text-3xl html-editor md:text-[38px] mb-6"
             dangerouslySetInnerHTML={{
               __html: data?.section1Title.replace(/&nbsp;/g, " ") || "",
             }}

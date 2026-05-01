@@ -43,9 +43,9 @@ span {
   font-size: 18px !important;
 }
 
-.html-editor h2 * {
+/* .html-editor h2 * {
   font-size: 32px !important;
-}
+} */
 
 .quill-content {
   color: white;
@@ -93,11 +93,11 @@ span {
 span {
   font-size: 0.875rem !important;
 }
-.html-editor h2 * {
+/* .html-editor h2 * {
   font-size: 38px !important;
   font-family: var(--font-playfair) !important;
   line-height: 106% !important;
-}
+} */
 .html-editor p,
 span {
   font-family: var(--font-spline);
@@ -111,9 +111,10 @@ span {
 .main-why p {
   color: #204667 !important;
 }
-.main-inc  p span {
+.main-inc p span {
   font-family: var(--font-playfair) !important;
   font-size: 20px !important;
+  font-weight: 500;
 }
 .main-inc .html-editor p {
   font-size: 14px !important;
@@ -123,7 +124,7 @@ span {
   font-size: 50px !important;
   color: #fff !important;
 }
-.main-blog-des p{
+.main-blog-des p {
   font-size: 26px !important;
 }
 .service-banner {
@@ -132,7 +133,7 @@ span {
     font-family: var(--font-playfair) !important;
   }
 }
- ul > span:last-of-type {
+ul > span:last-of-type {
   display: none;
 }
 @media (max-width: 480px) {
@@ -140,7 +141,7 @@ span {
     font-size: 30px !important;
   }
   .main-services h2 * {
-    font-size: 48px !important;
+    font-size: 28px !important;
     font-family: var(--font-playfair) !important;
     line-height: 58px !important;
   }
@@ -151,10 +152,81 @@ span {
 }
 
 .main-des121 .html-editor p span {
-    font-family: var(--font-spline) !important;
-    font-size: 16px !important;
-    font-weight: 300 !important;
-    margin-top: 16px !important;
-    line-height: 24px !important;
-    display: block;
+  font-family: var(--font-spline) !important;
+  font-size: 16px !important;
+  font-weight: 300 !important;
+  margin-top: 16px !important;
+  line-height: 24px !important;
+  display: block;
+}
+.Clear-View p {
+  color: #204667bd !important;
+}
+.know-main h2 span {
+  font-family: Playfair Display;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 38px !important;
+  line-height: 106%;
+  letter-spacing: 0%;
+}
+.inword h2 span {
+  font-family: Playfair Display;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 45px !important;
+  leading-trim: NONE;
+  line-height: 124%;
+  letter-spacing: 4%;
+}
+.inword p span {
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 26px !important;
+  leading-trim: NONE;
+  line-height: 142%;
+  letter-spacing: 0%;
+  color: #ffffffb2 !important;
+}
+.main-services p span {
+  font-family: var(--font-spline) !important;
+  font-family: Inter;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 18px !important;
+  leading-trim: NONE;
+  line-height: 133%;
+  letter-spacing: 0%;
+  color: #204667a3 !important;
+}
+.foundation {
+  font-size: 38px !important;
+}
+
+@media (max-width: 480px) {
+  .main-des121 .html-editor p span {
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+  .foundation {
+    font-size: 28px !important;
+  }
+  .main-services p span {
+    font-size: 14px !important;
+  }
+  .inword p span {
+    font-size: 18px !important;
+  }
+  .know-main h2 span {
+    font-size: 28px !important;
+  }
+  .html-editor p,
+  span {
+    font-family: var(--font-spline);
+    font-size: 12px !important;
+  }
+  .inword h2 span {
+    font-size: 32px !important;
+  }
 }
