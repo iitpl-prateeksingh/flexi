@@ -36,7 +36,7 @@ const InsightsSection = () => {
 
         {/* LEFT CONTENT */}
         <div className="lg:col-span-4 flex flex-col items-start space-y-6">
-          <span className="inline-block bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-medium mb-4">
+          <span className="inline-block bg-gradient-to-r bedge-main from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
             {data?.badge || "Insights"}
           </span>
 

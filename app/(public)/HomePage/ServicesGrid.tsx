@@ -9,6 +9,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { getPublicServices } from "../../services/services"; // adjust path
+import Link from "next/link";
 
 // 🔥 Map icon string → component
 const iconMap: any = {
@@ -53,7 +54,7 @@ const ServicesGrid = ({ data }: any) => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-12 gap-6">
           <div className="max-w-2xl">
-            <span className="inline-block bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
+            <span className="inline-block bg-gradient-to-r bedge-main from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
               Our Services
             </span>
 
@@ -74,6 +75,7 @@ const ServicesGrid = ({ data }: any) => {
         {/* Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {services.map((service, index) => (
+            <Link href={"/"} key={index}>
             <div
               key={index}
               className="group relative w-full h-100 md:h-[290px] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
@@ -97,13 +99,14 @@ const ServicesGrid = ({ data }: any) => {
                   {service.title}
                 </h3>
 
-                <p className="text-white font-medium md:font-light text-sm leading-relaxed opacity-90">
+                <p className="text-white line-clamp-3 font-medium md:font-light text-sm leading-relaxed opacity-90">
                   {service.description}
                 </p>
 
-                <div className="w-12 h-[1px] bg-white/40 mt-6 group-hover:w-20 transition-all duration-300" />
+                {/* <div className="w-12 h-[1px] bg-white/40 mt-6 group-hover:w-20 transition-all duration-300" /> */}
               </div>
             </div>
+            </Link>
           ))}
         </div>
       </div>

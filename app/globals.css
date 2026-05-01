@@ -203,7 +203,9 @@ ul > span:last-of-type {
 .foundation {
   font-size: 38px !important;
 }
-
+.bedge-main{
+   font-size: 15px !important;
+}
 @media (max-width: 480px) {
   .main-des121 .html-editor p span {
     font-size: 14px !important;
