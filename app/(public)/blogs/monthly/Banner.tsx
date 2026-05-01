@@ -22,7 +22,7 @@ const Banner = ({ data }: any) => {
           </div>
         </div>
         <div className="max-w-4xl float-end">
-          <h1 className="font-playfair main-blog  font-semibold text-3xl  md:text-[50px]  leading-[106%]  tracking-[0] text-[#fff]">
+          <h1 className="font-playfair main-blog font-semibold text-3xl  md:text-[50px]  leading-[106%]  tracking-[0] text-[#fff]">
             <div
               className="html-editor"
               dangerouslySetInnerHTML={{

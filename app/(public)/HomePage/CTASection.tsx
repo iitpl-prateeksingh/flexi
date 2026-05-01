@@ -5,7 +5,7 @@ import React from 'react';
 
 const CTASection = () => {
   return (
-    <section className="relative w-full overflow-hidden py-24 md:pt-80" style={{backgroundImage:"url('/backk.png')",backgroundRepeat:"no-repeat",backgroundPosition:"bottom",backgroundColor:"#FFF9F3"}}>
+    <section className="relative w-full overflow-hidden py-24 md:pt-80" style={{backgroundImage:"url('/backk1.png')",backgroundRepeat:"no-repeat",backgroundPosition:"bottom",backgroundColor:"#FFF9F3"}}>
       
 
       {/* --- Main Content --- */}

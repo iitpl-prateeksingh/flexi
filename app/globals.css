@@ -205,6 +205,8 @@ ul > span:last-of-type {
 }
 .bedge-main{
    font-size: 15px !important;
+   font-weight: 400 !important;
+   line-height: 16px !important;
 }
 @media (max-width: 480px) {
   .main-des121 .html-editor p span {
