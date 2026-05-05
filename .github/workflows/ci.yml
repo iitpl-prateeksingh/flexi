@@ -55,4 +55,4 @@ jobs:
         run: npm run build
  
       - name: Deploy to Netlify
-        run: netlify deploy --build --prod --auth "nfp_uTGp64NEyyTk2fYowPVugtqUWiwBV8bH064c" --site 2277e71e-d153-4a85-81d4-a4df1cb6f42e
+        run: netlify deploy --build --prod --auth "nfp_ib33Tqf3NeHTiXCYGpann6DcHFv1nu9a8c87" --site 736b8588-b66c-40c7-b793-acc643802f97
