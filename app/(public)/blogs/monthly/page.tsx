@@ -7,7 +7,7 @@ import { getpublicInsight } from '../../../services/insightService';
 
 export default function Page() {
   const [monthlyBlogs, setMonthlyBlogs] = useState([]);
-  const [bannerHeading, setBannerHeading] = useState("");
+  const [bannerHeading, setBannerHeading] = useState<any>("");
 
   useEffect(() => {
     const fetchMonthlyBlogs = async () => {

@@ -12,7 +12,7 @@ import CTASection from "./HomePage/CTASection";
 import { getHomePagePublicService } from "../services/pages/homepageService";
 export const dynamic = "force-dynamic";
 export default function Page() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<any>(null);
 
   const fetchHomePage = async () => {
     try {
