@@ -32,7 +32,7 @@ const StatCounter = ({
     return () => observer.disconnect();
   }, []);
 
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     if (!hasStarted) return;
 
@@ -67,21 +67,29 @@ const StatCounter = ({
   );
 };
 
-const KnowUs = ({ data }: { data: any }) => {
-  let introImage = data?.introImage;
-  let title = data?.section2Title?.replace(/&nbsp;/g, " ");
-  let des = data?.section2Description?.replace(/&nbsp;/g, " ");
-  let yoe = data?.yoe;
-  let aua = data?.aua;
-  let familiesServed = data?.familiesServed;
+type KnowUsData = {
+  introImage?: string;
+  section2Title?: string;
+  section2Description?: string;
+  yoe?: string | number;
+  aua?: string | number;
+  familiesServed?: string | number;
+  section2badge?: string;
+};
+
+const KnowUs = ({ data }: { data: KnowUsData }) => {
+  const introImage = data?.introImage;
+  const title = data?.section2Title?.replace(/&nbsp;/g, " ");
+  const des = data?.section2Description?.replace(/&nbsp;/g, " ");
+  const yoe = data?.yoe;
+  const aua = data?.aua;
+  const familiesServed = data?.familiesServed;
 
   console.log("DATA in know Us", data);
 
-
   return (
-    <section className="bg-[#FFF9F3] pt-20 pb-40 ">
+    <section className="bg-[#FFF9F3] pt-10 pb-25 ">
       <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-start">
-
         {/* LEFT IMAGE */}
         <div className="relative group m-2 pb-4 md:m-10">
           <div className="rounded-3xl overflow-hidden transition-transform duration-500 ">
@@ -106,28 +114,31 @@ const KnowUs = ({ data }: { data: any }) => {
         {/* RIGHT CONTENT */}
         <div className="py-10 ">
           <div className="mb-6">
-            <span className="bg-gradient-to-r from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light">
+            <span className="bg-[linear-gradient(270.47deg,_#59A6EB_0.35%,_#1D4362_99.65%)] text-white px-6 py-1.5 rounded-full text-sm font-light">
               {data?.section2badge}
             </span>
           </div>
 
           <div className="pt-15">
+            <h2
+              className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
+              dangerouslySetInnerHTML={{ __html: title }}
+            />
 
-                <h2 
-                  className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
-                  dangerouslySetInnerHTML={{ __html: title }}
-                />
-
-                {/* ✅ Render editor HTML safely */}
-                <div
-                  className="space-y-6 mt-4 text-slate-600 font-[family-name:var(--font-spline)] Clear-View leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
-                  dangerouslySetInnerHTML={{ __html: des }}
-                />
+            {/* ✅ Render editor HTML safely */}
+            <div
+              className="space-y-6 mt-4 text-slate-600 font-[family-name:var(--font-spline)] Clear-View leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
+              dangerouslySetInnerHTML={{ __html: des }}
+            />
           </div>
 
           {/* ✅ Dynamic stats from API */}
           <div className="flex flex-col  md:flex-row items-center gap-8 pt-20 mx-auto lg:mx-0">
-            <StatCounter end={Number(yoe) || 0} suffix="+" label=" Combined Years of Experience" />
+            <StatCounter
+              end={Number(yoe) || 0}
+              suffix="+"
+              label=" Combined Years of Experience"
+            />
 
             <div className="hidden md:block h-12 w-[1px] bg-slate-300" />
 

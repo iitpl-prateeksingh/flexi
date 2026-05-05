@@ -59,14 +59,14 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-12 gap-6">
           <div className="max-w-2xl">
-            <span className="inline-block bg-gradient-to-r bedge-main from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
+            <span className="bg-[linear-gradient(270.47deg,_#59A6EB_0.35%,_#1D4362_99.65%)] text-white px-6 py-1.5 rounded-full text-sm font-light">
               Our Services
             </span>
 
             <div
               className="html-editor main-services pb-4"
               dangerouslySetInnerHTML={{
-                __html: data?.services?.replace(/&nbsp;/g, " "),
+                __html: data?.services?.replace(/&nbsp;/g, " ") || "",
               }}
             />
           </div>

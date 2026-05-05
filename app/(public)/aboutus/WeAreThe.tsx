@@ -27,14 +27,23 @@ const WeAreThe = ({ data }: any) => {
         </div>
 
         {/* Right Column: Image */}
-        <div className="w-full lg:w-1/2 relative mt-10 lg:mt-0">
-          <img
-            src={data?.section1Image || "/right1.png"}
-            style={{ maxWidth: "500px", width: "100%" }}
-            className="mx-auto"
-            alt=""
-          />
-        </div>
+       <div className="w-full lg:w-1/2 flex justify-center mt-10 lg:mt-0 px-6 pt-6">
+  {/* The 'group' class links the hover state of the container to both the image and background */}
+  <div className="relative group w-full max-w-[500px] cursor-pointer">
+    
+    {/* Background offset block */}
+    {/* UPDATED: Changed to transition-all, added translate and scale on group-hover */}
+    <div className="absolute -top-10 -left-10 w-full h-full bg-[#fcd5b5] transition-all duration-500 ease-in-out group-hover:bg-[#f79b57] group-hover:translate-x-3 group-hover:translate-y-3 group-hover:scale-100 z-0"></div>
+    
+    {/* Main Image */}
+    <img
+      src={data?.section1Image || "/right1.png"}
+      className="relative z-10 w-full transition-transform duration-500 ease-in-out "
+      alt=""
+    />
+    
+  </div>
+</div>
 
       </div>
 

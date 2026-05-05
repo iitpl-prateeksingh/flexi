@@ -147,10 +147,10 @@ export default function TabSection() {
   const lastVideoUrl = valuesData.length ? valuesData[valuesData.length - 1]?.videoUrl : undefined;
  
   return (
-    <section className="min-h-screen bg-[#FFF7F0] px-6 py-20 font-sans">
+    <section className="min-h-screen  px-6 py-20 font-sans" style={{"background": "linear-gradient(1.25deg, rgba(255, 249, 243, 0.6) 15.09%, rgba(253, 188, 140, 0.156) 83.28%, rgba(250, 111, 11, 0) 105.77%)"}}>
       <div className="mx-auto max-w-6xl">
         <div className="relative mb-16 rounded-full border border-b-[#F78532] border-transparent bg-transparent p-1.5">
-         <ul className="flex flex-wrap items-center justify-between overflow-x-auto px-1">
+         <ul className="flex  items-center justify-between overflow-x-auto px-1">
             {hasTabs
               ? services.map((service) => {
                 const isActive = activeServiceId === service.id;
@@ -161,7 +161,7 @@ export default function TabSection() {
                       type="button"
                       onClick={() => setActiveServiceId(service.id)}
                       aria-pressed={isActive}
-                      className={`w-full max-w-[290px] whitespace-nowrap overflow-hidden rounded-full px-8 py-2.5 text-md transition-all duration-300 ${isActive ? "bg-[#F48C45]  text-white shadow-md" : " text-[#465A75] hover:bg-[#FADCC7]/30 cursor-pointer hover:text-[#F48C45]"}`}
+                      className={`w-full max-w-[290px] whitespace-nowrap overflow-hidden rounded-full px-8 py-2.5 text-md transition-all duration-300 ${isActive ? "bg-[#F78532]  text-white shadow-md" : " text-[#465A75] hover:bg-[#FADCC7]/30 cursor-pointer hover:text-[#F48C45]"}`}
                     >
                       <span className="block overflow-hidden truncate whitespace-nowrap">
                         {service.title}

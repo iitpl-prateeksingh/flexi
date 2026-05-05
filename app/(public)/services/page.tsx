@@ -24,7 +24,7 @@ export default function Page() {
   }, [])
 
   return (
-    <div>
+    <div style={{"background": "linear-gradient(1.25deg, rgba(255, 249, 243, 0.6) 15.09%, rgba(253, 188, 140, 0.156) 83.28%, rgba(250, 111, 11, 0) 105.77%)"}}>
       <Banner data={heading} />
       <TabSection />
       <InsightsSection />

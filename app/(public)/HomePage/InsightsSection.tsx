@@ -6,22 +6,48 @@ import { getpublicInsight } from "../../services/insightService";
 import toast from 'react-hot-toast';
 
 import { useRouter } from "next/navigation";
+
+type InsightItem = {
+  image?: string;
+  title?: string;
+  detail?: string;
+};
+
+type InsightData = {
+  badge?: string;
+  heading?: string;
+  description?: string;
+  monthly?: InsightItem;
+  weekly?: InsightItem;
+};
+
 const InsightsSection = () => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<InsightData | null>(null);
   const router = useRouter();
 
   const fetchInsightData = async () => {
     try {
       const res = await getpublicInsight();
       setData(res?.data);
-    } catch (error: any) {
-      console.log(error.message);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Failed to load insight data";
+      console.log(errorMessage);
       toast.error("Failed to load insight data");
     }
   };
 
   useEffect(() => {
-    fetchInsightData();
+    const fetchData = async () => {
+      try {
+        const res = await getpublicInsight();
+        setData(res?.data);
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : "Failed to load insight data";
+        console.log(errorMessage);
+        toast.error("Failed to load insight data");
+      }
+    };
+    fetchData();
   }, []);
   console.log("Insight data:", data);
 
@@ -36,15 +62,15 @@ const InsightsSection = () => {
 
         {/* LEFT CONTENT */}
         <div className="lg:col-span-4 flex flex-col items-start space-y-6">
-          <span className="inline-block bg-gradient-to-r bedge-main from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
+          <span className="inline-block bg-gradient-to-r  text-sm from-[#1B365D] to-[#4A90E2] text-white px-6 py-1 rounded-full text-sm font-light mb-4">
             {data?.badge || "Insights"}
-          </span>
+          </span> 
 
-          <h2 className="text-4xl md:text-5xl text-[#204667] font-bold leading-tight font-playfair">
+          <h2 className="text-4xl md:text-[42px] text-[#204667] font-bold leading-tight font-playfair">
             {data?.heading}
           </h2>
 
-          <p className="text-gray-500 text-sm leading-relaxed max-w-sm font-inter">
+          <p className="text-gray-500 text-[16px] leading-relaxed max-w-sm font-inter">
             {data?.description}
           </p>
 

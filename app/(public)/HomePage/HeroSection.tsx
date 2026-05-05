@@ -1,8 +1,19 @@
 import 'animate.css';
 
-const HeroSection = ({ data }: { data: any }) => {
+interface Feature {
+  title: string;
+}
+
+interface HeroSectionData {
+  videos?: string[];
+  title: string;
+  features?: Feature[];
+}
+
+const HeroSection = ({ data }: { data: HeroSectionData }) => {
   const videoUrl = data?.videos?.[0];
   const titleHTML = data?.title.replace(/&nbsp;/g, " ");
+  const features = data?.features ?? [];
 
   return (
     <section className="relative h-[500px] md:h-screen w-full overflow-hidden flex items-center justify-center">
@@ -47,12 +58,12 @@ const HeroSection = ({ data }: { data: any }) => {
         <div className="container mx-auto px-6">
           <div className="backdrop-blur-[4px] bg-[#FFFFFF1F] text-white font-light rounded-full py-3 px-4 md:px-8 inline-flex flex-wrap items-center gap-2 md:gap-4 text-[12px] md:text-sm tracking-wide">
 
-            {data?.features?.map((item: any, index: number) => (
+            {features.map((item: Feature, index: number) => (
               <span key={index} className="flex items-center gap-2">
                 <span>{item.title}</span>
 
                 {/* Divider (except last) */}
-                {index !== data.features.length - 1 && (
+                {index !== features.length - 1 && (
                   <span className="opacity-40">|</span>
                 )}
               </span>

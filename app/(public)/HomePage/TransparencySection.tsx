@@ -1,4 +1,4 @@
-export default function TransparencySection({ data }: any) {
+export default function TransparencySection({ data }: { data: { banner?: string; bannerText?: string } }) {
 
   console.log("BAnner", data?.banner, data?.bannerText)
   return (

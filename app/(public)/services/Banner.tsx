@@ -5,7 +5,7 @@ const Banner = ({ data }: any) => {
   return (
  
     <section
-      className="relative w-full h-[450px] bg-cover bg-center bg-no-repeat"
+      className="relative w-full md:h-[450px] h-[400px] bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${data?.banner})`,
         backgroundColor: "#1a202c",
@@ -23,7 +23,7 @@ const Banner = ({ data }: any) => {
         </div>
         <div className="max-w-2xl">
           <h1
-            className="font-playfair html-editor service-banner font-semibold text-5xl md:text-[50px] leading-[106%] tracking-[0] text-[#fff]"
+            className="font-playfair html-editor service-banner font-semibold text-5xl md:text-[50px] md:leading-[106%] tracking-[0] text-[#fff]"
             dangerouslySetInnerHTML={{
               __html: data?.bannerText.replace(/&nbsp;/g, " ") || '',
             }}
@@ -31,7 +31,7 @@ const Banner = ({ data }: any) => {
         </div>
       </div>
  
-      <div className="absolute bottom-[-16px] left-0 w-3/4 md:w-1/2 h-4 md:h-8 bg-[#FFF9F3] rounded-tr-[150px] z-20"></div>
+      <div className="absolute bottom-[-16px] left-0 w-3/4 md:w-1/2 h-4 md:h-8 bg-[#FFF2E8] rounded-tr-[150px] z-20"></div>
     </section>
   );
 };

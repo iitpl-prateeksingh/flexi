@@ -14,8 +14,8 @@ const OurFoundation = ({ data }: any) => {
   const teamMembers: TeamMember[] = data?.teamMembers || [];
   console.log(teamMembers)
   return (
-    <section className="w-full bg-white py-16 md:py-24 px-6 md:px-12 lg:px-24">
-      <div className="max-w-6xl mx-auto">
+    <section className="w-full bg-white py-16 md:py-24 px-6 md:px-12 lg:px-30">
+      <div className="max-w-5xl mx-auto">
 
         {/* Section Header */}
         <div className="text-center  mb-16">
@@ -26,7 +26,7 @@ const OurFoundation = ({ data }: any) => {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {teamMembers.map((member) => (
             <div
               key={member._id}
@@ -40,7 +40,7 @@ const OurFoundation = ({ data }: any) => {
               />
 
               {/* Glassmorphism Gradient Overlay */}
-              <div className="absolute inset-x-0 bottom-0 h-[50%] translate-y-[64%] bg-black/60 px-6 py-5 backdrop-blur-[30.56px] transition-transform duration-500 ease-out group-hover:translate-y-[0] group-hover:h-full">
+              <div className="absolute inset-x-0 bottom-0 h-[50%] translate-y-[60%] bg-black/60 px-6 py-4 backdrop-blur-[30.56px] transition-transform duration-500 ease-out group-hover:translate-y-[0] group-hover:h-full">
                 <div className="flex h-full flex-col gap-3">
                   <div className="flex items-end justify-between gap-4">
                     <div className="pr-3">

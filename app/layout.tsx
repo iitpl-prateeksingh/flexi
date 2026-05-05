@@ -3,7 +3,13 @@ import { Playfair_Display, Spline_Sans, Inter } from "next/font/google";
 import "quill/dist/quill.snow.css";
 import { Toaster } from "react-hot-toast";
 import { getPublicSettingsService } from "./services/settingService";
+import { Montserrat } from 'next/font/google';
 
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'], // choose what you need
+  variable: '--font-montserrat', // optional for CSS variables
+});
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
@@ -81,7 +87,7 @@ export default async function RootLayout({
     <html lang="en">
 
       <body
-        className={`${playfair.variable} ${splineSans.variable} ${inter.variable} antialiased`}
+        className={`${playfair.variable} ${montserrat.variable} ${splineSans.variable} ${inter.variable} antialiased`}
       >
         {children}
         <Toaster position="top-right" reverseOrder={false} />

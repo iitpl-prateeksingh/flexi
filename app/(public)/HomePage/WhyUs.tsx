@@ -1,4 +1,18 @@
-const WhyUs = ({ data }: any) => {
+interface Feature {
+  _id?: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface WhyUsData {
+  whyChooseList?: Feature[];
+  whyChooseTitle?: string;
+  whyChooseDetail?: string;
+  whyChooseImage?: string;
+}
+
+const WhyUs = ({ data }: { data: WhyUsData }) => {
   const features = data?.whyChooseList || [];
 
   return (
@@ -28,10 +42,10 @@ const WhyUs = ({ data }: any) => {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ">
 
           {/* Image */}
-          <div className="h-[500px] w-full relative overflow-hidden shadow-lg">
+          <div className="h-[600px] w-full relative overflow-hidden shadow-lg">
             <img
               src={data?.whyChooseImage}
               alt="why-us"
@@ -41,7 +55,7 @@ const WhyUs = ({ data }: any) => {
 
           {/* Features List */}
           <div className="flex flex-col">
-            {features.map((feature: any, index: number) => (
+            {features.map((feature: Feature, index: number) => (
               <div
                 key={feature._id || index}
                 className={`flex gap-3 py-4 ${index !== features.length - 1
@@ -66,7 +80,7 @@ const WhyUs = ({ data }: any) => {
                     <div
                       className="flex flex-col gap-6 text-[#5b6e7a] html-editor leading-relaxed "
                       dangerouslySetInnerHTML={{
-                        __html: feature?.description,
+                        __html: feature?.description || "",
                       }}
                     />
                   </div>

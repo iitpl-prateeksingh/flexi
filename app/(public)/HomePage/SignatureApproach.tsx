@@ -1,6 +1,13 @@
 import React from 'react';
 
-const SignatureApproach = ({ data }: { data: any }) => {
+interface SignatureApproachProps {
+  data: {
+    ctoImage?: string;
+    ctoContent: string;
+  };
+}
+
+const SignatureApproach = ({ data }: SignatureApproachProps) => {
 
   return (
     <section className="relative w-full min-h-[450px] flex items-center">

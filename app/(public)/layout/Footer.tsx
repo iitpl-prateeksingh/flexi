@@ -10,6 +10,7 @@ import {
   FaPhoneAlt,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { RiFacebookBoxLine, RiTwitterXLine } from "react-icons/ri";
 
 const Footer = ({ data }: any) => {
 
@@ -40,21 +41,21 @@ const Footer = ({ data }: any) => {
 
                 {data?.socialMedia?.twitter && (
                   <a href={data.socialMedia.twitter} target="_blank"
-                    className="text-[#F0803C] hover:text-white text-3xl">
-                    <FaXTwitter />
+                    className="text-[#F78532B8] hover:text-white text-3xl">
+                    <RiTwitterXLine  />
                   </a>
                 )}
 
                 {data?.socialMedia?.facebook && (
                   <a href={data.socialMedia.facebook} target="_blank"
-                    className="text-[#F0803C] hover:text-white text-3xl">
-                    <FaFacebookF />
+                    className="text-[#F78532B8] hover:text-white text-3xl">
+                    <RiFacebookBoxLine />
                   </a>
                 )}
 
                 {data?.socialMedia?.instagram && (
                   <a href={data.socialMedia.instagram} target="_blank"
-                    className="text-[#F0803C] hover:text-white text-3xl">
+                    className="text-[#F78532B8] hover:text-white text-3xl">
                     <FaInstagram />
                   </a>
                 )}
@@ -145,7 +146,7 @@ const Footer = ({ data }: any) => {
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center space-y-6" style={{fontFamily:"inter !important"}}>
 
         {/* ARN */}
-        <div className="flex flex-wrap justify-center text-[12px] gap-4 text-sm font-medium">
+        <div className="flex flex-wrap foo-main justify-center text-[12px] gap-4 text-sm font-medium">
           <span>ARN : {data?.arn?.number}</span>
 
           {data?.arn?.fromDate && (

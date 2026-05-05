@@ -4,7 +4,7 @@ import Link from 'next/link';
 const Banner = ({ data }: any) => {
   return (
     <section
-      className="relative w-full h-[500px] bg-cover bg-center bg-no-repeat"
+      className="relative w-full md:h-[500px] h-[300] bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${data?.heroImage || "/aboutbanner.png"})`,
         backgroundColor: '#1a202c',

@@ -1,7 +1,17 @@
 import React from "react";
 import Link from "next/link";
 
-const Banner = ({ data }: any) => {
+type BannerData = {
+  image?: string;
+  title?: string;
+  detail?: string;
+};
+
+type BannerProps = {
+  data?: BannerData;
+};
+
+const Banner = ({ data }: BannerProps) => {
   return (
     // Main Container with Background Image
     <section
@@ -26,7 +36,7 @@ const Banner = ({ data }: any) => {
             <div
               className="html-editor"
               dangerouslySetInnerHTML={{
-                __html: data?.title?.replace(/&nbsp;/g, " "),
+                __html: data?.title?.replace(/&nbsp;/g, " ") || "",
               }}
             />
           </h1>
@@ -34,7 +44,7 @@ const Banner = ({ data }: any) => {
             <div
               className="html-editor main-blog-des"
               dangerouslySetInnerHTML={{
-                __html: data?.detail?.replace(/&nbsp;/g, " "),
+                __html: data?.detail?.replace(/&nbsp;/g, " ") || "",
               }}
             />
           </div>
