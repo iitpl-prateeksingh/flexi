@@ -14,7 +14,12 @@ interface WhyUsData {
 
 const WhyUs = ({ data }: { data: WhyUsData }) => {
   const features = data?.whyChooseList || [];
-
+const cleanHTML = (html) => {
+  return html
+    .replace(/&nbsp;/g, " ") // remove nbsp 
+    .replace(/<span[^>]*>/g, "") // remove span open
+    .replace(/<\/span>/g, ""); // remove span close
+};
   return (
     <section className="bg-[#fdf8f3]  pb-16 px-0 md:px-6 md:pb-24">
       <div className="px-4 md:px-20 mx-auto">
@@ -80,7 +85,7 @@ const WhyUs = ({ data }: { data: WhyUsData }) => {
                     <div
                       className="flex flex-col gap-6 text-[#5b6e7a] html-editor leading-relaxed "
                       dangerouslySetInnerHTML={{
-                        __html: feature?.description || "",
+                        __html: cleanHTML(feature?.description || ""),
                       }}
                     />
                   </div>
