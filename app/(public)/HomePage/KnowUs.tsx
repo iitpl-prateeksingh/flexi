@@ -122,13 +122,13 @@ const KnowUs = ({ data }: { data: KnowUsData }) => {
           <div className="pt-15">
             <h2
               className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
-              dangerouslySetInnerHTML={{ __html: title }}
+              dangerouslySetInnerHTML={{__html: title || "" }}
             />
 
             {/* ✅ Render editor HTML safely */}
             <div
               className="space-y-6 mt-4 text-slate-600 font-[family-name:var(--font-spline)] Clear-View leading-relaxed  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
-              dangerouslySetInnerHTML={{ __html: des }}
+              dangerouslySetInnerHTML={{ __html: des || "" }}
             />
           </div>
 
