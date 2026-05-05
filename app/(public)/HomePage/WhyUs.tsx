@@ -14,11 +14,11 @@ interface WhyUsData {
 
 const WhyUs = ({ data }: { data: WhyUsData }) => {
   const features = data?.whyChooseList || [];
-const cleanHTML = (html) => {
+const cleanHTML = (html?: string) => {
   return html
-    .replace(/&nbsp;/g, " ") // remove nbsp 
+    ?.replace(/&nbsp;/g, " ") // remove nbsp 
     .replace(/<span[^>]*>/g, "") // remove span open
-    .replace(/<\/span>/g, ""); // remove span close
+    .replace(/<\/span>/g, "") || ""; // remove span close
 };
   return (
     <section className="bg-[#fdf8f3]  pb-16 px-0 md:px-6 md:pb-24">
