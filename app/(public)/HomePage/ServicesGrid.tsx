@@ -19,7 +19,8 @@ interface ServicesGridProps {
   } | null;
 }
 
-const asString = (value: unknown) => (typeof value === "string" ? value : undefined);
+const asString = (value: unknown) =>
+  typeof value === "string" ? value : undefined;
 
 const ServicesGrid = ({ data }: ServicesGridProps) => {
   const [services, setServices] = useState<ServiceItem[]>([]);
@@ -30,13 +31,17 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
         const res = await getPublicServices();
         console.log(res, "RES");
 
-        const cleanHTML = (html?: string) => html?.replace(/&nbsp;/g, " ") ?? "";
+        const cleanHTML = (html?: string) =>
+          html?.replace(/&nbsp;/g, " ") ?? "";
 
         const responseData = Array.isArray(res?.data) ? res.data : [];
         const formatted = responseData.map((item: unknown, index: number) => {
           const serviceObj = item as Record<string, unknown>;
           return {
-            id: asString(serviceObj["_id"]) ?? asString(serviceObj["id"]) ?? `service-${index}`,
+            id:
+              asString(serviceObj["_id"]) ??
+              asString(serviceObj["id"]) ??
+              `service-${index}`,
             title: cleanHTML(asString(serviceObj["title"])),
             description: cleanHTML(asString(serviceObj["detail"])),
             image: asString(serviceObj["image"]),
@@ -82,12 +87,21 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
 
         {/* Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <Link
               href={`/services?service=${encodeURIComponent(service.id)}`}
               key={service.id}
             >
-              <div className="group relative w-full h-100 md:h-[290px] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
+              <div
+              style={
+        index === 0 
+          ? { 
+              border: "5px solid #f88732", 
+              boxShadow: "-9px -10px 0px 0px #f88732" 
+            } 
+          : {}
+      }
+              className="group relative w-full h-100 md:h-[290px] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
                 <img
                   src={service.image}
                   alt={service.title}
@@ -99,7 +113,11 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
                     <img
                       src={service.icon}
                       alt={`${service.title} icon`}
-                      style={{ width: "24px", height: "24px", objectFit: "contain" }}
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                        objectFit: "contain",
+                      }}
                     />
                   </div>
 
@@ -110,8 +128,6 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
                   <p className="text-white  font-medium md:font-light text-sm leading-relaxed opacity-90">
                     {service.description}
                   </p>
-
-                  {/* <div className="w-12 h-[1px] bg-white/40 mt-6 group-hover:w-20 transition-all duration-300" /> */}
                 </div>
               </div>
             </Link>

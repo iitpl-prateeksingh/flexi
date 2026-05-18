@@ -10,6 +10,7 @@ import TransparencySection from "./HomePage/TransparencySection";
 import InsightsSection from "./HomePage/InsightsSection";
 import CTASection from "./HomePage/CTASection";
 import { getHomePagePublicService } from "../services/pages/homepageService";
+import InterviewSec from "./HomePage/InterviewSec";
 export const dynamic = "force-dynamic";
 export default function Page() {
   const [data, setData] = useState<any>(null);
@@ -32,11 +33,12 @@ export default function Page() {
   return (
     <div>
       <HeroSection data={data} />
-      <KnowUs data={data} />
       <SignatureApproach data={data} />
+      <KnowUs data={data} />
       <ServicesGrid data={data} />
       <WhyUs data={data} />
       <TransparencySection data={data} />
+      <InterviewSec/>
       <InsightsSection />
       <CTASection />
     </div>

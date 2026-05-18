@@ -10,7 +10,7 @@ interface SignatureApproachProps {
 const SignatureApproach = ({ data }: SignatureApproachProps) => {
 
   return (
-    <section className="relative w-full min-h-[450px] flex items-center">
+    <section className="relative w-full min-h-[450px] md:mt-30 flex items-center">
       {/* Background Image Container */}
       <div className="absolute inset-0 z-0">
         <img
