@@ -2,6 +2,23 @@ import React from 'react';
 
 const MapSection = ({ data, title }: any) => {
   console.log("RESponse", data, "TITLE", title)
+  const getSatelliteMapUrl = (url?: string) => {
+    if (!url) return "";
+
+    // Extract coordinates from pb URL
+    const match = url.match(/!2d([0-9.-]+)!3d([0-9.-]+)/);
+
+    if (match) {
+      const lng = match[1];
+      const lat = match[2];
+
+      return `https://www.google.com/maps?q=${lat},${lng}&t=k&z=15&output=embed`;
+    }
+
+    return url;
+  };
+
+  const mapUrl = getSatelliteMapUrl(data?.mapLink);
   return (
     <section className="bg-[#fcf8f5] w-full py-8 md:py-10 pb-34 md:pb-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
@@ -76,14 +93,20 @@ const MapSection = ({ data, title }: any) => {
 
           {/* Right Column: Map Image */}
           <div className="w-full lg:w-[60%] min-h-[300px] sm:min-h-[400px] lg:min-h-auto relative bg-gray-200">
-            <iframe
-              src={data?.mapLink}
-              className="w-full h-full absolute inset-0 border-0"
-              allowFullScreen={false}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Flexicapital Office Location"
-            ></iframe>
+            {mapUrl ? (
+              <iframe
+                src={mapUrl}
+                className="w-full h-full absolute inset-0 border-0"
+                allowFullScreen={false}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Flexicapital Office Location"
+              />
+            ) : (
+              <div className="flex h-full items-center justify-center text-sm text-gray-500">
+                Map not available
+              </div>
+            )}
           </div>
 
         </div>

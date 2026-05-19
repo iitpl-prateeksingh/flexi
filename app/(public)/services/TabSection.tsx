@@ -221,7 +221,7 @@ export default function TabSection() {
             {isLoading && (
               <li className="flex-initial">
                 <span className="px-6 py-2.5 text-sm text-[#465A75]/70">
-                  Loading tabs…
+                  Loading services…
                 </span>
               </li>
             )}

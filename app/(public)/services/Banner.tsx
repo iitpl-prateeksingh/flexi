@@ -23,7 +23,7 @@ const Banner = ({ data }: any) => {
         </div>
         <div className="max-w-2xl">
           <h1
-            className="font-playfair html-editor service-banner font-semibold text-5xl md:text-[50px] md:leading-[106%] tracking-[0] text-[#fff]"
+            className="font-playfair html-editor service-banner font-semibold text-5xl md:text-[50px] leading-[106%] tracking-[0] text-[#fff]"
             dangerouslySetInnerHTML={{
               __html: data?.bannerText.replace(/&nbsp;/g, " ") || '',
             }}

@@ -54,6 +54,8 @@ export default function CardList({ data }: any) {
       fetchBlogs();
     }
   }, [search]);
+
+  console.log("Blogs to display:", blogs);
   return (
     <div className="min-h-screen bg-[#FFFaf5] p-6 md:p-12 font-sans text-gray-800">
       <div className="max-w-6xl mx-auto">

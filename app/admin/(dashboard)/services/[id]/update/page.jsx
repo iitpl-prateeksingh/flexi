@@ -34,7 +34,7 @@ export default function UpdateServicePage() {
         setIcon(service.icon ? { url: service.icon } : null);
       } catch (error) {
         toast.error("Failed to load service");
-        router.push("/admin/services");
+        router.push("/admin//services");
       } finally {
         setLoading(false);
       }
@@ -69,7 +69,7 @@ export default function UpdateServicePage() {
 
       await updateServiceApi(id, payload);
       toast.success("Service updated successfully", { id: "update" });
-      router.push("/admin/services");
+      router.push("/admin//services");
     } catch (error) {
       toast.error("Failed to update service", { id: "update" });
     }

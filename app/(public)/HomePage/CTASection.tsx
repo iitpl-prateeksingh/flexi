@@ -7,19 +7,27 @@ import React from "react";
 const CTASection = () => {
   return (
     <section
-      className="relative w-full overflow-hidden py-24 md:pt-80"
+      className="relative w-full overflow-hidden py-10 md:py-20"
       style={{
-        backgroundImage: "url('/backk1.png')",
+        backgroundImage: "url('/backbottom.png')",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "bottom",
         backgroundColor: "#FFF9F3",
+        backgroundSize: "cover",
       }}
     >
-      <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-        <p className="mb-4 font-inter text-sm font-medium tracking-wide text-[#F0803C]">
+      <div
+        className="relative z-10 mx-auto max-w-xl py-10 md:py-26 text-center"
+        style={{
+          backdropFilter: "blur(8.931183815002441px)",
+          background: "#00000014",
+          borderRadius: "42px 0px",
+        }}
+      >
+        <p className="font-inter text-md font-medium tracking-wide text-[#fff]">
           Ready to Begin?
         </p>
-        <h2 className="mb-6 font-playfair text-3xl font-bold leading-tight text-[#15316E] md:text-4xl lg:text-5xl">
+        <h2 className="mb-6 font-playfair text-3xl font-bold leading-tight text-[#fff] md:text-4xl lg:text-5xl">
           Start Your journey
         </h2>
 
@@ -36,14 +44,30 @@ const CTASection = () => {
 
           <Link
             href="/contactus"
+            className="group flex h-10 w-[150px] cursor-pointer items-center justify-center rounded-full border bg-[#F0803C] border-[#F0803C] font-spline text-md font-semibold text-[#ffff] transition-all duration-300 hover:bg-gradient-to-r hover:from-[#F0803C]/20 hover:to-transparent"
+          >
+            <span className="font-light transition-transform duration-300 group-hover:translate-x-0">
+              Contact us
+            </span>
+
+            <ArrowRight
+              size={26}
+              className="w-0 opacity-0 transition-all duration-300 group-hover:ml-2 group-hover:w-4 group-hover:opacity-100"
+            />
+          </Link>
+          {/* <Link
+            href="/contactus"
             className="group flex h-12 w-[160px] cursor-pointer items-center justify-center rounded-full border border-[#F0803C] bg-transparent font-inter text-sm font-semibold text-[#F0803C] transition-all duration-300 hover:bg-gradient-to-r hover:from-[#F0803C]/20 hover:to-transparent"
           >
             <span className=" transition-transform duration-300 group-hover:translate-x-0">
               Contact us
             </span>
 
-            <ArrowRight size={26} className="w-0 opacity-0 transition-all duration-300 group-hover:ml-2 group-hover:w-4 group-hover:opacity-100" />
-          </Link>
+            <ArrowRight
+              size={26}
+              className="w-0 opacity-0 transition-all duration-300 group-hover:ml-2 group-hover:w-4 group-hover:opacity-100"
+            />
+          </Link> */}
         </div>
       </div>
     </section>
