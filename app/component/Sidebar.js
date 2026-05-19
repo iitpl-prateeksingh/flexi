@@ -66,6 +66,10 @@ export default function Sidebar() {
             name: "Contact Page",
             path: "/admin/pages/contact",
             permission: "update_contact_page",
+        }, {
+            name: "Interview Page",
+            path: "/admin/pages/interview",
+            permission: "update_about_page",
         },
 
     ];
