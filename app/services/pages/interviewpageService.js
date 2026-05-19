@@ -1,7 +1,25 @@
 import API from "../api";
 
-export const getInterviewPageAdminService = () => {
+export const getInterviewPageAdminService = (params = {}) => {
   return API.get("/interview", {
+    params,
+    headers: {
+      "Cache-Control": "no-cache",
+    },
+  });
+};
+
+export const getAllInterviewsService = (page = 1, limit = 8) => {
+  return API.get("/interview", {
+    params: { page, limit },
+    headers: {
+      "Cache-Control": "no-cache",
+    },
+  });
+};
+
+export const getRecentInterviewsService = () => {
+  return API.get("/interview/recent", {
     headers: {
       "Cache-Control": "no-cache",
     },
