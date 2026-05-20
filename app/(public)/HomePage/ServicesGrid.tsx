@@ -1,3 +1,146 @@
+// "use client";
+
+// import React, { useEffect, useState } from "react";
+// import { ArrowRight } from "lucide-react";
+// import { getPublicServices } from "../../services/services";
+// import Link from "next/link";
+
+// interface ServiceItem {
+//   id: string;
+//   title: string;
+//   description: string;
+//   image?: string;
+//   icon?: string;
+// }
+
+// interface ServicesGridProps {
+//   data?: {
+//     services?: string;
+//   } | null;
+// }
+
+// const asString = (value: unknown) =>
+//   typeof value === "string" ? value : undefined;
+
+// const ServicesGrid = ({ data }: ServicesGridProps) => {
+//   const [services, setServices] = useState<ServiceItem[]>([]);
+
+//   useEffect(() => {
+//     const fetchServices = async () => {
+//       try {
+//         const res = await getPublicServices();
+//         console.log(res, "RES");
+
+//         const cleanHTML = (html?: string) =>
+//           html?.replace(/&nbsp;/g, " ") ?? "";
+
+//         const responseData = Array.isArray(res?.data) ? res.data : [];
+//         const formatted = responseData.map((item: unknown, index: number) => {
+//           const serviceObj = item as Record<string, unknown>;
+//           return {
+//             id:
+//               asString(serviceObj["_id"]) ??
+//               asString(serviceObj["id"]) ??
+//               `service-${index}`,
+//             title: cleanHTML(asString(serviceObj["title"])),
+//             description: cleanHTML(asString(serviceObj["detail"])),
+//             image: asString(serviceObj["image"]),
+//             icon: asString(serviceObj["icon"]),
+//           };
+//         });
+
+//         setServices(formatted || []);
+//       } catch (err) {
+//         console.error("Error fetching services", err);
+//       }
+//     };
+
+//     fetchServices();
+//   }, []);
+
+//   return (
+//     <section className="bg-[#fdf8f3] py-16 px-0 md:px-6 md:py-24">
+//       <div className="px-4 md:px-20 mx-auto ">
+//         {/* Header */}
+//         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-12 gap-6">
+//           <div className="max-w-2xl">
+//             <span className="bg-[linear-gradient(270.47deg,_#59A6EB_0.35%,_#1D4362_99.65%)] text-white px-6 py-1.5 rounded-full text-sm font-light">
+//               Our Services
+//             </span>
+
+//             <div
+//               className="html-editor main-services pb-4"
+//               dangerouslySetInnerHTML={{
+//                 __html: data?.services?.replace(/&nbsp;/g, " ") || "",
+//               }}
+//             />
+//           </div>
+
+//           <Link
+//             href="/services"
+//             className="group flex items-center gap-2 border border-[#F78532] text-[#F78532] cursor-pointer px-6 py-2 rounded-full hover:bg-orange-50 transition-colors w-fit"
+//           >
+//             Explore More services
+//             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+//           </Link>
+//         </div>
+
+//         {/* Grid */}
+//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+//           {services.map((service, index) => (
+//             <Link
+//               href={`/services?service=${encodeURIComponent(service.id)}`}
+//               key={service.id}
+//             >
+//               <div
+//                 style={
+//                   index === 0
+//                     ? {
+//                         border: "5px solid #f88732",
+//                         boxShadow: "-9px -10px 0px 0px #f88732",
+//                       }
+//                     : {}
+//                 }
+//                 className="group relative w-full h-100 md:h-[290px] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
+//               >
+//                 <img
+//                   src={service.image}
+//                   alt={service.title}
+//                   className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-110"
+//                 />
+
+//                 <div className="absolute inset-y-0 left-0 z-10 w-full sm:w-[55%] p-8 flex flex-col justify-center bg-[#00000052] backdrop-blur-[2px] md:backdrop-blur-md">
+//                   <div className="mb-2 text-white/90 p-3 bg-white/10 w-fit rounded-full backdrop-blur-sm border border-white/10">
+//                     <img
+//                       src={service.icon}
+//                       alt={`${service.title} icon`}
+//                       style={{
+//                         width: "24px",
+//                         height: "24px",
+//                         objectFit: "contain",
+//                       }}
+//                     />
+//                   </div>
+
+//                   <h3 className="text-2xl font-playfair md:text-xl text-white mb-4 leading-tight">
+//                     {service.title}
+//                   </h3>
+
+//                   <p className="text-white  font-medium md:font-light text-sm leading-relaxed opacity-90">
+//                     {service.description}
+//                   </p>
+//                 </div>
+//               </div>
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default ServicesGrid;
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -49,7 +192,8 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
           };
         });
 
-        setServices(formatted || []);
+        // Slice array to ensure exactly 4 items are shown
+        setServices(formatted.slice(0, 4) || []);
       } catch (err) {
         console.error("Error fetching services", err);
       }
@@ -85,30 +229,37 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
           </Link>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Grid: 1 column on mobile, 3 columns on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <Link
               href={`/services?service=${encodeURIComponent(service.id)}`}
               key={service.id}
+              // Index 0 takes full 3 columns width on desktop. Rest take 1 column.
+              className={index === 0 ? "lg:col-span-3" : "lg:col-span-1"}
             >
               <div
-              style={
-        index === 0 
-          ? { 
-              border: "5px solid #f88732", 
-              boxShadow: "-9px -10px 0px 0px #f88732" 
-            } 
-          : {}
-      }
-              className="group relative w-full h-100 md:h-[290px] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500">
+                style={
+                  index === 0
+                    ? {
+                        border: "5px solid #f88732",
+                        boxShadow: "-9px -10px 0px 0px #f88732",
+                      }
+                    : {}
+                }
+                className="group relative w-full h-100 md:h-[290px] rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
+              >
                 <img
                   src={service.image}
                   alt={service.title}
                   className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-110"
                 />
 
-                <div className="absolute inset-y-0 left-0 z-10 w-full sm:w-[55%] p-8 flex flex-col justify-center bg-[#00000052] backdrop-blur-[2px] md:backdrop-blur-md">
+                {/* Adjust overlay width based on index. First item is 55% wide on desktop, others cover full width */}
+                <div 
+                  className={`absolute inset-y-0 left-0 z-10 p-8 flex flex-col justify-center bg-[#00000052] backdrop-blur-[2px] md:backdrop-blur-md
+                  ${index === 0 ? "w-full md:w-[55%]" : "w-full"}
+                `}>
                   <div className="mb-2 text-white/90 p-3 bg-white/10 w-fit rounded-full backdrop-blur-sm border border-white/10">
                     <img
                       src={service.icon}
@@ -125,7 +276,7 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
                     {service.title}
                   </h3>
 
-                  <p className="text-white  font-medium md:font-light text-sm leading-relaxed opacity-90">
+                  <p className="text-white font-medium md:font-light text-sm leading-relaxed opacity-90 line-clamp-3">
                     {service.description}
                   </p>
                 </div>
