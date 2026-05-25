@@ -176,7 +176,7 @@ export default function Page() {
             </div>
           </section>
 
-          {/* <p className="font-playfair pt-14 font-semibold text-[24px] leading-[48px] tracking-[0.04em] text-[#F78532]">
+          {/*<p className="font-playfair pt-14 font-semibold text-[24px] leading-[48px] tracking-[0.04em] text-[#F78532]">
             All Episodes
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
