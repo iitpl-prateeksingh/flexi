@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import Banner from "./Banner";
-import { getAllInterviewsService } from "../../services/pages/interviewpageService";
+import { getAllInterviewsService, getRecentInterviewsService } from "../../services/pages/interviewpageService";
 import { FaAngleRight, FaChevronRight } from "react-icons/fa";
 
 interface InterviewItem {
@@ -13,7 +13,14 @@ interface InterviewItem {
   thumbnailUrl: string;
   date: string;
 }
-
+interface InterviewCardItem {
+  id: string;
+  title: string;
+  description: string;
+  linkedinUrl: string;
+  thumbnailUrl: string;
+  date: string;
+}
 const formatDate = (date?: string) => {
   if (!date) return "";
   const value = new Date(date);
@@ -25,7 +32,32 @@ const formatDate = (date?: string) => {
   });
 };
 
-function NewsCard({ post }: { post: InterviewItem }) {
+// function NewsCard({ post }: { post: InterviewItem }) {
+//   return (
+//     <div className="bg-[#F785320A] border border-[#F4D3BA] rounded-2xl p-4 flex flex-col hover:shadow-md transition-shadow duration-300 h-full">
+//       <a href={post.linkedinUrl} target="_blank" rel="noopener noreferrer">
+//         <div className="w-full h-48 rounded-xl overflow-hidden mb-5 bg-black">
+//           <img
+//             src={post.thumbnailUrl}
+//             alt={post.title}
+//             className="w-full h-full object-cover"
+//           />
+//         </div>
+//       </a>
+//       <div className="flex justify-end items-center text-sm text-[#20466785] font-inter mb-3 font-medium">
+//         <span>{post.date}</span>
+//       </div>
+//       <h3 className="text-xl font-playfair text-[#F28B46] font-semibold mb-4 flex-grow">
+//         {post.title}
+//       </h3>
+//       <div
+//         className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
+//         dangerouslySetInnerHTML={{ __html: post.description || "" }}
+//       />
+//     </div>
+//   );
+// }
+function NewsCard({ post }: { post: InterviewCardItem }) {
   return (
     <div className="bg-[#F785320A] border border-[#F4D3BA] rounded-2xl p-4 flex flex-col hover:shadow-md transition-shadow duration-300 h-full">
       <a href={post.linkedinUrl} target="_blank" rel="noopener noreferrer">
@@ -37,23 +69,50 @@ function NewsCard({ post }: { post: InterviewItem }) {
           />
         </div>
       </a>
-      <div className="flex justify-end items-center text-sm text-[#20466785] font-inter mb-3 font-medium">
-        <span>{post.date}</span>
-      </div>
-      <h3 className="text-xl font-playfair text-[#F28B46] font-semibold mb-4 flex-grow">
+
+     
+
+      <h3 className="text-xl font-playfair text-[#F28B46] font-semibold mb-2 flex-grow">
         {post.title}
       </h3>
+
       <div
         className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
         dangerouslySetInnerHTML={{ __html: post.description || "" }}
       />
+       <div className="flex justify-end items-center text-xs text-gray-500 mt-3 font-medium">
+       {post.date}
+      </div>
     </div>
   );
 }
 
+
 export default function Page() {
   const [interviews, setInterviews] = useState<InterviewItem[]>([]);
-
+ const [interviewData, setInterviewData] = useState<InterviewCardItem[]>([]);
+   useEffect(() => {
+     const loadRecentInterviews = async () => {
+       try {
+         const response = await getRecentInterviewsService();
+         const items = response?.data?.interviews || [];
+         if (!Array.isArray(items) || items.length === 0) return;
+ 
+         const mapped = items.slice(0, 3).map((item: any, index: number) => ({
+           id: item?._id || `${index + 1}`,
+           title: item?.title || "",
+           description: item?.description || "",
+           linkedinUrl: item?.videoUrl || "",
+           thumbnailUrl: item?.thumbnail || "",
+           date: formatDate(item?.updatedAt) || "",
+         }));
+ 
+         setInterviewData(mapped);
+       } catch (error) {}
+     };
+ 
+     loadRecentInterviews();
+   }, []);
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
@@ -88,8 +147,12 @@ export default function Page() {
           <p className="font-playfair pb-4 font-semibold text-[32px] leading-[48px] tracking-[0.04em] text-[#F78532]">
             Recent Episodes
           </p>
-
-          <section>
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {interviewData.map((video) => (
+            <NewsCard key={video.id} post={video} />
+          ))}
+        </div>
+          {/* <section>
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
               <div className="flex-1 flex flex-col gap-5">
                 <div className="relative w-full aspect-video bg-black rounded-sm overflow-hidden shadow-sm">
@@ -155,9 +218,9 @@ export default function Page() {
                           />
                         </div>
                         <div>
-                          {/* <h2 className="text-[15px] text-gray-800 leading-snug font-medium line-clamp-4">
+                          <h2 className="text-[15px] text-gray-800 leading-snug font-medium line-clamp-4">
                             {video.title}
-                          </h2> */}
+                          </h2>
                           <div
                             className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
                             dangerouslySetInnerHTML={{
@@ -174,7 +237,7 @@ export default function Page() {
                 ))}
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/*<p className="font-playfair pt-14 font-semibold text-[24px] leading-[48px] tracking-[0.04em] text-[#F78532]">
             All Episodes
