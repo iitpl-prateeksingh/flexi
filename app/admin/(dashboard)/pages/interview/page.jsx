@@ -15,6 +15,19 @@ import {
 } from "../../../../services/pages/interviewpageService";
 
 export default function InterviewAdminPage() {
+  const toDatetimeLocalValue = (value) => {
+    if (!value) return "";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    const pad = (n) => String(n).padStart(2, "0");
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
   const [headingTitle, setHeadingTitle] = useState("");
   const [headingImage, setHeadingImage] = useState(null);
   const [interviews, setInterviews] = useState([]);
@@ -27,6 +40,7 @@ export default function InterviewAdminPage() {
     thumbnail: null,
     videoUrl: "",
     thumbnailPreview: "",
+    updatedAt: "",
   });
 
   const parseUploadUrl = (uploadRes) => uploadRes?.data?.url || uploadRes?.url || "";
@@ -47,6 +61,7 @@ export default function InterviewAdminPage() {
       thumbnail: null,
       videoUrl: "",
       thumbnailPreview: "",
+      updatedAt: "",
     });
     setEditingInterviewId(null);
   };
@@ -101,6 +116,7 @@ export default function InterviewAdminPage() {
       thumbnail: null,
       videoUrl: item.videoUrl || "",
       thumbnailPreview: item.thumbnail || "",
+      updatedAt: toDatetimeLocalValue(item.updatedAt),
     });
     setShowInterviewForm(true);
   };
@@ -127,6 +143,7 @@ export default function InterviewAdminPage() {
           title: interviewForm.title,
           description: interviewForm.description,
           thumbnail: thumbnailUrl,
+          updatedAt: interviewForm.updatedAt || null,
         });
 
         await updateInterviewVideoService(editingInterviewId, videoUrl || "");
@@ -136,6 +153,7 @@ export default function InterviewAdminPage() {
           description: interviewForm.description,
           thumbnail: thumbnailUrl,
           videoUrl,
+          updatedAt: interviewForm.updatedAt || null,
         });
       }
 
@@ -218,13 +236,13 @@ export default function InterviewAdminPage() {
         {interviews.length === 0 && <p className="text-gray-500">No interviews found.</p>}
 
         <div className="overflow-x-auto">
-          <table className="w-full border border-gray-200 rounded-lg overflow-hidden">
+          <table className="w-full table-fixed border border-gray-200 rounded-lg overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
                 <th className="text-left p-3 border-b">Thumbnail</th>
                 <th className="text-left p-3 border-b">Title</th>
-                <th className="text-left p-3 border-b">Description</th>
-                <th className="text-left p-3 border-b">Video Link</th>
+                <th className="text-left p-3 border-b w-[28%]">Description</th>
+                <th className="text-left p-3 border-b w-[28%]">Video Link</th>
                 <th className="text-left p-3 border-b">Actions</th>
               </tr>
             </thead>
@@ -243,19 +261,19 @@ export default function InterviewAdminPage() {
                     )}
                   </td>
                   <td className="p-3 font-medium">{item.title || "-"}</td>
-                  <td className="p-3 text-sm text-gray-700 max-w-md">
+                  <td className="p-3 text-sm text-gray-700 w-[28%] align-top overflow-hidden">
                     <div
-                      className="line-clamp-3"
+                      className="line-clamp-4 max-w-full break-words whitespace-normal [&_*]:max-w-full [&_*]:break-words"
                       dangerouslySetInnerHTML={{ __html: item.description || "-" }}
                     />
                   </td>
-                  <td className="p-3 text-sm">
+                  <td className="p-3 text-sm w-[28%] align-top overflow-hidden">
                     {item.videoUrl ? (
                       <a
                         href={item.videoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-blue-600 underline break-all"
+                        className="text-blue-600 underline break-all max-w-full inline-block"
                       >
                         {item.videoUrl}
                       </a>
