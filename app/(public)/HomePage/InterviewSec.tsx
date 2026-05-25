@@ -37,11 +37,9 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
         </div>
       </a>
 
-      <div className="flex justify-end items-center text-sm text-gray-500 mb-3 font-medium">
-        <span>{post.date}</span>
-      </div>
+     
 
-      <h3 className="text-xl font-playfair text-[#F28B46] font-semibold mb-4 flex-grow">
+      <h3 className="text-xl font-playfair text-[#F28B46] font-semibold mb-2 flex-grow">
         {post.title}
       </h3>
 
@@ -49,6 +47,9 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
         className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
         dangerouslySetInnerHTML={{ __html: post.description || "" }}
       />
+       <div className="flex justify-end items-center text-xs text-gray-500 mt-3 font-medium">
+       {post.date}
+      </div>
     </div>
   );
 }

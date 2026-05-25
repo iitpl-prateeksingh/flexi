@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Banner from "./Banner";
 import { getAllInterviewsService } from "../../services/pages/interviewpageService";
+import { FaAngleRight, FaChevronRight } from "react-icons/fa";
 
 interface InterviewItem {
   id: string;
@@ -93,7 +94,11 @@ export default function Page() {
               <div className="flex-1 flex flex-col gap-5">
                 <div className="relative w-full aspect-video bg-black rounded-sm overflow-hidden shadow-sm">
                   {featured && (
-                    <a href={featured.linkedinUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={featured.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <img
                         src={featured.thumbnailUrl}
                         alt={featured.title}
@@ -107,8 +112,14 @@ export default function Page() {
                   <h1 className="text-xl md:text-[22px] font-serif text-[#181A2A] leading-snug">
                     {featured?.title}
                   </h1>
+                  <div
+                    className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
+                    dangerouslySetInnerHTML={{
+                      __html: featured?.description || "",
+                    }}
+                  />
                   <p className="text-gray-500 font-medium text-base tracking-wide uppercase">
-                    NDTV
+                    {featured?.date}
                   </p>
                 </div>
               </div>
@@ -117,15 +128,24 @@ export default function Page() {
                 {sideVideos.map((video) => (
                   <article
                     key={video.id}
-                    className="shadow-[0px_4px_6px_0px_#0000000F] bg-[#FFFDFA] border border-[#F7853238] p-4 transition-shadow cursor-pointer flex flex-col gap-3"
+                    className="relative shadow-[0px_4px_6px_0px_#0000000F] bg-[#FFFDFA] border border-[#F7853238] p-4 transition-shadow cursor-pointer flex flex-col gap-3"
                   >
+                    <FaChevronRight
+                      size={10}
+                      className="text-orange-600 absolute top-4 right-4"
+                    />
+
                     <div className="flex justify-between items-center">
                       <span className="text-orange-600 font-medium text-sm tracking-wide">
-                        NDTV
+                        {video.title}
                       </span>
                     </div>
 
-                    <a href={video.linkedinUrl} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={video.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <div className="flex gap-4 items-start">
                         <div className="relative w-32 shrink-0 aspect-[16/10] bg-gray-200 rounded overflow-hidden">
                           <img
@@ -134,10 +154,20 @@ export default function Page() {
                             className="w-full h-full object-cover"
                           />
                         </div>
-
-                        <h2 className="text-[15px] text-gray-800 leading-snug font-medium line-clamp-4">
-                          {video.title}
-                        </h2>
+                        <div>
+                          {/* <h2 className="text-[15px] text-gray-800 leading-snug font-medium line-clamp-4">
+                            {video.title}
+                          </h2> */}
+                          <div
+                            className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
+                            dangerouslySetInnerHTML={{
+                              __html: video.description || "",
+                            }}
+                          />
+                          <p className="text-gray-500 text-xs mt-2 font-medium text-base tracking-wide uppercase">
+                            {featured?.date}
+                          </p>
+                        </div>
                       </div>
                     </a>
                   </article>
