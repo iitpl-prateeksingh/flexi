@@ -72,6 +72,26 @@ export default function InterviewFormModal({
             />
           </div>
 
+          <div className="mb-5">
+            <label className="block font-medium mb-2">
+              Interview Date & Time
+            </label>
+            <input
+              type="datetime-local"
+              value={interviewForm.updatedAt || ""}
+              onChange={(e) =>
+                setInterviewForm((p) => ({
+                  ...p,
+                  updatedAt: e.target.value,
+                }))
+              }
+              className="w-full border p-3 rounded-lg"
+            />
+            <p className="text-xs text-gray-500 mt-2">
+              Latest/recent interview order will follow this date and time.
+            </p>
+          </div>
+
           {/* Thumbnail + Video URL */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Thumbnail */}
@@ -140,7 +160,7 @@ export default function InterviewFormModal({
             {/* Video URL */}
             <div>
               <label className="font-medium block mb-3">
-                Interview Video Link
+                Interview Link
               </label>
 
               <input
