@@ -103,11 +103,11 @@ export default function ContentAdminPermissions() {
     };
 
     if (loading && permissions.length === 0) {
-        return <div className="p-10">Loading permissions...</div>;
+        return <div className="p-4 md:p-10">Loading permissions...</div>;
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 p-10">
+        <div className="min-h-screen bg-gray-50 p-4 md:p-10">
 
             <div className="max-w-6xl mx-auto">
 
@@ -141,7 +141,7 @@ export default function ContentAdminPermissions() {
                                     )}
                                 </div>
 
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
                                     {[...perms]
                                         .sort((a, b) => {

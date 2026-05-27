@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { uploadImageService } from "../../services/imageService";
-import SectionCard from "../SectionCard"
 import { updateInsightContentApi } from "../../services/insightService";
 import QuillEditor from "../../component/QuillEditor";
+import { requestConfirmation } from "../../component/common/confirmBus";
 
 export default function InsightForm({ data, refresh }) {
 
@@ -52,7 +52,14 @@ export default function InsightForm({ data, refresh }) {
         }
     };
 
-    const removeImage = (type) => {
+    const removeImage = async (type) => {
+        const ok = await requestConfirmation({
+            title: "Remove Image",
+            description: "Are you sure you want to remove this image?",
+            confirmText: "Yes, Remove",
+        });
+        if (!ok) return;
+
         if (type === "monthly") {
             setMonthlyFile(null);
             setForm(prev => ({
@@ -150,11 +157,38 @@ export default function InsightForm({ data, refresh }) {
             <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-6">
                 <h2 className="text-lg font-semibold">Monthly</h2>
 
-                {/* IMAGE */}
-                <input type="file" onChange={(e) => handleImageChange(e, "monthly")} />
-                {form.monthly.image && (
-                    <img src={form.monthly.image} className="h-32 rounded" />
-                )}
+                <div>
+                    <label className="block mb-2 font-medium">Image</label>
+                    <div className="mt-2 flex items-center gap-4">
+                        {form.monthly.image ? (
+                            <div className="relative group">
+                                <img src={form.monthly.image} className="h-24 w-24 rounded-lg object-cover border shadow-sm" />
+                                <button
+                                    type="button"
+                                    onClick={() => removeImage("monthly")}
+                                    className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full opacity-0 group-hover:opacity-100 transition"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="h-24 w-24 flex items-center justify-center rounded-lg border border-dashed border-gray-300 text-gray-400 text-xs">
+                                No Image
+                            </div>
+                        )}
+                        <label className="cursor-pointer">
+                            <div className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+                                Upload Image
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => handleImageChange(e, "monthly")}
+                            />
+                        </label>
+                    </div>
+                </div>
 
                 {/* TITLE (QUILL) */}
                 <div>
@@ -192,11 +226,38 @@ export default function InsightForm({ data, refresh }) {
             <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-6">
                 <h2 className="text-lg font-semibold">Weekly</h2>
 
-                {/* IMAGE */}
-                <input type="file" onChange={(e) => handleImageChange(e, "weekly")} />
-                {form.weekly.image && (
-                    <img src={form.weekly.image} className="h-32 rounded" />
-                )}
+                <div>
+                    <label className="block mb-2 font-medium">Image</label>
+                    <div className="mt-2 flex items-center gap-4">
+                        {form.weekly.image ? (
+                            <div className="relative group">
+                                <img src={form.weekly.image} className="h-24 w-24 rounded-lg object-cover border shadow-sm" />
+                                <button
+                                    type="button"
+                                    onClick={() => removeImage("weekly")}
+                                    className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full opacity-0 group-hover:opacity-100 transition"
+                                >
+                                    ✕
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="h-24 w-24 flex items-center justify-center rounded-lg border border-dashed border-gray-300 text-gray-400 text-xs">
+                                No Image
+                            </div>
+                        )}
+                        <label className="cursor-pointer">
+                            <div className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+                                Upload Image
+                            </div>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                onChange={(e) => handleImageChange(e, "weekly")}
+                            />
+                        </label>
+                    </div>
+                </div>
 
                 {/* TITLE (QUILL) */}
                 <div>

@@ -74,11 +74,13 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center min-h-screen bg-[radial-gradient(circle_at_top,_#ffffff,_#f7f4ee_50%,_#f2ede4)] px-4">
 
-            <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-xl">
-
-                <h2 className="text-2xl font-bold text-center mb-6">
+            <div className="w-full max-w-md p-8 admin-card">
+                <p className="text-xs uppercase tracking-[0.2em] text-[var(--admin-muted)] text-center mb-2">
+                    Flexi Capital
+                </p>
+                <h2 className="text-3xl font-semibold text-center mb-6 text-[var(--admin-primary)] font-playfair">
                     Admin Login
                 </h2>
 
@@ -95,7 +97,7 @@ export default function AdminLogin() {
                             placeholder="admin@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2.5 border border-[var(--admin-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f8c7a2] focus:border-[var(--admin-accent)]"
                             required
                         />
                     </div>
@@ -111,7 +113,7 @@ export default function AdminLogin() {
                             placeholder="********"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full px-3 py-2.5 border border-[var(--admin-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f8c7a2] focus:border-[var(--admin-accent)]"
                             required
                         />
                     </div>
@@ -120,7 +122,7 @@ export default function AdminLogin() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition disabled:bg-gray-400"
+                        className="w-full bg-[var(--admin-accent)] text-white py-2.5 rounded-lg hover:bg-[var(--admin-accent-hover)] transition disabled:bg-gray-400"
                     >
                         {loading ? "Logging in..." : "Login"}
                     </button>

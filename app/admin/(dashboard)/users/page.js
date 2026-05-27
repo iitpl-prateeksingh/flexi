@@ -10,6 +10,7 @@ import {
     getAdminsService,
     updateAdminStatusService
 } from "../../../services/admin/adminService"
+import { requestConfirmation } from "../../../component/common/confirmBus";
 
 export default function UsersPage() {
 
@@ -53,6 +54,12 @@ export default function UsersPage() {
         }
     };
     const deleteUser = async (id) => {
+        const ok = await requestConfirmation({
+            title: "Delete User",
+            description: "Are you sure you want to delete this user?",
+            confirmText: "Yes, Delete",
+        });
+        if (!ok) return;
         try {
             const res = await deleteAdminUser(id);
 
@@ -65,7 +72,7 @@ export default function UsersPage() {
         }
     };
     return (
-        <div className="p-8 bg-gray-50">
+        <div className="p-4 md:p-8 bg-gray-50">
 
             <div className="flex justify-between mb-6">
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { uploadImageService } from "../../../../services/imageService";
 import { createServiceApi } from "../../../../services/services";
+import { requestConfirmation } from "../../../../component/common/confirmBus";
 
 export default function CreateServicePage() {
   const router = useRouter();
@@ -51,7 +52,7 @@ export default function CreateServicePage() {
   };
 
   return (
-    <div className="p-6 md:p-10  min-h-screen">
+    <div className="p-4 md:p-10  min-h-screen">
       <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-6">
         <h1 className="text-2xl font-semibold text-gray-800 mb-6">
           Create New Service
@@ -88,7 +89,7 @@ export default function CreateServicePage() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* IMAGE UPLOAD */}
             <div>
               <label className="text-sm font-medium text-gray-700">Image</label>
@@ -101,7 +102,14 @@ export default function CreateServicePage() {
                     />
                     <button
                       type="button"
-                      onClick={() => setImage(null)}
+                      onClick={async () => {
+                        const ok = await requestConfirmation({
+                          title: "Remove Image",
+                          description: "Are you sure you want to remove this image?",
+                          confirmText: "Yes, Remove",
+                        });
+                        if (ok) setImage(null);
+                      }}
                       className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full opacity-0 group-hover:opacity-100 transition"
                     >
                       ✕
@@ -145,7 +153,14 @@ export default function CreateServicePage() {
                     />
                     <button
                       type="button"
-                      onClick={() => setIcon(null)}
+                      onClick={async () => {
+                        const ok = await requestConfirmation({
+                          title: "Remove Icon",
+                          description: "Are you sure you want to remove this icon?",
+                          confirmText: "Yes, Remove",
+                        });
+                        if (ok) setIcon(null);
+                      }}
                       className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full opacity-0 group-hover:opacity-100 transition"
                     >
                       ✕

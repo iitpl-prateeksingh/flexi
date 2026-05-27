@@ -10,6 +10,7 @@ import {
 } from "../../../services/insightService";
 
 import InsightForm from "../../../component/insight/InsightForm";
+import { requestConfirmation } from "../../../component/common/confirmBus";
 
 export default function InsightPage() {
     const [data, setData] = useState(null);
@@ -46,6 +47,12 @@ export default function InsightPage() {
     // ✅ DELETE INSIGHT (optional)
     // ==============================
     const handleInsightDelete = async (id) => {
+        const ok = await requestConfirmation({
+            title: "Delete Insight",
+            description: "Are you sure you want to delete this insight?",
+            confirmText: "Yes, Delete",
+        });
+        if (!ok) return;
         try {
             await deleteInsightItemApi(id);
             toast.success("Insight deleted");
@@ -60,14 +67,14 @@ export default function InsightPage() {
     // ==============================
     if (loading) {
         return (
-            <div className="p-10">
+            <div className="p-4 md:p-10">
                 <p className="text-gray-500">Loading...</p>
             </div>
         );
     }
 
     return (
-        <div className="p-6 md:p-10 bg-gray-50 min-h-screen">
+        <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
 
             {/* ================= HEADER ================= */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { getBlogsService, deleteBlogService } from "../../../services/blogService";
 import BlogTable from "../../../component/insight/BlogTable";
+import { requestConfirmation } from "../../../component/common/confirmBus";
 
 export default function BlogsPage() {
     const [blogs, setBlogs] = useState([]);
@@ -35,6 +36,12 @@ export default function BlogsPage() {
     }, []);
 
     const handleDelete = async (id) => {
+        const ok = await requestConfirmation({
+            title: "Delete Blog",
+            description: "Are you sure you want to delete this blog?",
+            confirmText: "Yes, Delete",
+        });
+        if (!ok) return;
         try {
             await deleteBlogService(id);
             toast.success("Blog deleted");
@@ -47,14 +54,14 @@ export default function BlogsPage() {
 
     if (loading) {
         return (
-            <div className="p-10">
+            <div className="p-4 md:p-10">
                 <p className="text-gray-500">Loading blogs...</p>
             </div>
         );
     }
 
     return (
-        <div className="p-6 md:p-10 bg-gray-50 min-h-screen">
+        <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
                 <div>
                     <h1 className="text-2xl md:text-3xl font-semibold text-gray-800">
@@ -73,8 +80,8 @@ export default function BlogsPage() {
                 </button>
             </div>
 
-            <div className="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-                <div className="overflow-x-auto px-6 py-4">
+            <div className=" rounded-xl shadow-lg overflow-hidden">
+                <div className="overflow-x-auto ">
                     <BlogTable list={blogs} onDelete={handleDelete} />
                 </div>
             </div>

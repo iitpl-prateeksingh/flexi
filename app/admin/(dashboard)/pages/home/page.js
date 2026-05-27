@@ -6,6 +6,7 @@ import { saveHomePageService, getHomePageAdminService } from "../../../../servic
 import toast from "react-hot-toast";
 import { uploadVideoService } from "../../../../services/videoService";
 import { uploadImageService } from "../../../../services/imageService"
+import { requestConfirmation } from "../../../../component/common/confirmBus";
 
 
 export default function HomeAdminPage() {
@@ -147,7 +148,13 @@ export default function HomeAdminPage() {
         setFeatures((prev) => [...prev, { title: "" }]);
     };
 
-    const removeFeature = (index) => {
+    const removeFeature = async (index) => {
+        const ok = await requestConfirmation({
+            title: "Remove Feature",
+            description: "Are you sure you want to remove this feature?",
+            confirmText: "Yes, Remove",
+        });
+        if (!ok) return;
         setFeatures((prev) => prev.filter((_, i) => i !== index));
     };
 
@@ -198,7 +205,13 @@ export default function HomeAdminPage() {
         setVideos([preview]);
     };
 
-    const removeVideo = (index) => {
+    const removeVideo = async (index) => {
+        const ok = await requestConfirmation({
+            title: "Remove Video",
+            description: "Are you sure you want to remove this video?",
+            confirmText: "Yes, Remove",
+        });
+        if (!ok) return;
         setVideos((prev) => prev.filter((_, i) => i !== index));
     };
     // ✅ Intro Image Upload
@@ -239,7 +252,13 @@ export default function HomeAdminPage() {
         ]);
     };
 
-    const removeWhyChoose = (index) => {
+    const removeWhyChoose = async (index) => {
+        const ok = await requestConfirmation({
+            title: "Remove Item",
+            description: "Are you sure you want to remove this item?",
+            confirmText: "Yes, Remove",
+        });
+        if (!ok) return;
         setWhyChooseList(prev => prev.filter((_, i) => i !== index));
     };
 
@@ -394,9 +413,9 @@ export default function HomeAdminPage() {
     };
 
     return (
-        <div className="p-10 bg-gray-50 min-h-screen">
+        <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
 
-            <h1 className="text-3xl font-bold mb-8">Homepage Manager</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Homepage Manager</h1>
 
             <form onSubmit={handleSubmit} className="space-y-10">
 
@@ -420,7 +439,7 @@ export default function HomeAdminPage() {
                             Upload Hero Video
                         </label>
 
-                        <div className="grid grid-cols-2  gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
 
                             {videos.map((video, i) => (
                                 <div key={i} className="relative border rounded-xl overflow-hidden bg-gray-100">
@@ -461,7 +480,7 @@ export default function HomeAdminPage() {
 
                         <div className="space-y-4">
                             {features.map((item, index) => (
-                                <div key={index} className="flex items-center gap-3">
+                                <div key={index} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
 
                                     <input
                                         type="text"
@@ -477,7 +496,7 @@ export default function HomeAdminPage() {
                                         <button
                                             type="button"
                                             onClick={() => removeFeature(index)}
-                                            className="bg-red-500 text-white px-3 py-2 rounded"
+                                        className="bg-red-500 text-white px-3 py-2 rounded sm:w-auto w-full"
                                         >
                                             ✕
                                         </button>
@@ -491,7 +510,7 @@ export default function HomeAdminPage() {
                             <button
                                 type="button"
                                 onClick={addFeature}
-                                className="mt-4 bg-gray-200 px-4 py-2 rounded hover:bg-gray-300"
+                                className="mt-4 bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 w-full sm:w-auto"
                             >
                                 + Add Feature
                             </button>
@@ -546,7 +565,14 @@ export default function HomeAdminPage() {
                             />
                             <button
                                 type="button"
-                                onClick={() => setIntroImage(null)}
+                                onClick={async () => {
+                                    const ok = await requestConfirmation({
+                                        title: "Remove Image",
+                                        description: "Are you sure you want to remove this image?",
+                                        confirmText: "Yes, Remove",
+                                    });
+                                    if (ok) setIntroImage(null);
+                                }}
                                 className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
                             >
                                 ✕
@@ -577,7 +603,7 @@ export default function HomeAdminPage() {
                             <input
                                 type="text"
                                 placeholder="Years of Experience"
-                                className="border rounded-lg p-3"
+                                className="border rounded-lg p-3 w-full"
                                 value={formData.yoe}
                                 onChange={(e) =>
                                     setFormData(prev => ({ ...prev, yoe: e.target.value }))
@@ -588,7 +614,7 @@ export default function HomeAdminPage() {
                             <input
                                 type="text"
                                 placeholder="Families Served"
-                                className="border rounded-lg p-3"
+                                className="border rounded-lg p-3 w-full"
                                 value={formData.familiesServed}
 
                                 onChange={(e) =>
@@ -601,7 +627,7 @@ export default function HomeAdminPage() {
                             <input
                                 type="text"
                                 placeholder="Assets Under Advisory"
-                                className="border rounded-lg p-3"
+                                className="border rounded-lg p-3 w-full"
                                 value={formData.aua}
                                 onChange={(e) =>
                                     setFormData(prev => ({ ...prev, aua: e.target.value }))
@@ -631,14 +657,21 @@ export default function HomeAdminPage() {
 
                         {/* Preview */}
                         {ctoImage && (
-                            <div className="relative w-32 h-32">
+                            <div className="relative w-24 h-24 sm:w-32 sm:h-32">
                                 <img
                                     src={ctoImage.url}
                                     className="w-full h-full object-cover rounded-lg border"
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setCtoImage(null)}
+                                    onClick={async () => {
+                                        const ok = await requestConfirmation({
+                                            title: "Remove Image",
+                                            description: "Are you sure you want to remove this image?",
+                                            confirmText: "Yes, Remove",
+                                        });
+                                        if (ok) setCtoImage(null);
+                                    }}
                                     className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
                                 >
                                     ✕
@@ -648,7 +681,7 @@ export default function HomeAdminPage() {
 
                         {/* Upload */}
                         {!ctoImage && (
-                            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-32 h-32 cursor-pointer hover:bg-gray-50">
+                            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-24 h-24 sm:w-32 sm:h-32 cursor-pointer hover:bg-gray-50">
                                 <span className="text-2xl text-gray-400">+</span>
                                 <span className="text-xs text-gray-500">Upload</span>
 
@@ -711,14 +744,21 @@ export default function HomeAdminPage() {
 
                         {/* Preview */}
                         {whyChooseImage && (
-                            <div className="relative w-32 h-32">
+                            <div className="relative w-24 h-24 sm:w-32 sm:h-32">
                                 <img
                                     src={whyChooseImage.url}
                                     className="w-full h-full object-cover rounded-lg border"
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setWhyChooseImage(null)}
+                                    onClick={async () => {
+                                        const ok = await requestConfirmation({
+                                            title: "Remove Image",
+                                            description: "Are you sure you want to remove this image?",
+                                            confirmText: "Yes, Remove",
+                                        });
+                                        if (ok) setWhyChooseImage(null);
+                                    }}
                                     className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
                                 >
                                     ✕
@@ -728,7 +768,7 @@ export default function HomeAdminPage() {
 
                         {/* Upload */}
                         {!whyChooseImage && (
-                            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-32 h-32 cursor-pointer hover:bg-gray-50">
+                            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-24 h-24 sm:w-32 sm:h-32 cursor-pointer hover:bg-gray-50">
                                 <span className="text-2xl text-gray-400">+</span>
                                 <span className="text-xs text-gray-500">Upload</span>
 
@@ -741,7 +781,7 @@ export default function HomeAdminPage() {
                             </label>
                         )}
                     </div>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         {whyChooseList.map((item, index) => (
                             <div key={index} className="border p-4 rounded-lg space-y-4 relative">
@@ -769,7 +809,15 @@ export default function HomeAdminPage() {
                                             />
                                             <button
                                                 type="button"
-                                                onClick={() => handleWhyChooseChange(index, "icon", null)}
+                                                onClick={async () => {
+                                                    const ok = await requestConfirmation({
+                                                        title: "Remove Icon",
+                                                        description: "Are you sure you want to remove this icon?",
+                                                        confirmText: "Yes, Remove",
+                                                    });
+                                                    if (!ok) return;
+                                                    handleWhyChooseChange(index, "icon", null);
+                                                }}
                                                 className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded"
                                             >
                                                 ✕
@@ -873,14 +921,21 @@ export default function HomeAdminPage() {
 
                         {/* Preview */}
                         {bannerImage && (
-                            <div className="relative w-40 h-40">
+                            <div className="relative w-28 h-28 sm:w-40 sm:h-40">
                                 <img
                                     src={bannerImage.url}
                                     className="w-full h-full object-cover rounded-lg border"
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setBannerImage(null)}
+                                    onClick={async () => {
+                                        const ok = await requestConfirmation({
+                                            title: "Remove Banner Image",
+                                            description: "Are you sure you want to remove this banner image?",
+                                            confirmText: "Yes, Remove",
+                                        });
+                                        if (ok) setBannerImage(null);
+                                    }}
                                     className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
                                 >
                                     ✕
@@ -890,7 +945,7 @@ export default function HomeAdminPage() {
 
                         {/* Upload */}
                         {!bannerImage && (
-                            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-40 h-40 cursor-pointer hover:bg-gray-50">
+                            <label className="flex flex-col items-center justify-center border-2 border-dashed rounded-lg w-28 h-28 sm:w-40 sm:h-40 cursor-pointer hover:bg-gray-50">
                                 <span className="text-2xl text-gray-400">+</span>
                                 <span className="text-xs text-gray-500">Upload Banner Image </span>
 
@@ -913,7 +968,7 @@ export default function HomeAdminPage() {
                     </div>
                 </div>
                 {/* SAVE BUTTON */}
-                <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700">
+                <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 w-full sm:w-auto">
                     Save Homepage
                 </button>
 

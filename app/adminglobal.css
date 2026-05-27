@@ -1,44 +1,116 @@
-/* 🔥 Custom Scrollbar */
 @import "tailwindcss";
 
 :root {
-    --font-playfair: "Playfair Display", serif;
-    --font-spline: "Spline Sans", sans-serif;
-    --font-inter: "Inter", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-spline: "Spline Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --admin-bg: #f7f6f2;
+  --admin-surface: #ffffff;
+  --admin-sidebar: #0f2f49;
+  --admin-sidebar-soft: #1d4768;
+  --admin-primary: #183b58;
+  --admin-accent: #f28b46;
+  --admin-accent-hover: #e07935;
+  --admin-border: #e9ddcf;
+  --admin-muted: #6f7f8d;
 }
 
 body {
-    font-family: var(--font-inter);
+  font-family: var(--font-inter);
+  background: var(--admin-bg);
+  color: var(--admin-primary);
 }
 
 .font-playfair {
-    font-family: var(--font-playfair);
+  font-family: var(--font-playfair);
 }
 
 .font-inter {
-    font-family: var(--font-inter);
+  font-family: var(--font-inter);
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #4b5563;
-    border-radius: 10px;
+  background: #4b5563;
+  border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
+  background: #9ca3af;
 }
 
-/* Firefox */
 .custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: #4b5563 transparent;
-    scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #4b5563 transparent;
+  scrollbar-gutter: stable;
+}
+
+.admin-theme {
+  background: var(--admin-bg);
+  color: var(--admin-primary);
+}
+
+.admin-theme h1,
+.admin-theme h2,
+.admin-theme h3,
+.admin-theme h4,
+.admin-theme h5,
+.admin-theme h6 {
+  font-family: var(--font-playfair);
+  color: var(--admin-primary);
+}
+
+.admin-theme .bg-gray-50,
+.admin-theme .bg-gray-100 {
+  background-color: var(--admin-bg) !important;
+}
+
+.admin-theme .bg-white {
+  background-color: var(--admin-surface) !important;
+}
+
+.admin-theme .border-gray-200,
+.admin-theme .border-gray-300 {
+  border-color: var(--admin-border) !important;
+}
+
+.admin-theme .text-gray-800,
+.admin-theme .text-gray-700,
+.admin-theme .text-gray-600 {
+  color: var(--admin-primary) !important;
+}
+
+.admin-theme .text-gray-500,
+.admin-theme .text-gray-400 {
+  color: var(--admin-muted) !important;
+}
+
+.admin-theme .bg-blue-600,
+.admin-theme .bg-blue-700,
+.admin-theme .bg-black {
+  background-color: var(--admin-accent) !important;
+}
+
+.admin-theme .hover\\:bg-blue-700:hover,
+.admin-theme .hover\\:bg-gray-800:hover,
+.admin-theme .hover\\:bg-black:hover {
+  background-color: var(--admin-accent-hover) !important;
+}
+
+.admin-theme .admin-shell-main {
+  background: linear-gradient(180deg, #fcfaf6 0%, #f7f4ee 100%);
+}
+
+.admin-theme .admin-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(12, 47, 73, 0.06);
 }

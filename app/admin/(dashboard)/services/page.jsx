@@ -30,6 +30,7 @@ import { uploadImageService } from "../../../services/imageService"; // Add this
 import ConfirmModal from "../../../component/common/ConfirmModel";
 import { hasPermission } from "../../../utils/hasPermission";
 import { useRef } from "react";
+import { requestConfirmation } from "../../../component/common/confirmBus";
 
 
 export default function ServicesAdmin() {
@@ -175,6 +176,12 @@ export default function ServicesAdmin() {
   };
 
   const handleDeleteSubService = async (serviceId, subServiceId) => {
+    const ok = await requestConfirmation({
+      title: "Delete Sub-service",
+      description: "Are you sure you want to delete this sub-service?",
+      confirmText: "Yes, Delete",
+    });
+    if (!ok) return;
     try {
       await deleteSubServiceApi(serviceId, subServiceId);
       toast.success("Sub-service deleted");
@@ -259,7 +266,7 @@ export default function ServicesAdmin() {
   };
 
   return (
-    <div className="p-6 md:p-10 bg-gray-50 min-h-screen">
+    <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
 
       {/* HEADER */}
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-8">
@@ -293,7 +300,7 @@ export default function ServicesAdmin() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6"> {/* Update grid to 3 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> {/* Update grid to 3 columns */}
 
           {/* DESKTOP BANNER */}
           <div>
@@ -307,7 +314,13 @@ export default function ServicesAdmin() {
 
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={async () => {
+                    const ok = await requestConfirmation({
+                      title: "Remove Banner Image",
+                      description: "Are you sure you want to remove the desktop banner image?",
+                      confirmText: "Yes, Remove",
+                    });
+                    if (!ok) return;
                     setBannerImage(null);
                     setBanner((prev) => (prev ? { ...prev, banner: null } : null));
                   }}
@@ -348,7 +361,13 @@ export default function ServicesAdmin() {
 
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={async () => {
+                    const ok = await requestConfirmation({
+                      title: "Remove Banner Image",
+                      description: "Are you sure you want to remove the mobile banner image?",
+                      confirmText: "Yes, Remove",
+                    });
+                    if (!ok) return;
                     setMobileBannerImage(null);
                     setBanner((prev) =>
                       prev ? { ...prev, mobileBanner: null } : null,
@@ -425,7 +444,7 @@ export default function ServicesAdmin() {
       {/* SERVICES LIST */}
       <div className="space-y-4">
         {services.length === 0 && !loading && (
-          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-8 text-center text-gray-500">
+          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-4 md:p-8 text-center text-gray-500">
             No services found
           </div>
         )}
@@ -601,7 +620,7 @@ export default function ServicesAdmin() {
             Upload Video
           </label>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
             {/* VIDEO PREVIEW */}
             {(videoFile || valueData?.videoUrl) && (
@@ -626,8 +645,14 @@ export default function ServicesAdmin() {
                 {videoFile ? (
                   <button
                     type="button"
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       e.stopPropagation(); // prevent opening file picker
+                      const ok = await requestConfirmation({
+                        title: "Remove Video",
+                        description: "Are you sure you want to remove this selected video?",
+                        confirmText: "Yes, Remove",
+                      });
+                      if (!ok) return;
                       setVideoFile(null);
                     }}
                     className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
@@ -817,9 +842,15 @@ export default function ServicesAdmin() {
                       />
                       <button
                         type="button"
-                        onClick={() =>
-                          setSubServiceForm({ ...subServiceForm, image: null })
-                        }
+                        onClick={async () => {
+                          const ok = await requestConfirmation({
+                            title: "Remove Image",
+                            description: "Are you sure you want to remove this sub-service image?",
+                            confirmText: "Yes, Remove",
+                          });
+                          if (!ok) return;
+                          setSubServiceForm({ ...subServiceForm, image: null });
+                        }}
                         className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full opacity-0 group-hover:opacity-100 transition"
                       >
                         ✕

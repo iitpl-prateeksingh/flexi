@@ -11,6 +11,7 @@ import {
 
 import { uploadVideoService } from "../../../../services/videoService";
 import QuillEditor from "../../../../component/QuillEditor";
+import { requestConfirmation } from "../../../../component/common/confirmBus";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -127,7 +128,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="p-10 bg-gray-50 min-h-screen">
+    <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-bold mb-8">Contact Page</h1>
 
       <form onSubmit={handleSubmit} className="space-y-10">
@@ -147,7 +148,7 @@ export default function ContactPage() {
               Upload Banner Video
             </label>
 
-            <div className="grid grid-cols-2  gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
 
               {/* VIDEO PREVIEW */}
               {bannerVideo?.url && (
@@ -161,7 +162,14 @@ export default function ContactPage() {
                   {/* REMOVE BUTTON */}
                   <button
                     type="button"
-                    onClick={() => setBannerVideo(null)}
+                    onClick={async () => {
+                      const ok = await requestConfirmation({
+                        title: "Remove Video",
+                        description: "Are you sure you want to remove this video?",
+                        confirmText: "Yes, Remove",
+                      });
+                      if (ok) setBannerVideo(null);
+                    }}
                     className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs rounded"
                   >
                     ✕

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { getSettingsService, saveSettingsService } from "../../../services/settingService";
 
 import { uploadImageService } from "../../../services/imageService";
+import { requestConfirmation } from "../../../component/common/confirmBus";
 export default function SettingsPage() {
 
     const [formData, setFormData] = useState({
@@ -118,7 +119,13 @@ export default function SettingsPage() {
         }
     };
 
-    const removeImage = (type) => {
+    const removeImage = async (type) => {
+        const ok = await requestConfirmation({
+            title: "Remove Image",
+            description: "Are you sure you want to remove this image?",
+            confirmText: "Yes, Remove",
+        });
+        if (!ok) return;
 
         if (type === "logo") {
             setLogo(null);
@@ -288,7 +295,7 @@ export default function SettingsPage() {
     return (
 
 
-        <div className="p-8 bg-gray-50 min-h-screen ">
+        <div className="p-4 md:p-8 bg-gray-50 min-h-screen ">
 
             {/* HEADER */}
 
@@ -314,7 +321,7 @@ export default function SettingsPage() {
                         General Information
                     </h2>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <Input label="Site Name" name="siteName" placeholder="Enter website name" value={formData.siteName} onChange={handleChange} />
 
@@ -343,7 +350,7 @@ export default function SettingsPage() {
                         Website Media
                     </h2>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <ImageUpload
                             label="Website Logo"
@@ -389,7 +396,7 @@ export default function SettingsPage() {
                         Social Media Links
                     </h2>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <Input label="Facebook" name="facebook" placeholder="https://facebook.com/yourpage" value={formData.facebook} onChange={handleChange} />
 

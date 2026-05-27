@@ -37,7 +37,7 @@ export default function CreateBlogPage() {
     };
 
     return (
-        <div className="p-10 bg-gray-50 min-h-screen">
+        <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
             <h1 className="text-3xl font-bold mb-6">Create Blog</h1>
 
             <div className="bg-white p-6 rounded-xl shadow">

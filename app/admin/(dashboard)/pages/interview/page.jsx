@@ -13,6 +13,7 @@ import {
   updateInterviewItemService,
   updateInterviewVideoService,
 } from "../../../../services/pages/interviewpageService";
+import { requestConfirmation } from "../../../../component/common/confirmBus";
 
 export default function InterviewAdminPage() {
   const toDatetimeLocalValue = (value) => {
@@ -169,6 +170,12 @@ export default function InterviewAdminPage() {
   };
 
   const removeInterview = async (id) => {
+    const ok = await requestConfirmation({
+      title: "Delete Interview",
+      description: "Are you sure you want to delete this interview?",
+      confirmText: "Yes, Delete",
+    });
+    if (!ok) return;
     try {
       await deleteInterviewItemService(id);
       toast.success("Interview deleted");
@@ -179,7 +186,7 @@ export default function InterviewAdminPage() {
   };
 
   return (
-    <div className="p-10 bg-gray-50 min-h-screen">
+    <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-bold mb-8">Interview Page Manager</h1>
 
       <form onSubmit={saveHeading} className="bg-white p-6 rounded-xl shadow mb-8">
@@ -192,7 +199,14 @@ export default function InterviewAdminPage() {
               <img src={headingImage.url} alt="heading" className="w-full h-full object-cover rounded-lg border" />
               <button
                 type="button"
-                onClick={() => setHeadingImage(null)}
+                onClick={async () => {
+                  const ok = await requestConfirmation({
+                    title: "Remove Image",
+                    description: "Are you sure you want to remove this image?",
+                    confirmText: "Yes, Remove",
+                  });
+                  if (ok) setHeadingImage(null);
+                }}
                 className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
               >
                 X
@@ -236,14 +250,14 @@ export default function InterviewAdminPage() {
         {interviews.length === 0 && <p className="text-gray-500">No interviews found.</p>}
 
         <div className="overflow-x-auto">
-          <table className="w-full table-fixed border border-gray-200 rounded-lg overflow-hidden">
+          <table className="w-full min-w-[760px] lg:min-w-0 table-fixed border border-gray-200 rounded-lg overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
-                <th className="text-left p-3 border-b">Thumbnail</th>
-                <th className="text-left p-3 border-b">Title</th>
-                <th className="text-left p-3 border-b w-[28%]">Description</th>
-                <th className="text-left p-3 border-b w-[28%]">Video Link</th>
-                <th className="text-left p-3 border-b">Actions</th>
+                <th className="text-left p-3 border-b w-24">Thumbnail</th>
+                <th className="text-left p-3 border-b w-[18%]">Title</th>
+                <th className="text-left p-3 border-b w-[32%]">Description</th>
+                <th className="text-left p-3 border-b w-[30%]">Video Link</th>
+                <th className="text-left p-3 border-b w-32">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -261,13 +275,13 @@ export default function InterviewAdminPage() {
                     )}
                   </td>
                   <td className="p-3 font-medium">{item.title || "-"}</td>
-                  <td className="p-3 text-sm text-gray-700 w-[28%] align-top overflow-hidden">
+                  <td className="p-3 text-sm text-gray-700 align-top overflow-hidden">
                     <div
                       className="line-clamp-4 max-w-full break-words whitespace-normal [&_*]:max-w-full [&_*]:break-words"
                       dangerouslySetInnerHTML={{ __html: item.description || "-" }}
                     />
                   </td>
-                  <td className="p-3 text-sm w-[28%] align-top overflow-hidden">
+                  <td className="p-3 text-sm align-top overflow-hidden">
                     {item.videoUrl ? (
                       <a
                         href={item.videoUrl}
@@ -282,7 +296,7 @@ export default function InterviewAdminPage() {
                     )}
                   </td>
                   <td className="p-3">
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <button
                         type="button"
                         onClick={() => openEditInterviewForm(item)}

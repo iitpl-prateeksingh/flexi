@@ -13,16 +13,16 @@ export default function ConfirmModal({
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-            <div className="bg-white rounded-2xl p-6 w-[400px] shadow-lg">
+        <div className="fixed inset-0 flex items-center justify-center bg-[#0b22357a] backdrop-blur-[2px] z-50 p-4">
+            <div className="admin-card p-6 w-full max-w-md">
 
-                <h2 className="text-xl font-semibold mb-2">{title}</h2>
-                <p className="text-gray-600 mb-6">{description}</p>
+                <h2 className="text-xl font-semibold mb-2 text-[var(--admin-primary)]">{title}</h2>
+                <p className="text-[var(--admin-muted)] mb-6">{description}</p>
 
                 <div className="flex justify-end gap-3">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 rounded-lg border"
+                        className="px-4 py-2 rounded-lg border border-[var(--admin-border)] text-[var(--admin-primary)] hover:bg-[#f7f6f2] transition"
                     >
                         {cancelText}
                     </button>

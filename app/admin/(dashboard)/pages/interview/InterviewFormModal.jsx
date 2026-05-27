@@ -1,6 +1,7 @@
 "use client";
 
 import QuillEditor from "../../../../component/QuillEditor";
+import { requestConfirmation } from "../../../../component/common/confirmBus";
 
 export default function InterviewFormModal({
   open,
@@ -93,7 +94,7 @@ export default function InterviewFormModal({
           </div>
 
           {/* Thumbnail + Video URL */}
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Thumbnail */}
             <div>
               <label className="font-medium block mb-3">
@@ -114,13 +115,19 @@ export default function InterviewFormModal({
 
                   <button
                     type="button"
-                    onClick={() =>
+                    onClick={async () => {
+                      const ok = await requestConfirmation({
+                        title: "Remove Thumbnail",
+                        description: "Are you sure you want to remove this thumbnail?",
+                        confirmText: "Yes, Remove",
+                      });
+                      if (!ok) return;
                       setInterviewForm((p) => ({
                         ...p,
                         thumbnail: null,
                         thumbnailPreview: "",
-                      }))
-                    }
+                      }));
+                    }}
                     className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
                   >
                     X

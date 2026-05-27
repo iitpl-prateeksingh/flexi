@@ -10,6 +10,7 @@ import {
 } from "../../../../services/pages/aboutpageService";
 
 import { uploadImageService } from "../../../../services/imageService";
+import { requestConfirmation } from "../../../../component/common/confirmBus";
 
 export default function AboutPage() {
 
@@ -105,7 +106,13 @@ export default function AboutPage() {
         ]);
     };
 
-    const removeTeamMember = (index) => {
+    const removeTeamMember = async (index) => {
+        const ok = await requestConfirmation({
+            title: "Remove Team Member",
+            description: "Are you sure you want to remove this team member?",
+            confirmText: "Yes, Remove",
+        });
+        if (!ok) return;
         setTeamMembers(prev => prev.filter((_, i) => i !== index));
     };
 
@@ -207,7 +214,7 @@ export default function AboutPage() {
     };
 
     return (
-        <div className="p-10 bg-gray-50 min-h-screen">
+        <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
 
             <h1 className="text-3xl font-bold mb-8">About Us </h1>
 
@@ -236,7 +243,14 @@ export default function AboutPage() {
                                 />
                                 <button
                                     type="button"
-                                    onClick={() => setHeroImage(null)}
+                                    onClick={async () => {
+                                        const ok = await requestConfirmation({
+                                            title: "Remove Image",
+                                            description: "Are you sure you want to remove this image?",
+                                            confirmText: "Yes, Remove",
+                                        });
+                                        if (ok) setHeroImage(null);
+                                    }}
                                     className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded"
                                 >
                                     ✕
@@ -284,7 +298,14 @@ export default function AboutPage() {
                     {section1Image && (
                         <div className="relative w-32 h-32">
                             <img src={section1Image.url} className="w-full h-full object-cover rounded-lg border" />
-                            <button type="button" onClick={() => setSection1Image(null)}
+                            <button type="button" onClick={async () => {
+                                const ok = await requestConfirmation({
+                                    title: "Remove Image",
+                                    description: "Are you sure you want to remove this image?",
+                                    confirmText: "Yes, Remove",
+                                });
+                                if (ok) setSection1Image(null);
+                            }}
                                 className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded">
                                 ✕
                             </button>
@@ -319,7 +340,7 @@ export default function AboutPage() {
                             height="180px"
                         />
                     </div>
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {teamMembers.map((member, index) => (
                             <div key={index} className="border p-4 rounded-lg space-y-4 relative">
 
@@ -339,7 +360,15 @@ export default function AboutPage() {
                                         <img src={member.image.url} className="w-full h-full object-cover rounded border" />
                                         <button
                                             type="button"
-                                            onClick={() => handleTeamChange(index, "image", null)}
+                                            onClick={async () => {
+                                                const ok = await requestConfirmation({
+                                                    title: "Remove Image",
+                                                    description: "Are you sure you want to remove this image?",
+                                                    confirmText: "Yes, Remove",
+                                                });
+                                                if (!ok) return;
+                                                handleTeamChange(index, "image", null);
+                                            }}
                                             className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded"
                                         >
                                             ✕

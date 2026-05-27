@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import ConfirmModal from "./common/ConfirmModel";
+import { LogOut, Menu } from "lucide-react";
 
-export default function Navbar() {
+export default function Navbar({ onToggleSidebar }) {
 
     const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
@@ -16,16 +17,20 @@ export default function Navbar() {
 
     return (
         <>
-            <header className="bg-white shadow p-4 flex justify-between">
-
-                <h1 className="font-semibold text-lg">
-
-                </h1>
-
+            <header className="px-4 md:px-6 py-4 mb-0 flex justify-between items-center">
                 <button
-                    className="text-red-500"
+                    type="button"
+                    className="md:hidden inline-flex items-center justify-center rounded-lg border border-[var(--admin-border)] bg-white p-2 text-[var(--admin-primary)]"
+                    onClick={onToggleSidebar}
+                    aria-label="Open menu"
+                >
+                    <Menu size={18} />
+                </button>
+                <button
+                    className=" ml-auto inline-flex items-center gap-2 bg-[var(--admin-accent)] hover:bg-[var(--admin-accent-hover)] text-white px-4 py-2 rounded-lg transition"
                     onClick={() => setOpenLogoutModal(true)}
                 >
+                    <LogOut size={16} />
                     Logout
                 </button>
 

@@ -47,17 +47,17 @@ export default function EditBlogPage() {
     };
 
     if (loading) {
-        return <div className="p-10">Loading...</div>;
+        return <div className="p-4 md:p-10">Loading...</div>;
     }
 
     if (!data) {
-        return <div className="p-10 text-red-500">Blog not found</div>;
+        return <div className="p-4 md:p-10 text-red-500">Blog not found</div>;
     }
 
     return (
-        <div className="p-10 bg-gray-50 min-h-screen">
+        <div className="p-4 md:p-10 bg-gray-50 min-h-screen">
             <h1 className="text-3xl font-bold mb-6">Edit Blog</h1>
-            <div className="bg-white p-6 rounded-xl shadow">
+            <div className="bg-white  rounded-xl shadow">
                 <BlogForm initialData={data} onSubmit={handleSubmit} />
             </div>
         </div>
