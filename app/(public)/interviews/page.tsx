@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "./Banner";
-import { getAllInterviewsService, getRecentInterviewsService } from "../../services/pages/interviewpageService";
-import { FaAngleRight, FaChevronRight } from "react-icons/fa";
+import { getAllInterviewsService } from "../../services/pages/interviewpageService";
 
 interface InterviewItem {
   id: string;
@@ -89,34 +88,12 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
 
 
 export default function Page() {
-  const [interviews, setInterviews] = useState<InterviewItem[]>([]);
- const [interviewData, setInterviewData] = useState<InterviewCardItem[]>([]);
-   useEffect(() => {
-     const loadRecentInterviews = async () => {
-       try {
-         const response = await getRecentInterviewsService();
-         const items = response?.data?.interviews || [];
-         if (!Array.isArray(items) || items.length === 0) return;
- 
-         const mapped = items.slice(0, 3).map((item: any, index: number) => ({
-           id: item?._id || `${index + 1}`,
-           title: item?.title || "",
-           description: item?.description || "",
-           linkedinUrl: item?.videoUrl || "",
-           thumbnailUrl: item?.thumbnail || "",
-           date: formatDate(item?.updatedAt) || "",
-         }));
- 
-         setInterviewData(mapped);
-       } catch (error) {}
-     };
- 
-     loadRecentInterviews();
-   }, []);
+  const [interviewData, setInterviewData] = useState<InterviewCardItem[]>([]);
+
   useEffect(() => {
     const fetchInterviews = async () => {
       try {
-        const response = await getAllInterviewsService(1, 12);
+        const response = await getAllInterviewsService(1, 100);
         const items = response?.data?.interviews || [];
         if (!Array.isArray(items) || items.length === 0) return;
 
@@ -129,15 +106,12 @@ export default function Page() {
           date: formatDate(item?.updatedAt) || "",
         }));
 
-        setInterviews(mapped);
+        setInterviewData(mapped);
       } catch (error) {}
     };
 
     fetchInterviews();
   }, []);
-
-  const featured = useMemo(() => interviews[0], [interviews]);
-  const sideVideos = useMemo(() => interviews.slice(1, 4), [interviews]);
 
   return (
     <>
@@ -145,7 +119,7 @@ export default function Page() {
       <section className="bg-[#FFF9F3] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="font-playfair pb-4 font-semibold text-[32px] leading-[48px] tracking-[0.04em] text-[#F78532]">
-            Recent Episodes
+            All Episodes
           </p>
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {interviewData.map((video) => (

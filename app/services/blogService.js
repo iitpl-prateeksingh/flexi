@@ -49,3 +49,8 @@ export const deleteBlogService = (id) => {
 export const updateBlogStatusService = (id, status) => {
     return API.patch(`/blog/status/${id}`, { status });
 };
+
+// ✅ REORDER BLOGS
+export const reorderBlogsService = (orderedIds) => {
+    return API.patch("/blog/reorder", { orderedIds });
+};

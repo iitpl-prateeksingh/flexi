@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-import { getBlogsService, deleteBlogService } from "../../../services/blogService";
+import { getBlogsService, deleteBlogService, reorderBlogsService } from "../../../services/blogService";
 import BlogTable from "../../../component/insight/BlogTable";
 import { requestConfirmation } from "../../../component/common/confirmBus";
 
@@ -21,8 +21,14 @@ export default function BlogsPage() {
     const fetchBlogs = async () => {
         try {
             setLoading(true);
-            const res = await getBlogsService();
-            setBlogs(normalizeResponse(res));
+            const [weeklyRes, monthlyRes] = await Promise.all([
+                getBlogsService({ category: "weekly" }),
+                getBlogsService({ category: "monthly" }),
+            ]);
+            setBlogs([
+                ...normalizeResponse(weeklyRes),
+                ...normalizeResponse(monthlyRes),
+            ]);
         } catch (err) {
             console.error(err);
             toast.error("Failed to load blogs");
@@ -49,6 +55,25 @@ export default function BlogsPage() {
         } catch (err) {
             console.error(err);
             toast.error("Delete failed");
+        }
+    };
+
+    const handleReorder = async (orderedIds) => {
+        const ok = await requestConfirmation({
+            title: "Save Order",
+            description: "Are you sure you want to save this new order?",
+            confirmText: "Yes, Save",
+            confirmColor: "bg-black",
+        });
+        if (!ok) return false;
+        try {
+            await reorderBlogsService(orderedIds);
+            toast.success("Order saved");
+            return true;
+        } catch (err) {
+            console.error(err);
+            toast.error("Failed to save order");
+            return false;
         }
     };
 
@@ -80,10 +105,8 @@ export default function BlogsPage() {
                 </button>
             </div>
 
-            <div className=" rounded-xl shadow-lg overflow-hidden">
-                <div className="overflow-x-auto ">
-                    <BlogTable list={blogs} onDelete={handleDelete} />
-                </div>
+            <div className="rounded-xl shadow-lg overflow-hidden">
+                <BlogTable list={blogs} onDelete={handleDelete} onReorder={handleReorder} />
             </div>
         </div>
     );
