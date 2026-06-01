@@ -81,6 +81,7 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
        <div className="flex justify-end items-center text-xs text-gray-500 mt-3 font-medium">
        {post.date}
       </div>
+      
     </div>
   );
 }

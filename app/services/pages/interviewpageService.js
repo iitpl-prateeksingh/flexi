@@ -70,6 +70,14 @@ export const updateInterviewVideoService = (interviewId, videoUrl) => {
   );
 };
 
+export const reorderInterviewItemsService = (orders) => {
+  return API.patch("/interview/reorder", orders, {
+    headers: {
+      "Cache-Control": "no-cache",
+    },
+  });
+};
+
 export const deleteInterviewItemService = (interviewId) => {
   return API.delete(`/interview/item/${interviewId}`, {
     headers: {
