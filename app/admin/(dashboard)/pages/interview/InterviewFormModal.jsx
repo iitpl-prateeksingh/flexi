@@ -93,6 +93,28 @@ export default function InterviewFormModal({
             </p>
           </div>
 
+          <div className="mb-5">
+            <label className="block font-medium mb-2">
+              Sort Order (Optional)
+            </label>
+            <input
+              type="number"
+              value={interviewForm.sortOrder || ""}
+              onChange={(e) =>
+                setInterviewForm((p) => ({
+                  ...p,
+                  sortOrder: e.target.value,
+                }))
+              }
+              className="w-full border p-3 rounded-lg"
+              placeholder="Leave empty for auto-assignment"
+              min="0"
+            />
+            <p className="text-xs text-gray-500 mt-2">
+              Lower numbers appear first. Leave empty to add at the end.
+            </p>
+          </div>
+
           {/* Thumbnail + Video URL */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Thumbnail */}

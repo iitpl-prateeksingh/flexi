@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { GripVertical } from "lucide-react";
 import QuillEditor from "../../../../component/QuillEditor";
 import InterviewFormModal from "./InterviewFormModal";
 import { uploadImageService } from "../../../../services/imageService";
@@ -12,6 +13,7 @@ import {
   updateInterviewHeadingService,
   updateInterviewItemService,
   updateInterviewVideoService,
+  reorderInterviewItemsService,
 } from "../../../../services/pages/interviewpageService";
 import { requestConfirmation } from "../../../../component/common/confirmBus";
 
@@ -32,6 +34,9 @@ export default function InterviewAdminPage() {
   const [headingTitle, setHeadingTitle] = useState("");
   const [headingImage, setHeadingImage] = useState(null);
   const [interviews, setInterviews] = useState([]);
+  const [draggedItem, setDraggedItem] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
+  const [originalInterviews, setOriginalInterviews] = useState([]);
 
   const [showInterviewForm, setShowInterviewForm] = useState(false);
   const [editingInterviewId, setEditingInterviewId] = useState(null);
@@ -42,6 +47,7 @@ export default function InterviewAdminPage() {
     videoUrl: "",
     thumbnailPreview: "",
     updatedAt: "",
+    sortOrder: "",
   });
 
   const parseUploadUrl = (uploadRes) => uploadRes?.data?.url || uploadRes?.url || "";
@@ -63,6 +69,7 @@ export default function InterviewAdminPage() {
       videoUrl: "",
       thumbnailPreview: "",
       updatedAt: "",
+      sortOrder: "",
     });
     setEditingInterviewId(null);
   };
@@ -75,7 +82,9 @@ export default function InterviewAdminPage() {
 
       setHeadingTitle(data.headingTitle || "");
       setHeadingImage(data.headingImage ? { url: data.headingImage, file: null } : null);
-      setInterviews(data.interviews || []);
+      const interviewsData = data.interviews || [];
+      setInterviews(interviewsData);
+      setOriginalInterviews([...interviewsData]); // Keep backup for cancel functionality
     } catch (error) {
       toast.error("Failed to load interview page");
     }
@@ -118,6 +127,7 @@ export default function InterviewAdminPage() {
       videoUrl: item.videoUrl || "",
       thumbnailPreview: item.thumbnail || "",
       updatedAt: toDatetimeLocalValue(item.updatedAt),
+      sortOrder: item.sortOrder ?? "",
     });
     setShowInterviewForm(true);
   };
@@ -140,22 +150,30 @@ export default function InterviewAdminPage() {
       }
 
       if (editingInterviewId) {
-        await updateInterviewItemService(editingInterviewId, {
+        const updateData = {
           title: interviewForm.title,
           description: interviewForm.description,
           thumbnail: thumbnailUrl,
           updatedAt: interviewForm.updatedAt || null,
-        });
+        };
+        if (interviewForm.sortOrder !== "") {
+          updateData.sortOrder = parseInt(interviewForm.sortOrder);
+        }
+        await updateInterviewItemService(editingInterviewId, updateData);
 
         await updateInterviewVideoService(editingInterviewId, videoUrl || "");
       } else {
-        await addInterviewItemService({
+        const addData = {
           title: interviewForm.title,
           description: interviewForm.description,
           thumbnail: thumbnailUrl,
           videoUrl,
           updatedAt: interviewForm.updatedAt || null,
-        });
+        };
+        if (interviewForm.sortOrder !== "") {
+          addData.sortOrder = parseInt(interviewForm.sortOrder);
+        }
+        await addInterviewItemService(addData);
       }
 
       toast.success(editingInterviewId ? "Interview updated" : "Interview added", { id: toastId });
@@ -182,6 +200,129 @@ export default function InterviewAdminPage() {
       fetchData();
     } catch (error) {
       toast.error("Delete failed");
+    }
+  };
+
+  const handleDragStart = (e, index) => {
+    setDraggedItem(index);
+    e.dataTransfer.effectAllowed = "move";
+    e.dataTransfer.setData("text/html", e.target.outerHTML);
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    setDragOverIndex(index);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverIndex(null);
+  };
+
+  const handleDrop = async (e, dropIndex) => {
+    e.preventDefault();
+    setDragOverIndex(null);
+    
+    if (draggedItem === null || draggedItem === dropIndex) {
+      setDraggedItem(null);
+      return;
+    }
+
+    const items = Array.from(interviews);
+    const [reorderedItem] = items.splice(draggedItem, 1);
+    items.splice(dropIndex, 0, reorderedItem);
+
+    // Update local state immediately for better UX
+    setInterviews(items);
+    setDraggedItem(null);
+
+    // Show confirmation popup
+    const confirmed = await requestConfirmation({
+      title: "Confirm Reorder",
+      description: `Are you sure you want to move "${reorderedItem.title || 'Untitled'}" to position ${dropIndex + 1}?`,
+      confirmText: "Yes, Reorder",
+      cancelText: "Cancel",
+    });
+
+    if (!confirmed) {
+      // Revert to original state if cancelled
+      setInterviews([...originalInterviews]);
+      toast.info("Reorder cancelled");
+      return;
+    }
+
+    try {
+      // Create reorder payload with new sortOrder values
+      const reorderPayload = items.map((item, index) => ({
+        id: item._id,
+        sortOrder: index,
+      }));
+
+      await reorderInterviewItemsService(reorderPayload);
+      
+      // Update the items with new sortOrder values for immediate UI sync
+      const updatedItems = items.map((item, index) => ({
+        ...item,
+        sortOrder: index,
+      }));
+      
+      setInterviews(updatedItems);
+      setOriginalInterviews([...updatedItems]);
+      toast.success("Interview order updated");
+    } catch (error) {
+      toast.error("Failed to update order");
+      // Revert to original state on API error
+      setInterviews([...originalInterviews]);
+    }
+  };
+
+  const updateSortOrder = async (itemId, newSortOrder, currentItem) => {
+    const parsedOrder = parseInt(newSortOrder);
+    if (isNaN(parsedOrder) || parsedOrder < 0) {
+      toast.error("Please enter a valid number (0 or greater)");
+      // Reset the input field
+      const newInterviews = interviews.map(interview => 
+        interview._id === itemId 
+          ? { ...interview, tempSortOrder: undefined }
+          : interview
+      );
+      setInterviews(newInterviews);
+      return;
+    }
+
+    // Show confirmation popup
+    const confirmed = await requestConfirmation({
+      title: "Confirm Sort Order Change",
+      description: `Are you sure you want to change the sort order of "${currentItem.title || 'Untitled'}" to ${parsedOrder}?`,
+      confirmText: "Yes, Update",
+      cancelText: "Cancel",
+    });
+
+    if (!confirmed) {
+      toast.info("Sort order change cancelled");
+      // Reset the input field to original value
+      const newInterviews = interviews.map(interview => 
+        interview._id === itemId 
+          ? { ...interview, tempSortOrder: undefined }
+          : interview
+      );
+      setInterviews(newInterviews);
+      return;
+    }
+
+    try {
+      await updateInterviewItemService(itemId, { sortOrder: parsedOrder });
+      toast.success("Sort order updated");
+      fetchData(); // Refresh to get updated order
+    } catch (error) {
+      toast.error("Failed to update sort order");
+      // Reset the input field on error
+      const newInterviews = interviews.map(interview => 
+        interview._id === itemId 
+          ? { ...interview, tempSortOrder: undefined }
+          : interview
+      );
+      setInterviews(newInterviews);
     }
   };
 
@@ -250,19 +391,88 @@ export default function InterviewAdminPage() {
         {interviews.length === 0 && <p className="text-gray-500">No interviews found.</p>}
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[760px] lg:min-w-0 table-fixed border border-gray-200 rounded-lg overflow-hidden">
+          <table className="w-full min-w-[860px] lg:min-w-0 table-fixed border border-gray-200 rounded-lg overflow-hidden">
             <thead className="bg-gray-100">
               <tr>
+                <th className="text-left p-3 border-b w-12">Drag</th>
+                <th className="text-left p-3 border-b w-16">Order</th>
                 <th className="text-left p-3 border-b w-24">Thumbnail</th>
                 <th className="text-left p-3 border-b w-[18%]">Title</th>
-                <th className="text-left p-3 border-b w-[32%]">Description</th>
-                <th className="text-left p-3 border-b w-[30%]">Video Link</th>
+                <th className="text-left p-3 border-b w-[28%]">Description</th>
+                <th className="text-left p-3 border-b w-[26%]">Video Link</th>
                 <th className="text-left p-3 border-b w-32">Actions</th>
               </tr>
             </thead>
             <tbody>
               {interviews.map((item, idx) => (
-                <tr key={item._id || idx} className="border-b align-top">
+                <tr
+                  key={item._id}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, idx)}
+                  onDragOver={(e) => handleDragOver(e, idx)}
+                  onDragLeave={handleDragLeave}
+                  onDrop={(e) => handleDrop(e, idx)}
+                  className={`border-b align-top transition-colors ${
+                    draggedItem === idx ? "opacity-50 bg-blue-50" : ""
+                  } ${
+                    dragOverIndex === idx ? "bg-blue-100 border-blue-300" : ""
+                  } hover:bg-gray-50 cursor-move`}
+                >
+                  <td className="p-3">
+                    <div className="cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600">
+                      <GripVertical size={16} />
+                    </div>
+                  </td>
+                  <td className="p-3">
+                    <input
+                      type="number"
+                      key={`${item._id}-${item.sortOrder ?? idx}`}
+                      value={item.tempSortOrder !== undefined ? item.tempSortOrder : (item.sortOrder ?? idx)}
+                      onChange={(e) => {
+                        // Update local state immediately for controlled input
+                        const newInterviews = interviews.map(interview => 
+                          interview._id === item._id 
+                            ? { ...interview, tempSortOrder: e.target.value }
+                            : interview
+                        );
+                        setInterviews(newInterviews);
+                      }}
+                      onBlur={(e) => {
+                        const newValue = e.target.value;
+                        const currentValue = item.sortOrder ?? idx;
+                        if (newValue !== currentValue.toString()) {
+                          updateSortOrder(item._id, newValue, item);
+                        } else {
+                          // Reset temp value if no change
+                          const newInterviews = interviews.map(interview => 
+                            interview._id === item._id 
+                              ? { ...interview, tempSortOrder: undefined }
+                              : interview
+                          );
+                          setInterviews(newInterviews);
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.target.blur();
+                        }
+                        if (e.key === 'Escape') {
+                          // Reset to original value
+                          const newInterviews = interviews.map(interview => 
+                            interview._id === item._id 
+                              ? { ...interview, tempSortOrder: undefined }
+                              : interview
+                          );
+                          setInterviews(newInterviews);
+                          e.target.blur();
+                        }
+                      }}
+                      className="w-12 p-1 border rounded text-center text-sm cursor-text"
+                      min="0"
+                      onClick={(e) => e.stopPropagation()}
+                      onMouseDown={(e) => e.stopPropagation()}
+                    />
+                  </td>
                   <td className="p-3">
                     {item.thumbnail ? (
                       <img
