@@ -61,7 +61,7 @@ export default function AdminLayout({ children }) {
 
         if (pathname === "/admin/login") {
             if (token) {
-                router.replace("/admin/dashboard");
+                router.replace("/admin/pages/home");
             } else {
                 setLoading(false);
             }

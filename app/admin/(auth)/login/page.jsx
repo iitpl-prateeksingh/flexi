@@ -63,7 +63,7 @@ export default function AdminLogin() {
                 "permissions",
                 JSON.stringify(data.permissions || [])
             );
-            window.location.href = "/admin/dashboard";
+            window.location.href = "/admin/pages/home";
 
         } catch (err) {
             console.log(err)
