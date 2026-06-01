@@ -74,7 +74,6 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
       <h3 className="text-xl font-playfair text-[#F28B46] font-semibold mb-2 flex-grow">
         {post.title}
       </h3>
-
       <div
         className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
         dangerouslySetInnerHTML={{ __html: post.description || "" }}
