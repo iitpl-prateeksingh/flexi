@@ -73,12 +73,13 @@ export default function InterviewFormModal({
             />
           </div>
 
+          {/* Interview Date — managed by backend, no frontend input needed
           <div className="mb-5">
             <label className="block font-medium mb-2">
-              Interview Date & Time
+              Interview Date <span className="text-gray-400 font-normal">(Optional)</span>
             </label>
             <input
-              type="datetime-local"
+              type="date"
               value={interviewForm.updatedAt || ""}
               onChange={(e) =>
                 setInterviewForm((p) => ({
@@ -89,9 +90,10 @@ export default function InterviewFormModal({
               className="w-full border p-3 rounded-lg"
             />
             <p className="text-xs text-gray-500 mt-2">
-              Latest/recent interview order will follow this date and time.
+              Latest/recent interview order will follow this date.
             </p>
           </div>
+          */}
 
           <div className="mb-5">
             <label className="block font-medium mb-2">
@@ -217,7 +219,7 @@ export default function InterviewFormModal({
               )}
 
               <p className="text-xs text-gray-500 mt-2">
-                Paste a public video link only. Video files are not uploaded.
+                Paste a public url.
               </p>
             </div>
           </div>

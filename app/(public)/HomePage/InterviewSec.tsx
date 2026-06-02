@@ -43,13 +43,7 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
         {post.title}
       </h3>
 
-      <div
-        className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
-        dangerouslySetInnerHTML={{ __html: post.description || "" }}
-      />
-       <div className="flex justify-end items-center text-xs text-gray-500 mt-3 font-medium">
-       {post.date}
-      </div>
+     
     </div>
   );
 }

@@ -18,18 +18,14 @@ import {
 import { requestConfirmation } from "../../../../component/common/confirmBus";
 
 export default function InterviewAdminPage() {
-  const toDatetimeLocalValue = (value) => {
-    if (!value) return "";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "";
-    const pad = (n) => String(n).padStart(2, "0");
-    const year = date.getFullYear();
-    const month = pad(date.getMonth() + 1);
-    const day = pad(date.getDate());
-    const hours = pad(date.getHours());
-    const minutes = pad(date.getMinutes());
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-  };
+  // Date managed by backend — no frontend date input needed
+  // const toDateValue = (value) => {
+  //   if (!value) return "";
+  //   const date = new Date(value);
+  //   if (Number.isNaN(date.getTime())) return "";
+  //   const pad = (n) => String(n).padStart(2, "0");
+  //   return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  // };
 
   const [headingTitle, setHeadingTitle] = useState("");
   const [headingImage, setHeadingImage] = useState(null);
@@ -46,7 +42,7 @@ export default function InterviewAdminPage() {
     thumbnail: null,
     videoUrl: "",
     thumbnailPreview: "",
-    updatedAt: "",
+    // updatedAt: "", // managed by backend
     sortOrder: "",
   });
 
@@ -68,7 +64,7 @@ export default function InterviewAdminPage() {
       thumbnail: null,
       videoUrl: "",
       thumbnailPreview: "",
-      updatedAt: "",
+      // updatedAt: "", // managed by backend
       sortOrder: "",
     });
     setEditingInterviewId(null);
@@ -82,7 +78,7 @@ export default function InterviewAdminPage() {
 
       setHeadingTitle(data.headingTitle || "");
       setHeadingImage(data.headingImage ? { url: data.headingImage, file: null } : null);
-      const interviewsData = data.interviews || [];
+      const interviewsData = (data.interviews || []).slice().sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
       setInterviews(interviewsData);
       setOriginalInterviews([...interviewsData]); // Keep backup for cancel functionality
     } catch (error) {
@@ -126,7 +122,7 @@ export default function InterviewAdminPage() {
       thumbnail: null,
       videoUrl: item.videoUrl || "",
       thumbnailPreview: item.thumbnail || "",
-      updatedAt: toDatetimeLocalValue(item.updatedAt),
+      // updatedAt: toDateValue(item.updatedAt), // managed by backend
       sortOrder: item.sortOrder ?? "",
     });
     setShowInterviewForm(true);
@@ -154,7 +150,7 @@ export default function InterviewAdminPage() {
           title: interviewForm.title,
           description: interviewForm.description,
           thumbnail: thumbnailUrl,
-          updatedAt: interviewForm.updatedAt || null,
+          // updatedAt: interviewForm.updatedAt ? `${interviewForm.updatedAt}T00:00:00.000Z` : null, // managed by backend
         };
         if (interviewForm.sortOrder !== "") {
           updateData.sortOrder = parseInt(interviewForm.sortOrder);
@@ -168,7 +164,7 @@ export default function InterviewAdminPage() {
           description: interviewForm.description,
           thumbnail: thumbnailUrl,
           videoUrl,
-          updatedAt: interviewForm.updatedAt || null,
+          // updatedAt: interviewForm.updatedAt ? `${interviewForm.updatedAt}T00:00:00.000Z` : null, // managed by backend
         };
         if (interviewForm.sortOrder !== "") {
           addData.sortOrder = parseInt(interviewForm.sortOrder);
@@ -280,17 +276,10 @@ export default function InterviewAdminPage() {
     const parsedOrder = parseInt(newSortOrder);
     if (isNaN(parsedOrder) || parsedOrder < 0) {
       toast.error("Please enter a valid number (0 or greater)");
-      // Reset the input field
-      const newInterviews = interviews.map(interview => 
-        interview._id === itemId 
-          ? { ...interview, tempSortOrder: undefined }
-          : interview
-      );
-      setInterviews(newInterviews);
+      setInterviews(interviews.map(i => i._id === itemId ? { ...i, tempSortOrder: undefined } : i));
       return;
     }
 
-    // Show confirmation popup
     const confirmed = await requestConfirmation({
       title: "Confirm Sort Order Change",
       description: `Are you sure you want to change the sort order of "${currentItem.title || 'Untitled'}" to ${parsedOrder}?`,
@@ -300,29 +289,27 @@ export default function InterviewAdminPage() {
 
     if (!confirmed) {
       toast.info("Sort order change cancelled");
-      // Reset the input field to original value
-      const newInterviews = interviews.map(interview => 
-        interview._id === itemId 
-          ? { ...interview, tempSortOrder: undefined }
-          : interview
-      );
-      setInterviews(newInterviews);
+      setInterviews(interviews.map(i => i._id === itemId ? { ...i, tempSortOrder: undefined } : i));
       return;
     }
 
     try {
-      await updateInterviewItemService(itemId, { sortOrder: parsedOrder });
+      // Remove the dragged item, insert at new position, reassign sortOrder to all
+      const others = interviews.filter(i => i._id !== itemId);
+      const clampedOrder = Math.min(parsedOrder, others.length);
+      others.splice(clampedOrder, 0, currentItem);
+
+      const reorderPayload = others.map((item, index) => ({
+        id: item._id,
+        sortOrder: index,
+      }));
+
+      await reorderInterviewItemsService(reorderPayload);
       toast.success("Sort order updated");
-      fetchData(); // Refresh to get updated order
+      fetchData();
     } catch (error) {
       toast.error("Failed to update sort order");
-      // Reset the input field on error
-      const newInterviews = interviews.map(interview => 
-        interview._id === itemId 
-          ? { ...interview, tempSortOrder: undefined }
-          : interview
-      );
-      setInterviews(newInterviews);
+      setInterviews(interviews.map(i => i._id === itemId ? { ...i, tempSortOrder: undefined } : i));
     }
   };
 
