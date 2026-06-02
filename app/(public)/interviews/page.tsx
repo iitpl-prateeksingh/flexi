@@ -69,7 +69,6 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
         </div>
       </a>
 
-     
 
       <h3 className="text-xl font-playfair text-[#F28B46] font-semibold mb-2">
         {post.title}
