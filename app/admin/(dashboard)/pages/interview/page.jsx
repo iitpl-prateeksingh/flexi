@@ -251,7 +251,7 @@ export default function InterviewAdminPage() {
       // Create reorder payload with new sortOrder values
       const reorderPayload = items.map((item, index) => ({
         id: item._id,
-        sortOrder: index,
+        sortOrder: index + 1,
       }));
 
       await reorderInterviewItemsService(reorderPayload);
@@ -259,7 +259,7 @@ export default function InterviewAdminPage() {
       // Update the items with new sortOrder values for immediate UI sync
       const updatedItems = items.map((item, index) => ({
         ...item,
-        sortOrder: index,
+        sortOrder: index + 1,
       }));
       
       setInterviews(updatedItems);
@@ -301,7 +301,7 @@ export default function InterviewAdminPage() {
 
       const reorderPayload = others.map((item, index) => ({
         id: item._id,
-        sortOrder: index,
+        sortOrder: index + 1,
       }));
 
       await reorderInterviewItemsService(reorderPayload);
