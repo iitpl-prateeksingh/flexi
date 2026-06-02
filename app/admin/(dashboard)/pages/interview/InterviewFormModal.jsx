@@ -208,15 +208,7 @@ export default function InterviewFormModal({
               />
 
               {/* Video Preview */}
-              {interviewForm.videoUrl && (
-                <div className="mt-4 border rounded-xl overflow-hidden bg-gray-100">
-                  <video
-                    src={interviewForm.videoUrl}
-                    controls
-                    className="w-full h-32 object-cover"
-                  />
-                </div>
-              )}
+             
 
               <p className="text-xs text-gray-500 mt-2">
                 Paste a public url.
