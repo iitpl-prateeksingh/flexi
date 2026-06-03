@@ -234,20 +234,7 @@ export default function TabSection() {
               <div>
                 <h2 className="text-2xl font-playfair font-semibold tracking-tight text-[#F48C45] sm:text-5xl">
                   {activeService.title}{" "}
-                  <span
-                    style={{
-                      whiteSpace: "pre",
-                      background: "#fff",
-                      padding: "7px 20px",
-                      fontSize: "12px !important",
-                      fontWeight: "500",
-                      letterSpacing: "1px",
-                      borderRadius: "100px",
-                      border: "1px solid #f78532",
-                    }}
-                  >
-                    Via Our Referral Partners
-                  </span>
+               
                 </h2>
               </div>
               <div>
