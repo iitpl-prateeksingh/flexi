@@ -227,7 +227,6 @@ export default function TabSection() {
             )}
           </ul>
         </div>
-
         {activeService ? (
           <>
             <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-20">
