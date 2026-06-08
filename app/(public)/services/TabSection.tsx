@@ -233,6 +233,7 @@ export default function TabSection() {
               <div>
                 <h2 className="text-2xl font-playfair font-semibold tracking-tight text-[#F48C45] sm:text-5xl">
                   {activeService.title}{" "}
+                  
                {activeService.title === "Investment Services" ? (
                    ""
                   ) :  <span
@@ -258,7 +259,9 @@ export default function TabSection() {
                 </p>
               </div>
             </div>
-
+                     {activeService.title ==="Inter generational wealth transfer and succession services" && <>
+                   <img src="./int.png" width="100%" className="mt-10" alt="" />
+                   </>}
             {activeService.subServices.length ? (
               <div className="grid grid-cols-1 md:grid-cols-4 mt-6 gap-6">
                 <TabCard cardData={activeService.subServices} />
