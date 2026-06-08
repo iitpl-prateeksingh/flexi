@@ -122,7 +122,7 @@ export default function Page() {
             All Episodes
           </p>
           <p className="text-md font-semibold text-[#204667] mb-3">
-              AMFI Registered Mutual Fund
+              AMFI Registered Mutual Fund Distributor
             </p>
 
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

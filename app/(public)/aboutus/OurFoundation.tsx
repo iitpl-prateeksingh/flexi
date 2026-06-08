@@ -20,7 +20,7 @@ const OurFoundation = ({ data }: any) => {
         {/* Section Header */}
         <div className="text-center  mb-16">
           <p className="text-md font-semibold text-[#204667]">
-              AMFI Registered Mutual Fund
+              AMFI Registered Mutual Fund Distributor
             </p>
           <div
             className="html-editor font-playfair foundation mb-6"

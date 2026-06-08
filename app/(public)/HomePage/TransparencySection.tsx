@@ -22,8 +22,8 @@ export default function TransparencySection({ data }: { data: { banner?: string;
           >
             {/* Content */}
             <div className="relative z-10 h-full main-des121 flex flex-col justify-center px-6 sm:px-8 md:px-10 py-10 text-white">
-<p className="text-lg text-[#fff] mb-1">
-              AMFI Registered Mutual Fund
+            <p className="text-md text-[#fff] mb-1">
+              AMFI Registered Mutual Fund Distributor
             </p>
               {/* Dynamic Content (Title + Description) */}
               <div

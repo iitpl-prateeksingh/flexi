@@ -36,7 +36,7 @@ const CTASection = () => {
           our team is ready to guide you.
         </p> */}
 <p className="text-lg text-[#fff] mb-3">
-              AMFI Registered Mutual Fund
+              AMFI Registered Mutual Fund Distributor
             </p>
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           {/* Primary Button */}

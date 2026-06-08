@@ -82,8 +82,8 @@ export default function InterviewSec() {
       <div className="max-w-7xl mx-auto px-2">
         <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-lg font-semibold text-[#204667] mb-3">
-              AMFI Registered Mutual Fund
+            <p className="text-md font-semibold text-[#204667] mb-3">
+              AMFI Registered Mutual Fund Distributor
             </p>
             <h2 className="text-4xl md:text-[42px] text-[#204667] font-bold leading-tight font-playfair">
               Latest Interviews

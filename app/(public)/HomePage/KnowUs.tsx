@@ -120,8 +120,8 @@ const KnowUs = ({ data }: { data: KnowUsData }) => {
           </div>
 
           <div className="pt-4">
-           <p className="text-lg font-semibold text-[#204667] mb-3">
-              AMFI Registered Mutual Fund
+           <p className="text-md font-semibold text-[#204667] mb-3">
+              AMFI Registered Mutual Fund Distributor
             </p>
             <h2
               className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"

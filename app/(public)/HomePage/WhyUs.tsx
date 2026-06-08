@@ -30,7 +30,7 @@ const cleanHTML = (html?: string) => {
             Why us
           </span>
 <p className="text-lg font-semibold text-[#204667] text-center mb-3">
-              AMFI Registered Mutual Fund
+              AMFI Registered Mutual Fund Distributor
             </p>
           {/* Dynamic Title */}
           <div style={{wordBreak:"break-all"}}

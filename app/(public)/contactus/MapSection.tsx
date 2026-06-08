@@ -29,7 +29,7 @@ const MapSection = ({ data, title }: any) => {
           dangerouslySetInnerHTML={{ __html: title?.banner || "" }}
         />
   <p className="text-md font-semibold text-[#204667] mb-8 mt-1">
-              AMFI Registered Mutual Fund
+              AMFI Registered Mutual Fund Distributor
             </p>
         {/* Contact Card Container */}
         <div className="flex flex-col lg:flex-row w-full rounded-2xl overflow-hidden shadow-xl bg-white">

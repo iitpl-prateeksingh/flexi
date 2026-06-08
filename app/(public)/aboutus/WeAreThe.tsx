@@ -10,7 +10,7 @@ const WeAreThe = ({ data }: any) => {
 
           {/* ✅ Title from API */}
           <p className="text-md font-semibold text-[#204667] mb-1">
-              AMFI Registered Mutual Fund
+              AMFI Registered Mutual Fund Distributor
             </p>
           <h2
             className="font-playfair text-[#204667] know-main font-bold text-2xl sm:text-3xl html-editor md:text-[38px] mb-6"

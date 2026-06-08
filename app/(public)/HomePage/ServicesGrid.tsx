@@ -212,8 +212,8 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
               Our Services
             </span>
             <p className="text-lg font-semibold text-[#204667] relative top-4 mt-3">
-              AMFI Registered Mutual Fund
-            </p>
+              AMFI Registered Mutual Fund Distributor
+            </p> 
             <div
               className="html-editor main-services pb-4"
               dangerouslySetInnerHTML={{
