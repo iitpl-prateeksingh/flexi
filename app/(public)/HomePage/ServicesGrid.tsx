@@ -211,7 +211,9 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
             <span className="bg-[linear-gradient(270.47deg,_#59A6EB_0.35%,_#1D4362_99.65%)] text-white px-6 py-1.5 rounded-full text-sm font-light">
               Our Services
             </span>
-
+            <p className="text-lg font-semibold text-[#204667] relative top-4 mt-3">
+              AMFI Registered Mutual Fund
+            </p>
             <div
               className="html-editor main-services pb-4"
               dangerouslySetInnerHTML={{
@@ -256,10 +258,11 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
                 />
 
                 {/* Adjust overlay width based on index. First item is 55% wide on desktop, others cover full width */}
-                <div 
+                <div
                   className={`absolute inset-y-0 left-0 z-10 p-8 flex flex-col justify-center bg-[#00000052] backdrop-blur-[2px] md:backdrop-blur-md
                   ${index === 0 ? "w-full md:w-[55%]" : "w-full"}
-                `}>
+                `}
+                >
                   <div className="mb-2 text-white/90 p-3 bg-white/10 w-fit rounded-full backdrop-blur-sm border border-white/10">
                     <img
                       src={service.icon}

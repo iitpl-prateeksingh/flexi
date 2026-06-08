@@ -32,7 +32,7 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
           <img
             src={post.thumbnailUrl}
             alt={post.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain object-center"
           />
         </div>
       </a>
@@ -82,6 +82,9 @@ export default function InterviewSec() {
       <div className="max-w-7xl mx-auto px-2">
         <div className="mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
+            <p className="text-lg font-semibold text-[#204667] mb-3">
+              AMFI Registered Mutual Fund
+            </p>
             <h2 className="text-4xl md:text-[42px] text-[#204667] font-bold leading-tight font-playfair">
               Latest Interviews
             </h2>

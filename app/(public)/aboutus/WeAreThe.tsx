@@ -9,6 +9,9 @@ const WeAreThe = ({ data }: any) => {
         <div className="w-full lg:w-1/2 flex flex-col relative z-10">
 
           {/* ✅ Title from API */}
+          <p className="text-md font-semibold text-[#204667] mb-1">
+              AMFI Registered Mutual Fund
+            </p>
           <h2
             className="font-playfair text-[#204667] know-main font-bold text-2xl sm:text-3xl html-editor md:text-[38px] mb-6"
             dangerouslySetInnerHTML={{

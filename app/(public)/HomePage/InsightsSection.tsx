@@ -65,7 +65,9 @@ const InsightsSection = () => {
           <span className="inline-block bg-gradient-to-r  text-sm from-[#1B365D] to-[#4A90E2] text-white px-6 py-1 rounded-full text-sm font-light mb-4">
             {data?.badge || "Insights"}
           </span> 
-
+<p className="text-lg font-semibold text-[#204667] mb-3">
+              AMFI Registered Mutual Fund
+            </p>
           <h2 className="text-4xl md:text-[42px] text-[#204667] font-bold leading-tight font-playfair">
             {data?.heading}
           </h2>

@@ -29,7 +29,9 @@ const cleanHTML = (html?: string) => {
           <span className="inline-block bg-gradient-to-r bedge-main from-[#1B365D] to-[#4A90E2] text-white px-6 py-1.5 rounded-full text-sm font-light mb-4">
             Why us
           </span>
-
+<p className="text-lg font-semibold text-[#204667] text-center mb-3">
+              AMFI Registered Mutual Fund
+            </p>
           {/* Dynamic Title */}
           <div style={{wordBreak:"break-all"}}
             className="text-4xl md:text-[42px] main-why font-playfair font-bold text-[#204667] mb-2"

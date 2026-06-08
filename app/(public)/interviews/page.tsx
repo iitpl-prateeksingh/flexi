@@ -64,7 +64,7 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
           <img
             src={post.thumbnailUrl}
             alt={post.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain object-center"
           />
         </div>
       </a>
@@ -117,9 +117,14 @@ export default function Page() {
       <Banner />
       <section className="bg-[#FFF9F3] py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="font-playfair pb-4 font-semibold text-[32px] leading-[48px] tracking-[0.04em] text-[#F78532]">
+          
+          <p className="font-playfair pb-1 font-semibold text-[32px] leading-[48px] tracking-[0.04em] text-[#F78532]">
             All Episodes
           </p>
+          <p className="text-md font-semibold text-[#204667] mb-3">
+              AMFI Registered Mutual Fund
+            </p>
+
  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {interviewData.map((video) => (
             <NewsCard key={video.id} post={video} />

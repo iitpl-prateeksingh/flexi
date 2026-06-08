@@ -25,6 +25,7 @@ const SignatureApproach = ({ data }: SignatureApproachProps) => {
       {/* Content Container */}
       <div className="z-2 relative md:-top-22" style={{ width: "100%" }}>
         <div className="flex justify-end">
+          
           <div
             className="w-full md:w-1/2 inword lg:w-[40%] bg-[#B13229CC] p-8 md:p-16 shadow-[0px_4.49px_4.49px_0px_#00000040] max-w-xl mx-auto lg:mx-0 break-words whitespace-normal overflow-hidden quill-content html-editor"
             dangerouslySetInnerHTML={{ __html: data?.ctoContent.replace(/&nbsp;/g, " ") }}

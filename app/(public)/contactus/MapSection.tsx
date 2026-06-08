@@ -22,13 +22,15 @@ const MapSection = ({ data, title }: any) => {
   return (
     <section className="bg-[#fcf8f5] w-full py-8 md:py-10 pb-34 md:pb-24 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto">
-
+        
         {/* Section Heading */}
         <h2
-          className="font-playfair text-[#F78532] font-bold text-3xl md:text-4xl mb-8 html-editor"
+          className="font-playfair text-[#F78532] font-bold text-3xl md:text-4xl  html-editor"
           dangerouslySetInnerHTML={{ __html: title?.banner || "" }}
         />
-
+  <p className="text-md font-semibold text-[#204667] mb-8 mt-1">
+              AMFI Registered Mutual Fund
+            </p>
         {/* Contact Card Container */}
         <div className="flex flex-col lg:flex-row w-full rounded-2xl overflow-hidden shadow-xl bg-white">
 

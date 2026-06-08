@@ -27,7 +27,7 @@ const CTASection = () => {
         <p className="font-inter text-md font-medium tracking-wide text-[#fff]">
           Ready to Begin?
         </p>
-        <h2 className="mb-6 font-playfair text-3xl font-bold leading-tight text-[#fff] md:text-4xl lg:text-5xl">
+        <h2 className="mb-3 font-playfair text-3xl font-bold leading-tight text-[#fff] md:text-4xl lg:text-5xl">
           Start Your journey
         </h2>
 
@@ -35,7 +35,9 @@ const CTASection = () => {
           Whether you are an individual investor, family office, or institution, 
           our team is ready to guide you.
         </p> */}
-
+<p className="text-lg text-[#fff] mb-3">
+              AMFI Registered Mutual Fund
+            </p>
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           {/* Primary Button */}
           {/* <button className="h-12 cursor-pointer w-full min-w-[200px] rounded-full bg-[#F0803C] px-8 font-inter text-sm font-semibold text-white transition-transform hover:scale-105 hover:bg-[#E5702A] sm:w-auto">
