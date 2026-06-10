@@ -253,7 +253,7 @@ export default function TabSection() {
                 </h2>
               </div>
               <div>
-                <p className="text-lg leading-relaxed text-[#204667A3]">
+                <p className="text-md md:text-lg leading-relaxed text-[#204667A3]">
                   {activeService.description ||
                     "Exploring tailored offerings that move you forward with clarity and confidence."}
                 </p>

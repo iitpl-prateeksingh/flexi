@@ -2,7 +2,7 @@ import React from "react";
 
 const Banner = ({ data }: any) => {
   return (
-    <section className="relative w-full h-[500px] overflow-hidden">
+    <section className="relative w-full h-[400px] md:h-[500px] overflow-hidden">
 
       {/* BACKGROUND VIDEO */}
       {data?.bannerVideo && (

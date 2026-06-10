@@ -77,7 +77,7 @@ export default function CardList({ data }: any) {
             />
             <button
               onClick={handleSearch}
-              className="bg-[#F28B46] hover:bg-[#E07935] text-white text-sm font-medium px-6 py-1.5 rounded-full transition-colors"
+              className="bg-[#F28B46] hover:bg-[#E07935] text-white text-sm font-medium px-3 md:px-6 py-1.5 rounded-full transition-colors"
             >
               SEARCH
             </button>

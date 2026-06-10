@@ -43,7 +43,7 @@ const OurFoundation = ({ data }: any) => {
               />
 
               {/* Glassmorphism Gradient Overlay */}
-              <div className="absolute inset-x-0 bottom-0 h-[50%] translate-y-[60%] bg-black/60 px-6 py-4 backdrop-blur-[30.56px] transition-transform duration-500 ease-out group-hover:translate-y-[0] group-hover:h-full">
+              <div className="absolute inset-x-0 bottom-0 h-[50%] translate-y-[70%] md:translate-y-[60%] bg-black/60 px-6 py-2 md:py-4 backdrop-blur-[30.56px] transition-transform duration-500 ease-out group-hover:translate-y-[0] group-hover:h-full">
                 <div className="flex h-full flex-col gap-3">
                   <div className="flex items-end justify-between gap-4">
                     <div className="pr-3">

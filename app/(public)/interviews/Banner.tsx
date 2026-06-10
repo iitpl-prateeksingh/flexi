@@ -15,7 +15,7 @@ const Banner = () => {
         <div className="container mx-auto pt-30 md:pt-60">
           <div className="flex items-center justify-end gap-4">
             <span className="w-8 md:w-8 h-[1px] bg-[#f8813a]"></span>
-            <h1 className="text-[#f8813a] md:text-md font-bold tracking-wide">
+            <h1 className="text-[#f8813a] text-sm md:text-md font-bold tracking-wide">
               FlexiCapital Media Hub
             </h1>
             <span className="w-8 md:w-8 h-[1px] bg-[#f8813a]"></span>

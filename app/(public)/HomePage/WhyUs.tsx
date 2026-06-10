@@ -34,7 +34,7 @@ const cleanHTML = (html?: string) => {
             </p>
           {/* Dynamic Title */}
           <div style={{wordBreak:"break-all"}}
-            className="text-4xl md:text-[42px] main-why font-playfair font-bold text-[#204667] mb-2"
+            className="text-4xl md:text-[42px] main-why font-playfair font-bold why-head text-[#204667] mb-2"
             dangerouslySetInnerHTML={{
               __html: data?.whyChooseTitle || "",
             }}
@@ -42,7 +42,7 @@ const cleanHTML = (html?: string) => {
 
           {/* Optional Detail */}
           <div
-            className="text-[#204667A3] leading-relaxed text-md"
+            className="text-[#204667A3] leading-relaxed why-text text-md"
             dangerouslySetInnerHTML={{
               __html: data?.whyChooseDetail || "",
             }}

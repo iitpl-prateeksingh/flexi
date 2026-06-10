@@ -72,7 +72,7 @@ const InsightsSection = () => {
             {data?.heading}
           </h2>
 
-          <p className="text-gray-500 text-[16px] leading-relaxed max-w-sm font-inter">
+          <p className="text-gray-500 text-sm md:text-[16px] leading-relaxed max-w-sm font-inter">
             {data?.description}
           </p>
 

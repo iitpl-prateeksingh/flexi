@@ -249,7 +249,7 @@ const Footer = ({ data }: any) => {
         {/* LOGO + SOCIAL */}
         <div className="md:col-span-4 flex flex-col items-start mx-auto md:mx-0">
           <div className="mb-4">
-            <img src={data?.logo} width={300} alt="Logo" />
+            <img src={data?.logo} width={300} className="w-[150px] max-w-[300px]" alt="Logo" />
 
             <div className="flex flex-col items-center mt-6 gap-4">
               <div className="flex items-center gap-6">

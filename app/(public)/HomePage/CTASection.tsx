@@ -35,7 +35,7 @@ const CTASection = () => {
           Whether you are an individual investor, family office, or institution, 
           our team is ready to guide you.
         </p> */}
-<p className="text-lg text-[#fff] mb-3">
+<p className="text-sm md:text-lg text-[#fff] mb-3">
               AMFI Registered Mutual Fund Distributor
             </p>
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">

@@ -140,14 +140,33 @@ ul > span:last-of-type {
   .main-home .html-editor h1 * {
     font-size: 30px !important;
   }
+  .html-editor h1 *{
+    font-size: 30px !important;
+  }
+
   .main-services h2 * {
     font-size: 28px !important;
     font-family: var(--font-playfair) !important;
-    line-height: 58px !important;
+    line-height: 26px !important;
+    padding-top: 16px !important;
   }
+  .why-text p {
+    font-size: 11px !important;
+    word-break: break-word !important;
+  }
+  .why-head h2 {
+    font-size: 24px !important;
+    font-family: var(--font-playfair) !important;
+    word-break: break-word !important;
+  }
+
   .main-home .html-editor p span {
     font-weight: 400 !important;
     font-size: 16px !important;
+    line-height: 24px !important;
+  }
+  .main-blog .html-editor p span{
+    font-size: 35px !important;
   }
 }
 
@@ -203,10 +222,10 @@ ul > span:last-of-type {
 .foundation {
   font-size: 38px !important;
 }
-.bedge-main{
-   font-size: 15px !important;
-   font-weight: 400 !important;
-   line-height: 16px !important;
+.bedge-main {
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 16px !important;
 }
 @media (max-width: 480px) {
   .main-des121 .html-editor p span {
@@ -230,27 +249,27 @@ ul > span:last-of-type {
     font-family: var(--font-spline);
     font-size: 12px !important;
   }
+
   .inword h2 span {
     font-size: 32px !important;
   }
-  .service-banner h1 span{
+  .service-banner h1 span {
     font-size: 24px !important;
   }
-    .service-banner{
-       line-height: 23px !important;
+  .service-banner {
+    line-height: 23px !important;
   }
 }
 .footer {
-   font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
-.foo-main span{
+.foo-main span {
   font-family: Inter !important;
-font-weight: 400 !important;
-font-style: Regular;
-font-size: 14px !important;
-leading-trim: NONE;
-line-height: 172%;
-letter-spacing: 3%;
-text-align: center;
-
+  font-weight: 400 !important;
+  font-style: Regular;
+  font-size: 14px !important;
+  leading-trim: NONE;
+  line-height: 172%;
+  letter-spacing: 3%;
+  text-align: center;
 }
