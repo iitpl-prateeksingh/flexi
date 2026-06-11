@@ -140,7 +140,7 @@ ul > span:last-of-type {
   .main-home .html-editor h1 * {
     font-size: 30px !important;
   }
-  .html-editor h1 *{
+  .html-editor h1 * {
     font-size: 30px !important;
   }
 
@@ -165,7 +165,7 @@ ul > span:last-of-type {
     font-size: 16px !important;
     line-height: 24px !important;
   }
-  .main-blog .html-editor p span{
+  .main-blog .html-editor p span {
     font-size: 35px !important;
   }
 }
@@ -272,4 +272,13 @@ ul > span:last-of-type {
   line-height: 172%;
   letter-spacing: 3%;
   text-align: center;
+}
+
+.sun-editor {
+  background-color: #d40000 !important; /* Replace with your color */
+}
+
+/* Change the typing area background */
+.sun-editor-editable {
+  background-color: #ff1212 !important; /* Replace with your color */
 }

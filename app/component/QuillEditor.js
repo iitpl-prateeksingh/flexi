@@ -1,74 +1,88 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useId } from "react";
-import "react-quill-new/dist/quill.snow.css";
+import DOMPurify from "dompurify";
+import { useEffect, useMemo, useRef } from "react";
 
-const ReactQuill = dynamic(() => import("react-quill-new"), {
-    ssr: false
+const SunEditor = dynamic(() => import("suneditor-react"), {
+  ssr: false,
 });
 
-export default function QuillEditor({
-    value,
-    onChange,
-    height = "200px",
-    placeholder = "Write something..."
-}) {
+function normalizeHtml(html) {
+  const safeHtml = DOMPurify.sanitize(html || "", {
+    USE_PROFILES: { html: true },
+  });
 
-    const editorId = useId(); // ✅ unique per editor
-
-    const modules = {
-        toolbar: [
-            [{ header: [1, 2, 3, false] }],
-            ["bold", "italic", "underline", "strike"],
-            [{ size: ["small", false, "large", "huge"] }],
-            [{ color: [] }, { background: [] }],
-            [{ list: "ordered" }, { list: "bullet" }],
-            [{ align: [] }],
-            ["link"],
-            ["clean"]
-        ]
-    };
-
-    const formats = [
-        "header",
-        "size",
-        "bold", "italic", "underline", "strike",
-        "color", "background",
-        "list",
-        "align",
-        "link"
-    ];
-
-    return (
-        <div className={`quill-wrapper-${editorId}`}>
-            <ReactQuill
-                value={value}
-                onChange={onChange}
-                modules={modules}
-                formats={formats}
-                placeholder={placeholder}
-            />
-
-            {/* ✅ Scoped styling (fixes your issue) */}
-            <style jsx global>{`
-                .quill-wrapper-${editorId} .ql-toolbar {
-                    border-radius: 8px 8px 0 0;
-                }
-
-                .quill-wrapper-${editorId} .ql-container {
-                    min-height: ${height};
-                    border-radius: 0 0 8px 8px;
-                }
-
-                .quill-wrapper-${editorId} .ql-editor {
-                    min-height: ${height};
-                    padding: 12px;
-                }
-                    .ql-editor {
-  background-color: #7c7c7c7c; /* dark background */
+  return safeHtml
+    .replace(/<p>(\s|&nbsp;)*<\/p>/g, "")
+    .replace(/^\s+|\s+$/g, "");
 }
-            `}</style>
-        </div>
-    );
+
+export default function QuillEditor({
+  value,
+  onChange,
+  height = "200px",
+  placeholder = "Write something...",
+}) {
+  const editorRef = useRef(null);
+  const initialHtml = normalizeHtml(value);
+  const lastValueRef = useRef(initialHtml);
+
+  useEffect(() => {
+    const nextValue = normalizeHtml(value);
+
+    if (nextValue === lastValueRef.current) {
+      return;
+    }
+
+    lastValueRef.current = nextValue;
+
+    if (editorRef.current) {
+      editorRef.current.setContents(nextValue);
+    }
+  }, [value]);
+
+  const toolbar = useMemo(
+    () => ({
+      buttonList: [
+        ["undo", "redo"],
+        ["fontSize", "formatBlock"],
+        ["bold", "underline", "italic", "strike"],
+        ["fontColor", "hiliteColor"],
+        ["align", "list", "table"],
+        ["fullScreen", "codeView"],
+      ],
+    }),
+    [],
+  );
+
+  const emitChange = (html) => {
+    const nextHtml = normalizeHtml(html);
+    lastValueRef.current = nextHtml;
+    onChange?.(nextHtml);
+  };
+
+  return (
+    <div
+      className="w-full min-w-0 overflow-hidden rounded-lg border border-gray-300 bg-white"
+      style={{ minHeight: height, maxWidth: "100%" }}
+    >
+      <SunEditor
+        getSunEditorInstance={(sunEditor) => {
+          editorRef.current = sunEditor;
+        }}
+        defaultValue={initialHtml}
+        width="100%"
+        setOptions={{
+          height,
+          width: "100%",
+          defaultStyle: "background-color: grey;",
+          placeholder,
+          buttonList: toolbar.buttonList,
+        }}
+        setAllPlugins={true}
+        onChange={emitChange}
+      />
+    </div>
+  );
 }
