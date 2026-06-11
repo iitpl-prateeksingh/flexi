@@ -200,13 +200,15 @@ const Footer = ({ data }: any) => {
   const staticPages = [
     { 
       label: "Risk Factors", 
-      href: "https://flexicapital.co.in/risk/",
-      isExternal: true 
+      // href: "https://flexicapital.co.in/risk/",
+      href: "/risk-factor",
+      isExternal: false 
     },
     { 
       label: "Privacy Policy", 
-      href: "https://flexicapital.co.in/privacy/",
-      isExternal: true 
+      href: "/privacy-policy",
+      // href: "https://flexicapital.co.in/privacy/",
+      isExternal: false 
     },
     { 
       label: "Terms and Conditions", 
@@ -215,14 +217,15 @@ const Footer = ({ data }: any) => {
     },
     { 
       label: "Disclaimer", 
-      href: "https://flexicapital.co.in/disclaimer/",
-      isExternal: true 
-    },
-    { 
-      label: "Disclosure", 
-      href: "/disclouser",
+      // href: "https://flexicapital.co.in/disclaimer/",
+      href: "/disclaimer",
       isExternal: false 
     },
+    // { 
+    //   label: "Disclosure", 
+    //   href: "/disclouser",
+    //   isExternal: false 
+    // },
     { 
       label: "Code of Conduct", 
       href: "https://flexicapital.co.in/AMFI_Code-of-Conduct.pdf",
