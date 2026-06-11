@@ -23,6 +23,14 @@ const formatDate = (date?: string) => {
     year: "numeric",
   });
 };
+ const cleanHTML = (html?: string) => {
+   return (
+     html
+       ?.replace(/&nbsp;/g, " ") // remove nbsp
+       .replace(/<span[^>]*>/g, "") // remove span open
+       .replace(/<\/span>/g, "") || ""
+   ); // remove span close
+ };
 
 function NewsCard({ post }: { post: InterviewCardItem }) {
   return (
@@ -44,7 +52,7 @@ function NewsCard({ post }: { post: InterviewCardItem }) {
       </h3>
 <div
         className="text-sm text-[#465A75] leading-6 line-clamp-3 html-editor"
-        dangerouslySetInnerHTML={{ __html: post.description || "" }}
+        dangerouslySetInnerHTML={{ __html: cleanHTML(post.description) || "" }}
       />
      
     </div>
