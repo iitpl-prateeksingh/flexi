@@ -35,9 +35,9 @@ const cleanHTML = (html?: string) => {
           {/* Dynamic Title */}
           <div style={{wordBreak:"break-all"}}
             className="text-4xl md:text-[42px] main-why font-playfair font-bold why-head text-[#204667] mb-2"
-            dangerouslySetInnerHTML={{
-              __html: data?.whyChooseTitle || "",
-            }}
+           dangerouslySetInnerHTML={{
+    __html: (data?.whyChooseTitle || "").replace(/&nbsp;/g, " "),
+  }}
           />
 
           {/* Optional Detail */}
