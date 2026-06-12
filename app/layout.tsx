@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Spline_Sans, Inter } from "next/font/google";
-import "quill/dist/quill.snow.css";
+import "suneditor/dist/css/suneditor.min.css";
 import { Toaster } from "react-hot-toast";
 import { getPublicSettingsService } from "./services/settingService";
 import { Montserrat } from 'next/font/google';

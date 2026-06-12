@@ -47,10 +47,12 @@ export default function AdminLayout({ children }) {
     };
 
     return (
-        <div className="flex h-dvh overflow-hidden admin-theme relative">
+        // Removed the outer flex container, using standard block layout
+        <div className="min-h-dvh admin-theme relative bg-gray-100">
 
-            {/* Desktop Sidebar */}
-            <div className="hidden md:block">
+            {/* Desktop Sidebar - Fixed Position */}
+            {/* Note: I used 'w-64' (256px) here. Adjust this to match your actual Sidebar width */}
+            <div className="hidden md:block fixed top-0 left-0 h-dvh w-64 z-30">
                 <Sidebar />
             </div>
 
@@ -69,11 +71,16 @@ export default function AdminLayout({ children }) {
             )}
 
             {/* Main Content */}
-            <div className="flex flex-col flex-1 min-h-0">
+            {/* Added md:pl-64 to push content to the right of the fixed sidebar on desktop */}
+            <div className="flex flex-col min-h-dvh md:pl-70">
 
-                <Navbar onToggleSidebar={() => setIsSidebarOpen(true)} />
+                {/* Navbar */}
+                <div className="sticky top-0 z-20">
+                    <Navbar onToggleSidebar={() => setIsSidebarOpen(true)} />
+                </div>
 
-                <main className="p-4 pt-4 overflow-y-auto flex-1 min-h-0 bg-gray-100 admin-shell-main">
+                {/* Main Content Area */}
+                <main className="p-4 flex-1 admin-shell-main">
                     {children}
                 </main>
 

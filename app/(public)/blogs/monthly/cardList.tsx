@@ -5,11 +5,16 @@ import React, { useEffect, useState } from "react";
 import { FiSearch, FiChevronDown } from "react-icons/fi";
 import { getPublicBlogsService } from "../../../services/blogService";
 
-export default function CardList({ data }: any) {
+type BlogPost = {
+  _id: string;
+  [key: string]: unknown;
+};
+
+export default function CardList({ data }: { data: BlogPost[] }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedRange, setSelectedRange] = useState("Past 7days");
   const [search, setSearch] = useState("");
-  const [blogs, setBlogs] = useState(data || []);
+  const [blogs, setBlogs] = useState<BlogPost[]>(data || []);
 
   const ranges = ["Past 7days", "Past 30days", "Past Year", "All Time"];
 
@@ -43,7 +48,11 @@ export default function CardList({ data }: any) {
   };
 
   useEffect(() => {
-    fetchBlogs();
+    const loadBlogs = async () => {
+      await fetchBlogs();
+    };
+
+    loadBlogs();
   }, [selectedRange]);
 
   const handleSearch = () => {
@@ -51,7 +60,11 @@ export default function CardList({ data }: any) {
   };
   useEffect(() => {
     if (search === "") {
-      fetchBlogs();
+      const loadBlogs = async () => {
+        await fetchBlogs();
+      };
+
+      loadBlogs();
     }
   }, [search]);
 
@@ -116,8 +129,8 @@ export default function CardList({ data }: any) {
 
         {blogs?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogs.map((post: any) => (
-              <BlogCard key={post._id} post={post} />
+            {blogs.map((post: BlogPost) => (
+              <BlogCard key={post._id} post={post as any} />
             ))}
           </div>
         ) : (
