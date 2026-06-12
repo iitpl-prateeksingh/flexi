@@ -17,7 +17,7 @@ export default function Navbar({ onToggleSidebar }) {
 
     return (
         <>
-            <header className="px-4 md:px-6 py-4 mb-0 flex justify-between items-center">
+            <header className="sticky top-0 z-50 bg-white px-4 md:px-6 py-4 mb-0 flex justify-between items-center border-b border-[var(--admin-border)]">
                 <button
                     type="button"
                     className="md:hidden inline-flex items-center justify-center rounded-lg border border-[var(--admin-border)] bg-white p-2 text-[var(--admin-primary)]"

@@ -388,6 +388,8 @@ export default function HomeAdminPage() {
                 whyChooseImage: whyChooseImageUrl,
                 whyChooseList: updatedWhyChoose
             };
+
+            console.log("Payload",payload)
             Object.keys(payload).forEach((key) => {
                 if (
                     isEmpty(payload[key]) ||
