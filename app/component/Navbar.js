@@ -6,7 +6,7 @@ import { LogOut, Menu } from "lucide-react";
 
 export default function Navbar({ onToggleSidebar }) {
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
-
+// Logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("permissions");
