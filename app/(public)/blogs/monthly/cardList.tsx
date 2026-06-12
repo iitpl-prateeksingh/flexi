@@ -60,7 +60,6 @@ export default function CardList({ data }: any) {
     <div className="min-h-screen bg-[#FFFaf5] p-6 md:p-12 font-sans text-gray-800">
       <div className="max-w-6xl mx-auto">
 
-        {/* Top Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
 
           {/* Search Bar */}
