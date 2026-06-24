@@ -40,14 +40,18 @@ export default function Sidebar({ className = "", onNavigate }) {
   ];
 
   const staticPages = [
-    { name: "Code of conduct", path: "/admin/staticPage/code-of-conduct" },
-    { name: "Code of conduct revised", path: "/admin/staticPage/code-of-conduct-revised" },
+    // { name: "Code of conduct", path: "/admin/staticPage/code-of-conduct" },
+    // { name: "Code of conduct revised", path: "/admin/staticPage/code-of-conduct-revised" },
     { name: "Disclaimer", path: "/admin/staticPage/disclaimer" },
     { name: "Disclosure", path: "/admin/staticPage/disclosure" },
     { name: "Privacy Policy", path: "/admin/staticPage/privacy-policy" },
     { name: "Risk Factor", path: "/admin/staticPage/risk-factor" },
-    { name: "SID/SAI/KIM", path: "/admin/staticPage/sid-sai-kim" },
-    { name: "Terms and Condition", path: "/admin/staticPage/terms-and-condition" },
+    // { name: "SID/SAI/KIM", path: "/admin/staticPage/sid-sai-kim" },
+    {
+      name: "Terms and Condition",
+      path: "/admin/staticPage/terms-and-condition",
+    },
+    { name: "FAQ's", path: "/admin/staticPage/faq" },
   ];
 
   const canViewPages = pages.some((p) => !p.permission || hasPermission(p.permission));

@@ -85,7 +85,7 @@ const WhyUs = ({ data }: { data: WhyUsData }) => {
                     </h3>
 
                     <div
-                      className="flex flex-col gap-6 text-[#5b6e7a] html-editor leading-relaxed "
+                      className="flex flex-col gap-6 text-[#5b6e7a] html-editor leading-relaxed redcolor"
                       dangerouslySetInnerHTML={{
                         __html: cleanHTML(feature?.description || ""),
                       }}

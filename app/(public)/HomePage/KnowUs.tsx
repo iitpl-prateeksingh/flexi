@@ -88,7 +88,7 @@ const KnowUs = ({ data }: { data: KnowUsData }) => {
   console.log("DATA in know Us", data);
 
   return (
-    <section className="bg-[#FFF9F3] pt-10 pb-25 ">
+    <section className="bg-[#FFF9F3] pt-10 ">
       <div className="px-4 md:px-25 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-0 items-start">
         {/* LEFT IMAGE */}
         <div className="relative group m-2 pb-4 md:m-10">
@@ -120,12 +120,12 @@ const KnowUs = ({ data }: { data: KnowUsData }) => {
           </div>
 
           <div className="pt-4">
-           <p className="text-md font-semibold text-[#204667] mb-3">
+            <p className="text-md font-semibold text-[#204667] mb-3">
               AMFI Registered Mutual Fund Distributor
             </p>
             <h2
               className="font-playfair know-main text-[#204667] font-bold  leading-relaxed pb-6  max-w-xl mx-auto lg:mx-0  whitespace-normal html-editor"
-              dangerouslySetInnerHTML={{__html: title || "" }}
+              dangerouslySetInnerHTML={{ __html: title || "" }}
             />
 
             {/* ✅ Render editor HTML safely */}
