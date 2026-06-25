@@ -229,7 +229,7 @@ const Footer = ({ data }: any) => {
     //   isExternal: true
     // },
     {
-      label: "Code of Conduct-Revised",
+      label: "Code of Conduct",
       href: "https://flexicapital.co.in/AMFI_code_of_conduct_revised.pdf",
       isExternal: true,
     },
