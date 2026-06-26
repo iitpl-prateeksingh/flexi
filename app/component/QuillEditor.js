@@ -42,6 +42,16 @@ export default function QuillEditor({
     };
   }, []);
 
+  const syncEditorContents = (html) => {
+    const nextValue = normalizeHtml(html);
+
+    lastValueRef.current = nextValue;
+
+    if (editorRef.current) {
+      editorRef.current.setContents(nextValue);
+    }
+  };
+
   useEffect(() => {
     const nextValue = normalizeHtml(value);
 
@@ -49,11 +59,7 @@ export default function QuillEditor({
       return;
     }
 
-    lastValueRef.current = nextValue;
-
-    if (editorRef.current) {
-      editorRef.current.setContents(nextValue);
-    }
+    syncEditorContents(nextValue);
   }, [value]);
 
   const toolbar = useMemo(
@@ -134,6 +140,7 @@ export default function QuillEditor({
       <SunEditor
         getSunEditorInstance={(sunEditor) => {
           editorRef.current = sunEditor;
+          syncEditorContents(value);
           syncCodeViewInputAfterRender();
         }}
         defaultValue={initialHtml}
