@@ -10,17 +10,10 @@ import toast from "react-hot-toast";
 
 export default function Disclosure() {
   const [content, setContent] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    fetchPage();
-  }, []);
 
   const fetchPage = async () => {
     try {
-      setLoading(true);
-
-      const res = await getStaticPageService("disclosure ");
+      const res = await getStaticPageService("disclosure");
 
       const data = res?.data;
 
@@ -30,10 +23,16 @@ export default function Disclosure() {
     } catch (err) {
       console.error(err);
       toast.error("Failed to load page");
-    } finally {
-      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      void fetchPage();
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   // ✅ SAVE
   const handleSave = async () => {
@@ -46,9 +45,9 @@ export default function Disclosure() {
       toast.loading("Saving...", { id: "save" });
 
       await saveStaticPageService({
-        title: "Disclosure ",
+        title: "Disclosure",
         content,
-        pageType: "disclosure ",
+        pageType: "disclosure",
       });
 
       toast.success("Saved successfully", { id: "save" });
@@ -62,7 +61,7 @@ export default function Disclosure() {
       <div className="bg-white shadow rounded-lg  p-6">
         {/* Header */}
         <div className="mb-4">
-          <h2 className="text-xl font-semibold">Disclosure </h2>
+          <h2 className="text-xl font-semibold">Disclosure</h2>
           <p className="text-gray-500 text-sm">
             Edit and save your Disclosure content.
           </p>
