@@ -2,13 +2,15 @@
 
 import { useEffect, useState } from "react";
 import Editor from "../../../../component/QuillEditor";
-import { getStaticPageService, saveStaticPageService } from "../../../../services/staticService";
+import {
+  getStaticPageService,
+  saveStaticPageService,
+} from "../../../../services/staticService";
 import toast from "react-hot-toast";
 
-export default function Disclouser() {
-
+export default function Disclosure() {
   const [content, setContent] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchPage();
@@ -18,14 +20,13 @@ export default function Disclouser() {
     try {
       setLoading(true);
 
-      const res = await getStaticPageService("disclouser");
+      const res = await getStaticPageService("disclosure ");
 
       const data = res?.data;
 
       if (data?.contentRef?.content) {
         setContent(data.contentRef.content);
       }
-
     } catch (err) {
       console.error(err);
       toast.error("Failed to load page");
@@ -45,13 +46,12 @@ export default function Disclouser() {
       toast.loading("Saving...", { id: "save" });
 
       await saveStaticPageService({
-        title: "Disclouser",
+        title: "Disclosure ",
         content,
-        pageType: "disclouser"
+        pageType: "disclosure ",
       });
 
       toast.success("Saved successfully", { id: "save" });
-
     } catch (err) {
       console.error(err);
       toast.error("Failed to save", { id: "save" });
@@ -59,25 +59,17 @@ export default function Disclouser() {
   };
   return (
     <div className="p-1">
-
       <div className="bg-white shadow rounded-lg  p-6">
-
         {/* Header */}
         <div className="mb-4">
-          <h2 className="text-xl font-semibold">
-            Disclouser
-          </h2>
+          <h2 className="text-xl font-semibold">Disclosure </h2>
           <p className="text-gray-500 text-sm">
-            Edit and save your Disclouser content.
+            Edit and save your Disclosure content.
           </p>
         </div>
 
         {/* Editor */}
-        <Editor
-          value={content}
-          onChange={setContent}
-          height="250px"
-        />
+        <Editor value={content} onChange={setContent} height="250px" />
 
         {/* Save Button */}
         <button
@@ -86,9 +78,7 @@ export default function Disclouser() {
         >
           Save Content
         </button>
-
       </div>
-
     </div>
   );
 }

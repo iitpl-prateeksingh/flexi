@@ -19,7 +19,7 @@
 //     { label: "Privacy Policy", type: "privacy-policy" },
 //     { label: "Terms and Conditions", type: "terms-and-condition" },
 //     { label: "Disclaimer", type: "disclaimer" },
-//     { label: "Disclosure", type: "disclouser" },
+//     { label: "Disclosure", type: "disclosure " },
 //     { label: "Code of Conduct", type: "code-of-conduct" },
 //     { label: "Code of Conduct-Revised", type: "code-of-conduct-revised" },
 //     { label: "SID/SAI/KIM", type: "sid-sai-kim" },
@@ -220,7 +220,7 @@ const Footer = ({ data }: any) => {
     },
     {
       label: "Disclosure",
-      href: "/disclouser",
+      href: "/disclosure ",
       isExternal: false,
     },
     // {
